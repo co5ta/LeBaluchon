@@ -14,6 +14,8 @@
 		223592DC2110E9BC00A2D659 /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223592DB2110E9BC00A2D659 /* CurrencyViewController.swift */; };
 		223592DE2110EA4200A2D659 /* TranslatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223592DD2110EA4200A2D659 /* TranslatorViewController.swift */; };
 		223592E02110EA5900A2D659 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223592DF2110EA5900A2D659 /* WeatherViewController.swift */; };
+		22F0C8232111F275008EC6B5 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F0C8222111F275008EC6B5 /* Currency.swift */; };
+		22F0C829211338CD008EC6B5 /* currencies.json in Resources */ = {isa = PBXBuildFile; fileRef = 22F0C828211338CD008EC6B5 /* currencies.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		223592DB2110E9BC00A2D659 /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
 		223592DD2110EA4200A2D659 /* TranslatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatorViewController.swift; sourceTree = "<group>"; };
 		223592DF2110EA5900A2D659 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
+		22F0C8222111F275008EC6B5 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		22F0C828211338CD008EC6B5 /* currencies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = currencies.json; path = "../../../../../Downloads/49937c83061d1bc0d064-f14d9aa9392b332c9756e06b8d289b9379525e29/currencies.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,12 +62,11 @@
 		223592C121106EE400A2D659 /* LeBaluchon */ = {
 			isa = PBXGroup;
 			children = (
-				223592CB21106EE500A2D659 /* LaunchScreen.storyboard */,
-				223592CE21106EE500A2D659 /* Info.plist */,
-				223592C221106EE400A2D659 /* AppDelegate.swift */,
+				22F0C8252111F477008EC6B5 /* Data */,
 				223592D621106F2B00A2D659 /* Model */,
 				223592D521106F2200A2D659 /* View */,
 				223592D421106F0E00A2D659 /* Controller */,
+				22F0C8242111F430008EC6B5 /* Supporting files */,
 			);
 			path = LeBaluchon;
 			sourceTree = "<group>";
@@ -90,8 +93,27 @@
 		223592D621106F2B00A2D659 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				22F0C8222111F275008EC6B5 /* Currency.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		22F0C8242111F430008EC6B5 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				223592CE21106EE500A2D659 /* Info.plist */,
+				223592C221106EE400A2D659 /* AppDelegate.swift */,
+				223592CB21106EE500A2D659 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		22F0C8252111F477008EC6B5 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				22F0C828211338CD008EC6B5 /* currencies.json */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,6 +148,7 @@
 				TargetAttributes = {
 					223592BE21106EE400A2D659 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
 					};
 				};
 			};
@@ -155,6 +178,7 @@
 				223592CD21106EE500A2D659 /* LaunchScreen.storyboard in Resources */,
 				223592DA2110AF1700A2D659 /* Assets.xcassets in Resources */,
 				223592C821106EE400A2D659 /* Main.storyboard in Resources */,
+				22F0C829211338CD008EC6B5 /* currencies.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				223592C321106EE400A2D659 /* AppDelegate.swift in Sources */,
+				22F0C8232111F275008EC6B5 /* Currency.swift in Sources */,
 				223592E02110EA5900A2D659 /* WeatherViewController.swift in Sources */,
 				223592DC2110E9BC00A2D659 /* CurrencyViewController.swift in Sources */,
 				223592DE2110EA4200A2D659 /* TranslatorViewController.swift in Sources */,
@@ -313,7 +338,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = LeBaluchon/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/LeBaluchon/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -331,7 +356,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = LeBaluchon/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/LeBaluchon/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
