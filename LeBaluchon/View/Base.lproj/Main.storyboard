@@ -18,17 +18,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Va-6b-6hL">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8Va-6b-6hL">
                                 <rect key="frame" x="15" y="95" width="290" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="CZo-Ei-WB5"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nWd-yF-led">
-                                <rect key="frame" x="15" y="302" width="290" height="76"/>
+                                <rect key="frame" x="15" y="301.5" width="290" height="76"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="nWd-yF-led" secondAttribute="height" multiplier="345:90" id="tlE-Hf-rt6"/>
                                 </constraints>
@@ -51,10 +51,10 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d80-2B-8Hh">
-                                <rect key="frame" x="15" y="145" width="290" height="76"/>
+                                <rect key="frame" x="15" y="145" width="290" height="75.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="d80-2B-8Hh" secondAttribute="height" multiplier="345:90" id="Xxj-g0-3vR"/>
                                 </constraints>
@@ -91,6 +91,8 @@
                     <connections>
                         <outlet property="firstCurrencyPickerView" destination="d80-2B-8Hh" id="u22-yn-Zfm"/>
                         <outlet property="secondCurrencyPickerView" destination="nWd-yF-led" id="FdB-6D-GTT"/>
+                        <outlet property="valueConvertedTextField" destination="weQ-9O-qFi" id="eel-Xh-lqN"/>
+                        <outlet property="valueToConvertTextField" destination="8Va-6b-6hL" id="2qP-y8-sdc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
