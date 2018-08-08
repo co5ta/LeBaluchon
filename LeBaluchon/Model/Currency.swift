@@ -8,30 +8,16 @@
 
 import Foundation
 
-class Currency {
-    static var all : [[String: Any]] {
-        guard let url = Bundle.main.url(forResource: "currencies", withExtension: "json") else {
-            print("json not found")
-            return [[:]]
-        }
-        
-        guard let data = try? Data(contentsOf: url) else {
-            print("error with json data recuperation")
-            return [[:]]
-        }
-        
-        guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else {
-            print("error with json data serialization")
-            return [[:]]
-        }
-        
-        guard let jsonArray = json as? [[String: Any]] else {
-            print("error with cast json data to array")
-            return [[:]]
-        }
-        
-        print(jsonArray)
-        
-        return jsonArray
-    }
+/// Object that represents a currency
+struct Currency {
+    let code: String
+    let name: String
 }
+
+/// Object that groups rates relative to a currency
+struct RelativeRates: Decodable {
+    let base: String
+    let timestamp: Int
+    let rates: [String: Float]
+}
+

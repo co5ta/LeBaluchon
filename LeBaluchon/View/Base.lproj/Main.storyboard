@@ -28,7 +28,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nWd-yF-led">
-                                <rect key="frame" x="15" y="301.5" width="290" height="76"/>
+                                <rect key="frame" x="15" y="301.5" width="290" height="75.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="nWd-yF-led" secondAttribute="height" multiplier="345:90" id="tlE-Hf-rt6"/>
                                 </constraints>
@@ -43,9 +43,12 @@
                                 <state key="normal" title="Convert">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="convertButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nT6-GS-3EJ"/>
+                                </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="weQ-9O-qFi">
-                                <rect key="frame" x="15" y="251" width="290" height="40"/>
+                            <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="weQ-9O-qFi">
+                                <rect key="frame" x="15" y="251.5" width="290" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="95B-53-KKJ"/>
                                 </constraints>
@@ -89,6 +92,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Currency" image="currencyItem" id="vl0-LY-4rM"/>
                     <connections>
+                        <outlet property="convertButton" destination="7fg-LP-loB" id="Peb-51-CCh"/>
                         <outlet property="firstCurrencyPickerView" destination="d80-2B-8Hh" id="u22-yn-Zfm"/>
                         <outlet property="secondCurrencyPickerView" destination="nWd-yF-led" id="FdB-6D-GTT"/>
                         <outlet property="valueConvertedTextField" destination="weQ-9O-qFi" id="eel-Xh-lqN"/>

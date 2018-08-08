@@ -16,6 +16,7 @@
 		223592E02110EA5900A2D659 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223592DF2110EA5900A2D659 /* WeatherViewController.swift */; };
 		22F0C8232111F275008EC6B5 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F0C8222111F275008EC6B5 /* Currency.swift */; };
 		22F0C829211338CD008EC6B5 /* currencies.json in Resources */ = {isa = PBXBuildFile; fileRef = 22F0C828211338CD008EC6B5 /* currencies.json */; };
+		22F0C82B2114B5B0008EC6B5 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F0C82A2114B5B0008EC6B5 /* CurrencyService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		223592DF2110EA5900A2D659 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		22F0C8222111F275008EC6B5 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		22F0C828211338CD008EC6B5 /* currencies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = currencies.json; path = "../../../../../Downloads/49937c83061d1bc0d064-f14d9aa9392b332c9756e06b8d289b9379525e29/currencies.json"; sourceTree = "<group>"; };
+		22F0C82A2114B5B0008EC6B5 /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				22F0C8222111F275008EC6B5 /* Currency.swift */,
+				22F0C82A2114B5B0008EC6B5 /* CurrencyService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 			files = (
 				223592C321106EE400A2D659 /* AppDelegate.swift in Sources */,
 				22F0C8232111F275008EC6B5 /* Currency.swift in Sources */,
+				22F0C82B2114B5B0008EC6B5 /* CurrencyService.swift in Sources */,
 				223592E02110EA5900A2D659 /* WeatherViewController.swift in Sources */,
 				223592DC2110E9BC00A2D659 /* CurrencyViewController.swift in Sources */,
 				223592DE2110EA4200A2D659 /* TranslatorViewController.swift in Sources */,
@@ -270,7 +274,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -324,7 +328,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -338,6 +342,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PQ32JTG8M8;
 				INFOPLIST_FILE = "$(SRCROOT)/LeBaluchon/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -356,6 +361,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PQ32JTG8M8;
 				INFOPLIST_FILE = "$(SRCROOT)/LeBaluchon/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
