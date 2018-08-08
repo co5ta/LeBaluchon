@@ -29,6 +29,7 @@ class CurrencyViewController: UIViewController {
     @IBOutlet weak var secondCurrencyPickerView: UIPickerView!
     /// Button to launch conversion
     @IBOutlet weak var convertButton: UIButton!
+    
 }
 
 // MARK: - Keyboard
@@ -108,6 +109,11 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         return currency.name
     }
     
+    /// Launch conversion each time selected row changes
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        convert()
+    }
+    
     /// Reload data in the pickerviews
     fileprivate func reloadPickerViews() {
         firstCurrencyPickerView.reloadComponent(0)
@@ -119,8 +125,13 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 /// MARK: - Currency conversion
 
 extension CurrencyViewController {
-    /// Launch currency conversion
+    /// Launch conversion
     @IBAction func convertButtonTapped(_ sender: UIButton) {
+        convert()
+    }
+    
+    /// Launch conversion each time text field is edited
+    @IBAction func sourceValueTextFieldEdited(_ sender: UITextField) {
         convert()
     }
     

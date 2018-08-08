@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8Va-6b-6hL">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0.0" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8Va-6b-6hL">
                                 <rect key="frame" x="15" y="95" width="290" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="CZo-Ei-WB5"/>
@@ -26,29 +26,18 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                <connections>
+                                    <action selector="sourceValueTextFieldEdited:" destination="BYZ-38-t0r" eventType="editingChanged" id="yej-hD-zI6"/>
+                                </connections>
                             </textField>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nWd-yF-led">
-                                <rect key="frame" x="15" y="301.5" width="290" height="75.5"/>
+                                <rect key="frame" x="15" y="311" width="290" height="105"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="nWd-yF-led" secondAttribute="height" multiplier="345:90" id="tlE-Hf-rt6"/>
+                                    <constraint firstAttribute="width" secondItem="nWd-yF-led" secondAttribute="height" multiplier="345:125" id="tlE-Hf-rt6"/>
                                 </constraints>
                             </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fg-LP-loB">
-                                <rect key="frame" x="15" y="451" width="290" height="38"/>
-                                <color key="backgroundColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="7fg-LP-loB" secondAttribute="height" multiplier="23:3" id="a92-bQ-cBx"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Convert">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="convertButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nT6-GS-3EJ"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="weQ-9O-qFi">
-                                <rect key="frame" x="15" y="251.5" width="290" height="40"/>
+                            <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.0" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="weQ-9O-qFi">
+                                <rect key="frame" x="15" y="271" width="290" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="95B-53-KKJ"/>
                                 </constraints>
@@ -57,9 +46,9 @@
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d80-2B-8Hh">
-                                <rect key="frame" x="15" y="145" width="290" height="75.5"/>
+                                <rect key="frame" x="15" y="135" width="290" height="105"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="d80-2B-8Hh" secondAttribute="height" multiplier="345:90" id="Xxj-g0-3vR"/>
+                                    <constraint firstAttribute="width" secondItem="d80-2B-8Hh" secondAttribute="height" multiplier="345:125" id="Xxj-g0-3vR"/>
                                 </constraints>
                             </pickerView>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oks-CF-iyl">
@@ -74,25 +63,21 @@
                         <constraints>
                             <constraint firstItem="weQ-9O-qFi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="04o-w7-OmY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="d80-2B-8Hh" secondAttribute="trailing" constant="15" id="55W-Iv-Phl"/>
-                            <constraint firstItem="d80-2B-8Hh" firstAttribute="top" secondItem="8Va-6b-6hL" secondAttribute="bottom" constant="10" id="7b5-r7-ZvZ"/>
+                            <constraint firstItem="d80-2B-8Hh" firstAttribute="top" secondItem="8Va-6b-6hL" secondAttribute="bottom" id="7b5-r7-ZvZ"/>
                             <constraint firstItem="8Va-6b-6hL" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="75" id="DLN-Ex-Suw"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7fg-LP-loB" secondAttribute="trailing" constant="15" id="Mwa-PX-exb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8Va-6b-6hL" secondAttribute="trailing" constant="15" id="TDk-6C-HSE"/>
                             <constraint firstItem="weQ-9O-qFi" firstAttribute="top" secondItem="d80-2B-8Hh" secondAttribute="bottom" constant="31" id="XX5-R3-mAu"/>
                             <constraint firstItem="8Va-6b-6hL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="dJB-jA-u6U"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="weQ-9O-qFi" secondAttribute="trailing" constant="15" id="eWS-Ux-B2L"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nWd-yF-led" secondAttribute="trailing" constant="15" id="l7U-TA-FVP"/>
                             <constraint firstItem="nWd-yF-led" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="q8Z-2i-zd4"/>
-                            <constraint firstItem="7fg-LP-loB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="ryz-VU-Agz"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7fg-LP-loB" secondAttribute="bottom" constant="30" id="v46-6J-1zU"/>
-                            <constraint firstItem="nWd-yF-led" firstAttribute="top" secondItem="weQ-9O-qFi" secondAttribute="bottom" constant="10" id="z0k-LK-ryn"/>
+                            <constraint firstItem="nWd-yF-led" firstAttribute="top" secondItem="weQ-9O-qFi" secondAttribute="bottom" id="z0k-LK-ryn"/>
                             <constraint firstItem="d80-2B-8Hh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="zQ4-tl-2Ia"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Currency" image="currencyItem" id="vl0-LY-4rM"/>
                     <connections>
-                        <outlet property="convertButton" destination="7fg-LP-loB" id="Peb-51-CCh"/>
                         <outlet property="firstCurrencyPickerView" destination="d80-2B-8Hh" id="u22-yn-Zfm"/>
                         <outlet property="secondCurrencyPickerView" destination="nWd-yF-led" id="FdB-6D-GTT"/>
                         <outlet property="valueConvertedTextField" destination="weQ-9O-qFi" id="eel-Xh-lqN"/>
