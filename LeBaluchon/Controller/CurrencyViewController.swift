@@ -20,13 +20,13 @@ class CurrencyViewController: UIViewController {
     // MARK: - Outlets
     
     /// Value to convert
-    @IBOutlet weak var valueToConvertTextField: UITextField!
+    @IBOutlet weak var sourceValueTextField: UITextField!
     /// Value converted
-    @IBOutlet weak var valueConvertedTextField: UITextField!
+    @IBOutlet weak var targetValueTextField: UITextField!
     /// Currency of the value to convert
-    @IBOutlet weak var firstCurrencyPickerView: UIPickerView!
+    @IBOutlet weak var sourceCurrencyPickerView: UIPickerView!
     /// Currency of the value converted
-    @IBOutlet weak var secondCurrencyPickerView: UIPickerView!
+    @IBOutlet weak var targetCurrencyPickerView: UIPickerView!
     /// Button to launch conversion
     @IBOutlet weak var convertButton: UIButton!
     
@@ -37,7 +37,7 @@ class CurrencyViewController: UIViewController {
 extension CurrencyViewController: UITextFieldDelegate {
     /// Dismiss keyboard when user leave a text field
     func dismissKeyboard(_ sender: UITapGestureRecognizer) {
-        valueToConvertTextField.resignFirstResponder()
+        sourceValueTextField.resignFirstResponder()
     }
 }
 
@@ -47,14 +47,13 @@ extension CurrencyViewController {
     /// Setup the scene before first display
     override func viewDidLoad() {
         super.viewDidLoad()
+        sourceValueTextField.delegate = self
         
-        valueToConvertTextField.delegate = self
+        sourceCurrencyPickerView.dataSource = self
+        sourceCurrencyPickerView.delegate = self
         
-        firstCurrencyPickerView.dataSource = self
-        firstCurrencyPickerView.delegate = self
-        
-        secondCurrencyPickerView.dataSource = self
-        secondCurrencyPickerView.delegate = self
+        targetCurrencyPickerView.dataSource = self
+        targetCurrencyPickerView.delegate = self
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         self.view.addGestureRecognizer(tapGesture)
@@ -117,9 +116,9 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     /// Reload data in the pickerviews
     fileprivate func reloadPickerViews() {
-        firstCurrencyPickerView.reloadComponent(0)
-        secondCurrencyPickerView.reloadComponent(0)
-        secondCurrencyPickerView.selectRow(1, inComponent: 0, animated: false)
+        sourceCurrencyPickerView.reloadComponent(0)
+        targetCurrencyPickerView.reloadComponent(0)
+        targetCurrencyPickerView.selectRow(1, inComponent: 0, animated: false)
     }
 }
 
@@ -138,10 +137,10 @@ extension CurrencyViewController {
     
     /// Convert a value from a currency to another
     func convert() {
-        let sourceCurrency = currencies[firstCurrencyPickerView.selectedRow(inComponent: 0)]
-        let targetCurrency = currencies[secondCurrencyPickerView.selectedRow(inComponent: 0)]
+        let sourceCurrency = currencies[sourceCurrencyPickerView.selectedRow(inComponent: 0)]
+        let targetCurrency = currencies[targetCurrencyPickerView.selectedRow(inComponent: 0)]
         
-        guard let sourceValue = valueToConvertTextField.text else {
+        guard let sourceValue = sourceValueTextField.text else {
             print("There is no value to convert")
             return
         }
@@ -160,9 +159,9 @@ extension CurrencyViewController {
         
         let targetValue = euroValue * targetCurrencyRate
         if targetValue.truncatingRemainder(dividingBy: 1) == 0 {
-            valueConvertedTextField.text = String(Int(targetValue))
+            targetValueTextField.text = String(Int(targetValue))
         } else {
-            valueConvertedTextField.text = String(targetValue)
+            targetValueTextField.text = String(targetValue)
         }
     }
     
