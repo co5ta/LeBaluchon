@@ -83,6 +83,7 @@ extension CurrencyViewController {
             DispatchQueue.main.sync {
                 if success, let data = data {
                     self.rates = data
+                    self.convert()
                 } else {
                     // Display error message
                 }
@@ -158,7 +159,11 @@ extension CurrencyViewController {
         let euroValue = (sourceValue as NSString).floatValue / sourceCurrencyRate
         
         let targetValue = euroValue * targetCurrencyRate
-        valueConvertedTextField.text = String(targetValue)
+        if targetValue.truncatingRemainder(dividingBy: 1) == 0 {
+            valueConvertedTextField.text = String(Int(targetValue))
+        } else {
+            valueConvertedTextField.text = String(targetValue)
+        }
     }
     
 }

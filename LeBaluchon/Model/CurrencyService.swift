@@ -97,17 +97,30 @@ extension CurrencyService {
                 return
             }
             
-            var currencies: [Currency] = []
+            let mainCodes = ["EUR", "USD"]
+            var currencies = [Currency]()
+            var secondaryCurrencies = [Currency]()
+            
             for (currencyCode, currencyName) in symbols {
                 let newCurrency = Currency(code: currencyCode, name: currencyName)
-                currencies.append(newCurrency)
+                if mainCodes.contains(currencyCode) {
+                    currencies.append(newCurrency)
+                } else {
+                    secondaryCurrencies.append(newCurrency)
+                }
             }
             
-            let sortedCurrencies = currencies.sorted(by: { (firstCurrency, secondCurrency) -> Bool in
+            currencies.sort(by: { (firstCurrency, secondCurrency) -> Bool in
                 firstCurrency.name < secondCurrency.name
             })
             
-            callback(true, sortedCurrencies)
+            secondaryCurrencies.sort(by: { (firstCurrency, secondCurrency) -> Bool in
+                firstCurrency.name < secondCurrency.name
+            })
+            
+            currencies += secondaryCurrencies
+            
+            callback(true, currencies)
             
         })
         currenciesTask?.resume()
