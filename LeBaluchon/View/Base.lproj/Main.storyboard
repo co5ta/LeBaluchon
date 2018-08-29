@@ -118,10 +118,12 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Currency" image="currency-item" id="vl0-LY-4rM"/>
                     <connections>
-                        <outlet property="firstCurrencyPickerView" destination="d80-2B-8Hh" id="u22-yn-Zfm"/>
-                        <outlet property="secondCurrencyPickerView" destination="nWd-yF-led" id="FdB-6D-GTT"/>
-                        <outlet property="valueConvertedTextField" destination="weQ-9O-qFi" id="eel-Xh-lqN"/>
-                        <outlet property="valueToConvertTextField" destination="8Va-6b-6hL" id="2qP-y8-sdc"/>
+                        <outlet property="sourceCurrencyLabel" destination="fN5-Hh-jbe" id="5LH-oB-ypD"/>
+                        <outlet property="sourceCurrencyPickerView" destination="d80-2B-8Hh" id="t6B-IG-czW"/>
+                        <outlet property="sourceValueTextField" destination="8Va-6b-6hL" id="jHy-QA-2yu"/>
+                        <outlet property="targetCurrencyLabel" destination="DlR-75-a0u" id="reZ-VT-BSC"/>
+                        <outlet property="targetCurrencyPickerView" destination="nWd-yF-led" id="Mmc-qS-yGl"/>
+                        <outlet property="targetValueTextField" destination="weQ-9O-qFi" id="mok-0f-76A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

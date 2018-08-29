@@ -23,13 +23,14 @@ class CurrencyViewController: UIViewController {
     @IBOutlet weak var sourceValueTextField: UITextField!
     /// Value converted
     @IBOutlet weak var targetValueTextField: UITextField!
+    /// ISO code of the value to convert
+    @IBOutlet weak var sourceCurrencyLabel: UILabel!
+    /// ISO code of the value converted
+    @IBOutlet weak var targetCurrencyLabel: UILabel!
     /// Currency of the value to convert
     @IBOutlet weak var sourceCurrencyPickerView: UIPickerView!
     /// Currency of the value converted
     @IBOutlet weak var targetCurrencyPickerView: UIPickerView!
-    /// Button to launch conversion
-    @IBOutlet weak var convertButton: UIButton!
-    
 }
 
 // MARK: - Keyboard
@@ -59,7 +60,6 @@ extension CurrencyViewController {
         self.view.addGestureRecognizer(tapGesture)
         
         getCurrencies()
-        getRates()
     }
     
     /// Fetch currencies for pickerViews
@@ -69,6 +69,7 @@ extension CurrencyViewController {
                 if success, let data = data {
                     self.currencies = data
                     self.reloadPickerViews()
+                    self.getRates()
                 } else {
                     // Display an error message
                 }
@@ -76,9 +77,9 @@ extension CurrencyViewController {
         })
     }
     
-    /// Fetch latest rates relative EUR currency
-    func getRates() {
-        CurrencyService.shared.getRates() { (success, data) in
+    /// Fetch latest rates, relative to EUR currency
+    private func getRates() {
+        CurrencyService.shared.getRates(callback: { (success, data) in
             DispatchQueue.main.sync {
                 if success, let data = data {
                     self.rates = data
@@ -87,7 +88,7 @@ extension CurrencyViewController {
                     // Display error message
                 }
             }
-        }
+        })
     }
 }
 
@@ -109,9 +110,20 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         return currency.name
     }
     
-    /// Launch conversion each time selected row changes
+    /// Launch actions each time selected row changes
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         convert()
+        
+        let currency = currencies[row]
+        updateCurrencyLabel(pickerView: pickerView, currency: currency)
+    }
+    
+    private func updateCurrencyLabel(pickerView: UIPickerView, currency: Currency) {
+        if pickerView == sourceCurrencyPickerView {
+            sourceCurrencyLabel.text = currency.code
+        } else {
+            targetCurrencyLabel.text = currency.code
+        }
     }
     
     /// Reload data in the pickerviews
@@ -125,10 +137,6 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 /// MARK: - Currency conversion
 
 extension CurrencyViewController {
-    /// Launch conversion
-    @IBAction func convertButtonTapped(_ sender: UIButton) {
-        convert()
-    }
     
     /// Launch conversion each time text field is edited
     @IBAction func sourceValueTextFieldEdited(_ sender: UITextField) {
