@@ -113,12 +113,11 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     /// Launch actions each time selected row changes
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         convert()
-        
-        let currency = currencies[row]
-        updateCurrencyLabel(pickerView: pickerView, currency: currency)
+        updateCurrencyLabel(pickerView: pickerView, row: row)
     }
     
-    private func updateCurrencyLabel(pickerView: UIPickerView, currency: Currency) {
+    private func updateCurrencyLabel(pickerView: UIPickerView, row: Int) {
+        let currency = currencies[row]
         if pickerView == sourceCurrencyPickerView {
             sourceCurrencyLabel.text = currency.code
         } else {
@@ -131,6 +130,20 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         sourceCurrencyPickerView.reloadComponent(0)
         targetCurrencyPickerView.reloadComponent(0)
         targetCurrencyPickerView.selectRow(1, inComponent: 0, animated: false)
+    }
+    
+    
+    @IBAction func interchangerButtonTaped(_ sender: Any) {
+        let currentSourceCurrency = sourceCurrencyPickerView.selectedRow(inComponent: 0)
+        let currentTargetCurrency = targetCurrencyPickerView.selectedRow(inComponent: 0)
+        
+        sourceCurrencyPickerView.selectRow(currentTargetCurrency, inComponent: 0, animated: true)
+        targetCurrencyPickerView.selectRow(currentSourceCurrency, inComponent: 0, animated: true)
+        
+        updateCurrencyLabel(pickerView: sourceCurrencyPickerView, row: currentTargetCurrency)
+        updateCurrencyLabel(pickerView: targetCurrencyPickerView, row: currentSourceCurrency)
+        
+        convert()
     }
 }
 

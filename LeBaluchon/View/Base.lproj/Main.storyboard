@@ -31,9 +31,9 @@
                                 </connections>
                             </textField>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nWd-yF-led">
-                                <rect key="frame" x="15" y="403.5" width="345" height="125"/>
+                                <rect key="frame" x="15" y="403.5" width="345" height="115"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="nWd-yF-led" secondAttribute="height" multiplier="345:125" id="tlE-Hf-rt6"/>
+                                    <constraint firstAttribute="width" secondItem="nWd-yF-led" secondAttribute="height" multiplier="345:125" constant="27.600000000000023" id="tlE-Hf-rt6"/>
                                 </constraints>
                             </pickerView>
                             <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.15" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="weQ-9O-qFi">
@@ -46,9 +46,9 @@
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d80-2B-8Hh">
-                                <rect key="frame" x="15" y="115" width="345" height="125"/>
+                                <rect key="frame" x="15" y="115" width="345" height="115"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="d80-2B-8Hh" secondAttribute="height" multiplier="345:125" id="Xxj-g0-3vR"/>
+                                    <constraint firstAttribute="width" secondItem="d80-2B-8Hh" secondAttribute="height" multiplier="345:125" constant="27.600000000000023" id="Xxj-g0-3vR"/>
                                 </constraints>
                             </pickerView>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oks-CF-iyl">
@@ -86,6 +86,9 @@
                                     <constraint firstAttribute="width" constant="50" id="mca-i3-loY"/>
                                 </constraints>
                                 <state key="normal" image="inverter-arrow"/>
+                                <connections>
+                                    <action selector="interchangerButtonTaped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dmy-p6-wmT"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
