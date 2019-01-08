@@ -8,8 +8,20 @@
 
 import UIKit
 
+/// Controller that manages the Weather scene
 class WeatherViewController: UIViewController {
 
+    // MARK: Outlets
+    
+    /// The current condition location
+    @IBOutlet weak var locationLabel: UILabel!
+    /// The current condition
+    @IBOutlet weak var conditionLabel: UILabel!
+    /// The current condition icon
+    @IBOutlet weak var conditionImageView: UIImageView!
+    /// The current temperature of the weather
+    @IBOutlet weak var temperatureLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,16 +32,9 @@ class WeatherViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-    /*
-    // MARK: - Navigation
+    func getForeCasts() {
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
     }
-    */
 
 }

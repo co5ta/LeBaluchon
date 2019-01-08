@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mpf-m4-qVd">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mpf-m4-qVd">
+    <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,11 +15,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="CurrencyViewController" customModule="LeBaluchon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" placeholder="0.0" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Va-6b-6hL">
-                                <rect key="frame" x="15" y="75" width="302" height="40"/>
+                                <rect key="frame" x="15" y="99" width="341" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="CZo-Ei-WB5"/>
                                 </constraints>
@@ -31,13 +31,13 @@
                                 </connections>
                             </textField>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nWd-yF-led">
-                                <rect key="frame" x="15" y="403.5" width="345" height="115"/>
+                                <rect key="frame" x="15" y="518" width="384" height="129"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="nWd-yF-led" secondAttribute="height" multiplier="345:125" constant="27.600000000000023" id="tlE-Hf-rt6"/>
                                 </constraints>
                             </pickerView>
                             <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.15" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="weQ-9O-qFi">
-                                <rect key="frame" x="15" y="363.5" width="300" height="40"/>
+                                <rect key="frame" x="15" y="478" width="339" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="95B-53-KKJ"/>
                                 </constraints>
@@ -46,39 +46,39 @@
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d80-2B-8Hh">
-                                <rect key="frame" x="15" y="115" width="345" height="115"/>
+                                <rect key="frame" x="15" y="139" width="384" height="129"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="d80-2B-8Hh" secondAttribute="height" multiplier="345:125" constant="27.600000000000023" id="Xxj-g0-3vR"/>
                                 </constraints>
                             </pickerView>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oks-CF-iyl">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Currency" id="Tw7-i5-zrx"/>
                                 </items>
                             </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DlR-75-a0u">
-                                <rect key="frame" x="325" y="363.5" width="35" height="40"/>
+                                <rect key="frame" x="364" y="478" width="35" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EUR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fN5-Hh-jbe">
-                                <rect key="frame" x="327" y="75" width="33" height="40"/>
+                                <rect key="frame" x="366" y="99" width="33" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="currency-separator" translatesAutoresizingMaskIntoConstraints="NO" id="uIX-LX-0tE">
-                                <rect key="frame" x="15" y="294" width="345" height="59"/>
+                                <rect key="frame" x="15" y="405" width="384" height="66"/>
                                 <color key="tintColor" red="0.56470588235294117" green="0.83529411764705885" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="uIX-LX-0tE" secondAttribute="height" multiplier="29:5" id="cSf-HK-dhz"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3o9-P6-6HN">
-                                <rect key="frame" x="162.5" y="298.5" width="50" height="50"/>
+                                <rect key="frame" x="182" y="413" width="50" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="3o9-P6-6HN" secondAttribute="height" multiplier="1:1" id="B69-cV-XNS"/>
@@ -138,7 +138,7 @@
             <objects>
                 <viewController id="RLC-Z1-KgT" customClass="TranslatorViewController" customModule="LeBaluchon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cgh-4p-XgR">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="jcb-cd-s45"/>
@@ -154,16 +154,64 @@
             <objects>
                 <viewController id="MQE-5K-b9q" customClass="WeatherViewController" customModule="LeBaluchon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="a34-Eg-Wdj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="suncloud" translatesAutoresizingMaskIntoConstraints="NO" id="Zol-XO-koJ">
+                                <rect key="frame" x="164.66666666666666" y="405.66666666666669" width="85" height="85"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New York City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o2I-w2-dxQ">
+                                <rect key="frame" x="129" y="123" width="156" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunny" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cvA-lb-SYH">
+                                <rect key="frame" x="183" y="163" width="48" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8S5-WV-Arx">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <navigationItem title="Weather" id="bBV-Bt-uJN"/>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="61° F" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMa-cU-AZl">
+                                <rect key="frame" x="161.66666666666666" y="540.66666666666663" width="91" height="48"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cvA-lb-SYH" firstAttribute="top" secondItem="o2I-w2-dxQ" secondAttribute="bottom" constant="10" id="AWW-RC-tKZ"/>
+                            <constraint firstItem="fMa-cU-AZl" firstAttribute="centerX" secondItem="a34-Eg-Wdj" secondAttribute="centerX" id="Bvc-Hm-rtX"/>
+                            <constraint firstItem="8S5-WV-Arx" firstAttribute="top" secondItem="h3e-na-w05" secondAttribute="top" id="Jco-7T-4wJ"/>
+                            <constraint firstItem="o2I-w2-dxQ" firstAttribute="centerX" secondItem="a34-Eg-Wdj" secondAttribute="centerX" id="QLP-js-iWT"/>
+                            <constraint firstItem="Zol-XO-koJ" firstAttribute="centerY" secondItem="a34-Eg-Wdj" secondAttribute="centerY" id="VIV-tU-M8S"/>
+                            <constraint firstItem="Zol-XO-koJ" firstAttribute="centerX" secondItem="a34-Eg-Wdj" secondAttribute="centerX" id="Wvc-ok-QiT"/>
+                            <constraint firstItem="fMa-cU-AZl" firstAttribute="top" secondItem="Zol-XO-koJ" secondAttribute="bottom" constant="50" id="fLJ-Um-gCf"/>
+                            <constraint firstItem="o2I-w2-dxQ" firstAttribute="top" secondItem="8S5-WV-Arx" secondAttribute="bottom" constant="35" id="gUV-B0-9s0"/>
+                            <constraint firstItem="8S5-WV-Arx" firstAttribute="leading" secondItem="h3e-na-w05" secondAttribute="leading" id="lGx-3w-bhs"/>
+                            <constraint firstItem="8S5-WV-Arx" firstAttribute="trailing" secondItem="h3e-na-w05" secondAttribute="trailing" id="mu9-kG-wJY"/>
+                            <constraint firstItem="cvA-lb-SYH" firstAttribute="centerX" secondItem="a34-Eg-Wdj" secondAttribute="centerX" id="uUo-im-Ue5"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="h3e-na-w05"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Weather" image="weather-item" id="oMG-OR-Fn8"/>
+                    <connections>
+                        <outlet property="conditionImageView" destination="Zol-XO-koJ" id="c7B-3I-0Na"/>
+                        <outlet property="conditionLabel" destination="cvA-lb-SYH" id="ky3-M3-pFf"/>
+                        <outlet property="locationLabel" destination="o2I-w2-dxQ" id="WH7-a1-T8k"/>
+                        <outlet property="temperatureLabel" destination="fMa-cU-AZl" id="QrX-1A-JEP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nby-x7-Ndx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="193" y="1334"/>
+            <point key="canvasLocation" x="192.80000000000001" y="1333.5832083958021"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Joh-ng-sUR">
@@ -186,10 +234,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="currency-item" width="25" height="25"/>
+        <image name="currency-item" width="74.400001525878906" height="74.400001525878906"/>
         <image name="currency-separator" width="229" height="76"/>
-        <image name="inverter-arrow" width="68" height="68"/>
-        <image name="translator-item" width="25" height="25"/>
-        <image name="weather-item" width="25" height="25"/>
+        <image name="inverter-arrow" width="204.80000305175781" height="204.80000305175781"/>
+        <image name="suncloud" width="85.333335876464844" height="85.333335876464844"/>
+        <image name="translator-item" width="74.400001525878906" height="74.400001525878906"/>
+        <image name="weather-item" width="74.400001525878906" height="74.400001525878906"/>
     </resources>
 </document>
