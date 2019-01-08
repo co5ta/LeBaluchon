@@ -37,7 +37,7 @@ class CurrencyViewController: UIViewController {
 
 extension CurrencyViewController: UITextFieldDelegate {
     /// Dismiss keyboard when user leave a text field
-    func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+    @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         sourceValueTextField.resignFirstResponder()
     }
 }
