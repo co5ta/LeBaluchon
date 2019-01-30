@@ -10,7 +10,6 @@ import UIKit
 
 /// Controller that manages the Weather scene
 class WeatherViewController: UIViewController {
-
     // MARK: Outlets
     
     /// The current condition location
@@ -21,20 +20,32 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var conditionImageView: UIImageView!
     /// The current temperature of the weather
     @IBOutlet weak var temperatureLabel: UILabel!
+}
+
+extension WeatherViewController {
+    // MARK: - Setup
     
+    /// Setup the scene before first display
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        getConditions()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    /// Fetch currents weather conditions
+    func getConditions() {
+        WeatherService.shared.getConditions { (success, weather) in
+            if success, let weather = weather {
+                self.update(weather)
+            } else {
+               print("error getting conditions")
+            }
+        }
     }
-
-    func getForeCasts() {
-
+    
+    /// Update the screen with the last weather conditions
+    func update(_ weather: Weather) {
+        locationLabel.text = weather.placeName
+        conditionLabel.text = weather.conditions[0].title
+        temperatureLabel.text = "\(weather.temperatures.current)° C"
     }
-
 }
