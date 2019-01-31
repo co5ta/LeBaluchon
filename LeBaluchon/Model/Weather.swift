@@ -10,10 +10,24 @@ import Foundation
 
 /// Current weather conditions for a city
 struct Weather {
+    // MARK: - Properties
+    
+    /// Id of the city
     let placeId: Int
+    /// Name of the city
     let placeName: String
-    let conditions: [Condition]
-    let temperatures: Temperature
+    /// List of current weather conditions
+    private let conditions: [Condition]
+    /// Temperature in the city
+    private let temperatures: Temperature
+    /// Temperature in text
+    var celciusTemperatures: String {
+        return "\(Int(temperatures.current))° C"
+    }
+    /// Primary weather condition
+    var primaryCondition: Condition {
+        return conditions[0]
+    }
 }
 
 extension Weather: Decodable {
@@ -29,14 +43,14 @@ extension Weather: Decodable {
 extension Weather {
     /// Detailed weather conditions
     struct Condition: Decodable {
-        let id: Int
-        let title: String
+        /// Name of the icon which illustrate the condition
+        let icon: String
+        /// Description of the condition
         let description: String
         
         /// Relations between Weather.Condition properties and json
         enum CodingKeys: String, CodingKey {
-            case id
-            case title = "main"
+            case icon
             case description
         }
     }
@@ -45,15 +59,12 @@ extension Weather {
 extension Weather {
     /// Detailed temperatures
     struct Temperature: Decodable {
+        /// Current temperature
         let current: Float
-        let min: Float
-        let max: Float
         
         /// Relations between Weather.Temperatures properties and json
         enum CodingKeys: String, CodingKey {
             case current = "temp"
-            case min = "temp_min"
-            case max = "temp_max"
         }
     }
 }

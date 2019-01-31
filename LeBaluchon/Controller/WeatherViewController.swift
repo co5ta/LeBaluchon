@@ -45,7 +45,8 @@ extension WeatherViewController {
     /// Update the screen with the last weather conditions
     func update(_ weather: Weather) {
         locationLabel.text = weather.placeName
-        conditionLabel.text = weather.conditions[0].title
-        temperatureLabel.text = "\(weather.temperatures.current)° C"
+        conditionLabel.text = weather.primaryCondition.description
+        conditionImageView.image = UIImage(named: weather.primaryCondition.icon)
+        temperatureLabel.text = weather.celciusTemperatures
     }
 }
