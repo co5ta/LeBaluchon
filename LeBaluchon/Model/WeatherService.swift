@@ -9,32 +9,60 @@
 import Foundation
 
 class WeatherService {
-    // MARK: - Singleton
-    
-    /// Unique instance of WeatherService
-    static var shared = WeatherService()
-    /// Private initializer
-    private init() {}
-    
-    // MARK: - Properties
+    // MARK: Properties
     
     /// Base URL of the currency API
-    private let apiUrl = "https://api.openweathermap.org/data/2.5/weather"
+    private let apiUrl = "https://api.openweathermap.org/data/2.5/group"
+    
     /// API key
     private let apiKey = "951fdc1ed16481d96c1728da1c3cf6cd"
-    /// New York city ID
-    private let newYorkId = "5128581"
+    
+    /// ID of the cities
+    private let citiesId: [String] = ["5128581", "6455259"]
+    
     /// Metric unit format for celcius degrees
     private let unitFormat = "metric"
     
     /// Session configuration
     private let mysession = URLSession(configuration: .default)
+    
     /// Task to execute
     private var task: URLSessionDataTask?
+    
+    /// Weather data given by the API
+    var cities: [Weather.City] = []
+    
+    // MARK: Singleton
+    
+    /// Unique instance of WeatherService
+    static var shared = WeatherService()
+    
+    /// Private initializer
+    private init() {}
 }
 
-// MARK: - Requests
 extension WeatherService {
+    // MARK: Methods
+    
+    /**
+     Create the URL for the request to execute
+     - Returns: The suitable URL to ask a weather condition to the API
+     */
+    private func createRequestURL() -> URL? {
+        guard var components = URLComponents(string: apiUrl) else {
+            print("Could not build URLComponents")
+            return nil
+        }
+        
+        components.queryItems = [
+            URLQueryItem(name: "id", value: citiesId.joined(separator: ",") ),
+            URLQueryItem(name: "APPID", value: apiKey),
+            URLQueryItem(name: "units", value: unitFormat),
+        ]
+        
+        return components.url
+    }
+    
     /**
      Fetch weather condition relative to a city
      - Parameters:
@@ -53,7 +81,6 @@ extension WeatherService {
         task?.cancel()
         task = session.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
-                print(data as Any)
                 guard let data = data else {
                     callback(false, nil)
                     print("data error")
@@ -78,28 +105,10 @@ extension WeatherService {
                     return
                 }
                 
+                self.cities = weather.cities
                 callback(true, weather)
             }
         } 
         task?.resume()
-    }
-    
-    /**
-     Create the URL for the request to execute
-     - Returns: The suitable URL to ask a weather condition to the API
-     */
-    private func createRequestURL() -> URL? {
-        guard var components = URLComponents(string: apiUrl) else {
-            print("Could not build URLComponents")
-            return nil
-        }
-        
-        components.queryItems = [
-            URLQueryItem(name: "id", value: newYorkId),
-            URLQueryItem(name: "APPID", value: apiKey),
-            URLQueryItem(name: "units", value: unitFormat),
-        ]
-        
-        return components.url
     }
 }

@@ -12,18 +12,12 @@ import UIKit
 class WeatherViewController: UIViewController {
     // MARK: Outlets
     
-    /// The current condition location
-    @IBOutlet weak var locationLabel: UILabel!
-    /// The current condition
-    @IBOutlet weak var conditionLabel: UILabel!
-    /// The current condition icon
-    @IBOutlet weak var conditionImageView: UIImageView!
-    /// The current temperature of the weather
-    @IBOutlet weak var temperatureLabel: UILabel!
+    /// Collection view listing weather for each city
+    @IBOutlet weak var collectionView: UICollectionView!
 }
 
 extension WeatherViewController {
-    // MARK: - Setup
+    // MARK: Setup
     
     /// Setup the scene before first display
     override func viewDidLoad() {
@@ -34,19 +28,43 @@ extension WeatherViewController {
     /// Fetch currents weather conditions
     func getConditions() {
         WeatherService.shared.getConditions { (success, weather) in
-            if success, let weather = weather {
-                self.update(weather)
+            if success {
+                self.collectionView.reloadData()
             } else {
                print("error getting conditions")
             }
         }
     }
+}
+
+extension WeatherViewController: UICollectionViewDataSource {
+    // MARK: UICollectionViewDataSource
     
-    /// Update the screen with the last weather conditions
-    func update(_ weather: Weather) {
-        locationLabel.text = weather.placeName
-        conditionLabel.text = weather.primaryCondition.description
-        conditionImageView.image = UIImage(named: weather.primaryCondition.icon)
-        temperatureLabel.text = weather.celciusTemperatures
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return WeatherService.shared.cities.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherCell", for: indexPath) as? WeatherCollectionViewCell else {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherCell", for: indexPath)
+        }
+        
+        let city = WeatherService.shared.cities[indexPath.row]
+        cell.configure(city)
+        
+        return cell
+    }
+}
+
+extension WeatherViewController: UICollectionViewDelegateFlowLayout {
+    // MARK: UICollectionViewDelegateFlowLayout
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }

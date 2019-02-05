@@ -8,47 +8,58 @@
 
 import Foundation
 
-/// Current weather conditions for a city
-struct Weather {
-    // MARK: - Properties
+/// Object that contains data given by the weather API
+struct Weather: Decodable {
+    /// Weather for each city requested
+    let cities: [City]
     
-    /// Id of the city
-    let placeId: Int
-    /// Name of the city
-    let placeName: String
-    /// List of current weather conditions
-    private let conditions: [Condition]
-    /// Temperature in the city
-    private let temperatures: Temperature
-    /// Temperature in text
-    var celciusTemperatures: String {
-        return "\(Int(temperatures.current))° C"
-    }
-    /// Primary weather condition
-    var primaryCondition: Condition {
-        return conditions[0]
+    /// Relations between properties and json
+    enum CodingKeys: String, CodingKey {
+        case cities = "list"
     }
 }
 
-extension Weather: Decodable {
-    /// Relations between Weather properties and json
-    enum CodingKeys: String, CodingKey {
-        case placeId = "id"
-        case placeName = "name"
-        case conditions = "weather"
-        case temperatures = "main"
+extension Weather {
+    /// Current weather conditions for a city
+    struct City: Decodable {
+        /// Name of the city
+        let name: String
+        
+        /// List of current weather conditions
+        private let conditions: [Condition]
+        
+        /// Temperature in the city
+        private let temperatures: Temperature
+        
+        /// Temperature in text
+        var celciusTemperatures: String {
+            return "\(Int(temperatures.current))° C"
+        }
+        
+        /// Primary weather condition
+        var primaryCondition: Condition {
+            return conditions[0]
+        }
+        
+        /// Relations between properties and json
+        enum CodingKeys: String, CodingKey {
+            case name
+            case conditions = "weather"
+            case temperatures = "main"
+        }
     }
 }
 
 extension Weather {
     /// Detailed weather conditions
     struct Condition: Decodable {
-        /// Name of the icon which illustrate the condition
+        /// Name of the icon which illustrate the weather condition
         let icon: String
-        /// Description of the condition
+        
+        /// Description of the weather condition
         let description: String
         
-        /// Relations between Weather.Condition properties and json
+        /// Relations between properties and json
         enum CodingKeys: String, CodingKey {
             case icon
             case description
@@ -62,7 +73,7 @@ extension Weather {
         /// Current temperature
         let current: Float
         
-        /// Relations between Weather.Temperatures properties and json
+        /// Relations between properties and json
         enum CodingKeys: String, CodingKey {
             case current = "temp"
         }
