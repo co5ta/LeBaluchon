@@ -14,6 +14,8 @@ class WeatherViewController: UIViewController {
     
     /// Collection view listing weather for each city
     @IBOutlet weak var collectionView: UICollectionView!
+    /// Page controller to indicates current page and number of pages
+    @IBOutlet weak var pageController: UIPageControl!
 }
 
 extension WeatherViewController {
@@ -30,10 +32,17 @@ extension WeatherViewController {
         WeatherService.shared.getConditions { (success, weather) in
             if success {
                 self.collectionView.reloadData()
+                self.pageController.numberOfPages = WeatherService.shared.cities.count
             } else {
                print("error getting conditions")
             }
         }
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let x = targetContentOffset.pointee.x
+        
+        pageController.currentPage = Int(x / collectionView.frame.width)
     }
 }
 
