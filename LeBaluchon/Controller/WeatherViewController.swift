@@ -14,13 +14,14 @@ class WeatherViewController: UIViewController {
     
     /// Collection view listing weather for each city
     @IBOutlet weak var collectionView: UICollectionView!
+    
     /// Page controller to indicates current page and number of pages
     @IBOutlet weak var pageController: UIPageControl!
 }
 
+// MARK: - Setup
+
 extension WeatherViewController {
-    // MARK: Setup
-    
     /// Setup the scene before first display
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,7 @@ extension WeatherViewController {
         }
     }
     
+    /// Update current page in page controller
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let x = targetContentOffset.pointee.x
         
@@ -46,15 +48,16 @@ extension WeatherViewController {
     }
 }
 
+// MARK: - UICollectionViewDataSource
+
 extension WeatherViewController: UICollectionViewDataSource {
-    // MARK: UICollectionViewDataSource
-    
+    /// Give the number of items in the collection view
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return WeatherService.shared.cities.count
     }
     
+    /// Give the content of an item
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherCell", for: indexPath) as? WeatherCollectionViewCell else {
             return collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherCell", for: indexPath)
         }
@@ -66,13 +69,15 @@ extension WeatherViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
+
 extension WeatherViewController: UICollectionViewDelegateFlowLayout {
-    // MARK: UICollectionViewDelegateFlowLayout
-    
+    /// Give the size of items
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
     
+    /// Give the size of space between items
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }

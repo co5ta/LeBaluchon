@@ -25,10 +25,9 @@ class WeatherCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var temperatureLabel: UILabel!
 }
 
+// MARK: - Methods
 
 extension WeatherCollectionViewCell {
-    // MARK: Methods
-    
     /// Configure the cell with data
     func configure(_ city: Weather.City) {
         locationLabel.text = city.name

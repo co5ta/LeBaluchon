@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Object that contains data given by the weather API
+/// Struct that contains data given by the weather API
 struct Weather: Decodable {
     /// Weather for each city requested
     let cities: [City]
@@ -18,6 +18,8 @@ struct Weather: Decodable {
         case cities = "list"
     }
 }
+
+// MARK: - City
 
 extension Weather {
     /// Current weather conditions for a city
@@ -50,6 +52,8 @@ extension Weather {
     }
 }
 
+// MARK: - Condition
+
 extension Weather {
     /// Detailed weather conditions
     struct Condition: Decodable {
@@ -66,6 +70,8 @@ extension Weather {
         }
     }
 }
+
+// MARK: - Temperature
 
 extension Weather {
     /// Detailed temperatures

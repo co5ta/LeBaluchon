@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Class that fetch data from the weather API
 class WeatherService {
     // MARK: Properties
     
@@ -41,27 +42,9 @@ class WeatherService {
     private init() {}
 }
 
+// MARK: - Methods
+
 extension WeatherService {
-    // MARK: Methods
-    
-    /**
-     Create the URL for the request to execute
-     - Returns: The suitable URL to ask a weather condition to the API
-     */
-    private func createRequestURL() -> URL? {
-        guard var components = URLComponents(string: apiUrl) else {
-            print("Could not build URLComponents")
-            return nil
-        }
-        
-        components.queryItems = [
-            URLQueryItem(name: "id", value: citiesId.joined(separator: ",") ),
-            URLQueryItem(name: "APPID", value: apiKey),
-            URLQueryItem(name: "units", value: unitFormat),
-        ]
-        
-        return components.url
-    }
     
     /**
      Fetch weather condition relative to a city
@@ -110,5 +93,24 @@ extension WeatherService {
             }
         } 
         task?.resume()
+    }
+    
+    /**
+     Create the URL for the request to execute
+     - Returns: The suitable URL to ask a weather condition to the API
+     */
+    private func createRequestURL() -> URL? {
+        guard var components = URLComponents(string: apiUrl) else {
+            print("Could not build URLComponents")
+            return nil
+        }
+        
+        components.queryItems = [
+            URLQueryItem(name: "id", value: citiesId.joined(separator: ",") ),
+            URLQueryItem(name: "APPID", value: apiKey),
+            URLQueryItem(name: "units", value: unitFormat),
+        ]
+        
+        return components.url
     }
 }

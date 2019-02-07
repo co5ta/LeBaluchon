@@ -8,42 +8,45 @@
 
 import Foundation
 
-/// Object that requests the currency API
+/// Class that fetch data from the currency API
 class CurrencyService {
-    // MARK: - Singleton
-    
-    /// Property for singleton pattern
-    static let shared = CurrencyService()
-    /// Init for singleton pattern
-    private init() {}
-    
-    // MARK: - Properties
+    // MARK: Properties
     
     /// Base URL of the currency API
     fileprivate let apiUrl = "http://data.fixer.io/api/"
+    
     /// Key to access the API
     fileprivate let apiKey = "5f997405a289e163b37336eeed0c04bb"
     
     /// Session configuration
     fileprivate var session = URLSession(configuration: .default)
+    
     /// Task to execute to get currencies list
     fileprivate var currenciesTask: URLSessionDataTask?
+    
     /// Task to execute to get currencies rates
     fileprivate var ratesTask: URLSessionDataTask?
 
+    // MARK: Singleton
+    
+    /// Property for singleton pattern
+    static let shared = CurrencyService()
+    
+    /// Init for singleton pattern
+    private init() {}
 }
 
-// MARK: - Data subtype
+// MARK: - Data type
 
 extension CurrencyService {
-    /// Resources that can be asked to the API
+    /// Data type that can be asked
     enum Resource: String {
-        /// Resource available in the API
+        /// Data type available in the API
         case Rates = "latest", Currencies = "symbols"
     }
 }
 
-// MARK: - Requests
+// MARK: - Methods
 
 extension CurrencyService {
     /**
