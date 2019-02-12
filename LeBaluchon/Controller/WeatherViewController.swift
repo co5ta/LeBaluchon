@@ -30,12 +30,12 @@ extension WeatherViewController {
     
     /// Fetch currents weather conditions
     func getConditions() {
-        WeatherService.shared.getConditions { (success, weather) in
-            if success {
+        WeatherService.shared.getConditions { (failure) in
+            if let failure = failure {
+                print(failure)
+            } else {
                 self.collectionView.reloadData()
                 self.pageController.numberOfPages = WeatherService.shared.cities.count
-            } else {
-               print("error getting conditions")
             }
         }
     }

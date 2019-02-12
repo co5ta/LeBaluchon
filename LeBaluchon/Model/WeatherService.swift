@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class that fetch data from the weather API
-class WeatherService {
+class WeatherService: Service {
     // MARK: Properties
     
     /// Base URL of the currency API
@@ -24,8 +24,17 @@ class WeatherService {
     /// Metric unit format for celcius degrees
     private let unitFormat = "metric"
     
+    /// Arguments that details what to ask to the API and include the API Key
+    private var arguments: [String: String] {
+        return [
+            "id": citiesId.joined(separator: ","),
+            "APPID": apiKey,
+            "units": unitFormat
+        ]
+    }
+    
     /// Session configuration
-    private let mysession = URLSession(configuration: .default)
+    private let session = URLSession(configuration: .default)
     
     /// Task to execute
     private var task: URLSessionDataTask?
@@ -53,64 +62,29 @@ extension WeatherService {
      - success: indicates if the request succeeded or not
      - data: contains the data returned by the API
      */
-    func getConditions(callback: @escaping (Bool, Weather?) -> Void) {
-        guard let request = createRequestURL() else {
-            print("error url")
+    func getConditions(callback: @escaping (Error?) -> Void) {
+        guard let request = createRequestURL(url: apiUrl, arguments: arguments) else {
+            callback(NetworkError.invalidRequestURL)
             return
         }
-        
-        let session = URLSession(configuration: .default)
         
         task?.cancel()
         task = session.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
-                guard let data = data else {
-                    callback(false, nil)
-                    print("data error")
+                if let failure = self.getFailure(error, response, data) {
+                    callback(failure)
                     return
                 }
                 
-                guard error == nil else {
-                    callback(false, nil)
-                    print("error not nil")
-                    return
-                }
-                
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    callback(false, nil)
-                    print("response error")
-                    return
-                }
-                
-                guard let weather = try? JSONDecoder().decode(Weather.self, from: data) else {
-                    callback(false, nil)
-                    print("json error")
+                guard let data = data, let weather = try? JSONDecoder().decode(Weather.self, from: data) else {
+                    callback(NetworkError.jsonDecodeFailed)
                     return
                 }
                 
                 self.cities = weather.cities
-                callback(true, weather)
+                callback(nil)
             }
         } 
         task?.resume()
-    }
-    
-    /**
-     Create the URL for the request to execute
-     - Returns: The suitable URL to ask a weather condition to the API
-     */
-    private func createRequestURL() -> URL? {
-        guard var components = URLComponents(string: apiUrl) else {
-            print("Could not build URLComponents")
-            return nil
-        }
-        
-        components.queryItems = [
-            URLQueryItem(name: "id", value: citiesId.joined(separator: ",") ),
-            URLQueryItem(name: "APPID", value: apiKey),
-            URLQueryItem(name: "units", value: unitFormat),
-        ]
-        
-        return components.url
     }
 }
