@@ -17,15 +17,14 @@ struct Currency {
     let name: String
 }
 
+/// Struct that contains currencies taken from the API
+struct CurrenciesList: Decodable {
+    /// The list of currencies resulting from the json API
+    let symbols: [String: String]
+}
+
 /// Struct that groups rates relative to a currency
-struct RelativeRates: Decodable {
-    /// Currency taken as reference
-    let base: String
-    
-    /// Timestamp of the moment when data was collected
-    let timestamp: Int
-    
+struct LatestRates: Decodable {
     /// List of currencies with their rates
     let rates: [String: Float]
 }
-

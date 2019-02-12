@@ -9,23 +9,39 @@
 import Foundation
 
 /// Class that fetch data from the currency API
-class CurrencyService {
+class CurrencyService: Service {
     // MARK: Properties
     
+    /// All currencies
+    var currencies = [Currency]()
+   
+    // Exchange rates
+    var rates = [String: Float]()
+    
     /// Base URL of the currency API
-    fileprivate let apiUrl = "http://data.fixer.io/api/"
+    private let apiUrl = "http://data.fixer.io/api/"
     
     /// Key to access the API
-    fileprivate let apiKey = "5f997405a289e163b37336eeed0c04bb"
+    private let apiKey = "5f997405a289e163b37336eeed0c04bb"
+    
+    /// Arguments to request the API
+    private var arguments: [String: String] {
+        return [
+            "access_key": apiKey
+        ]
+    }
+    
+    /// Code of main currencies that must be on top of the list
+    private let mainCurrenciesCode = ["EUR", "USD"]
     
     /// Session configuration
-    fileprivate var session = URLSession(configuration: .default)
+    private var session = URLSession(configuration: .default)
     
     /// Task to execute to get currencies list
-    fileprivate var currenciesTask: URLSessionDataTask?
+    private var currenciesTask: URLSessionDataTask?
     
     /// Task to execute to get currencies rates
-    fileprivate var ratesTask: URLSessionDataTask?
+    private var ratesTask: URLSessionDataTask?
 
     // MARK: Singleton
     
@@ -51,145 +67,105 @@ extension CurrencyService {
 extension CurrencyService {
     /**
      Fetch the list of all currencies
+     
      - Parameters:
-     - callback: closure to manage data returned by the API
-     - success: indicates if the request succeeded or not
-     - data: contains the data returned by the API
+        - callback: closure to check if there is an error
      */
-    func getCurrencies(callback: @escaping (_ success: Bool, _ currencies: [Currency]?) -> ()) {
-        guard let url = createRequestURL(for: .Currencies) else {
-            print("Error creating the request URL")
+    func getCurrencies(callback: @escaping (Error?) -> ()) {
+        guard let url = createRequestURL(url: apiUrl, arguments: arguments, path: Resource.Currencies.rawValue) else {
+            callback(NetworkError.invalidRequestURL)
             return
         }
         
         currenciesTask?.cancel()
         currenciesTask = session.dataTask(with: url, completionHandler: { (data, response, error) in
-            guard error == nil else {
-                print("The request returns an error: \n" + error!.localizedDescription)
-                callback(false, nil)
-                return
-            }
-            
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                print("The request response is not 200")
-                callback(false, nil)
-                return
-            }
-            
-            guard let data = data else {
-                print("The request did not return data")
-                callback(false, nil)
-                return
-            }
-            
-            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else {
-                print("The request did not return data")
-                callback(false, nil)
-                return
-            }
-            
-            guard let jsonArray = json as? [String: Any] else {
-                print("errors jsonArray")
-                callback(false, nil)
-                return
-            }
-            
-            guard let symbols = jsonArray["symbols"] as? [String: String] else {
-                print("errors symbols")
-                callback(false, nil)
-                return
-            }
-            
-            let mainCodes = ["EUR", "USD"]
-            var currencies = [Currency]()
-            var secondaryCurrencies = [Currency]()
-            
-            for (currencyCode, currencyName) in symbols {
-                let newCurrency = Currency(code: currencyCode, name: currencyName)
-                if mainCodes.contains(currencyCode) {
-                    currencies.append(newCurrency)
-                } else {
-                    secondaryCurrencies.append(newCurrency)
+            DispatchQueue.main.async {
+                if let failure = self.getFailure(error, response, data) {
+                    callback(failure)
+                    return
                 }
+                
+                guard let data = data, let currenciesList = try? JSONDecoder().decode(CurrenciesList.self, from: data) else {
+                    callback(NetworkError.jsonDecodeFailed)
+                    return
+                }
+                
+                self.currencies = self.formatCurrencies(from: currenciesList)
+                
+                self.getRates(completionHandler: { (error) in
+                    if let error = error {
+                        callback(error)
+                        return
+                    }
+                    
+                    callback(nil)
+                })
             }
-            
-            currencies.sort(by: { (firstCurrency, secondCurrency) -> Bool in
-                firstCurrency.name < secondCurrency.name
-            })
-            
-            secondaryCurrencies.sort(by: { (firstCurrency, secondCurrency) -> Bool in
-                firstCurrency.name < secondCurrency.name
-            })
-            
-            currencies += secondaryCurrencies
-            
-            callback(true, currencies)
-            
         })
         currenciesTask?.resume()
     }
     
     /**
      Fetch curency rates relative to EUR as base
+     
      - Parameters:
-        - callback: closure to manage data returned by the API
-        - success: indicates if the request succeeded or not
-        - data: contains the data returned by the API
+        - completionHandler: closure to check if there is an error
     */
-    func getRates(callback: @escaping (_ success: Bool, _ rates: RelativeRates?) -> ()) {
-        guard let url = createRequestURL(for: .Rates) else {
-            print("Error creating the request URL")
+    func getRates(completionHandler: @escaping (Error?) -> ()) {
+        guard let url = createRequestURL(url: apiUrl, arguments: arguments, path: Resource.Rates.rawValue) else {
+            completionHandler(NetworkError.invalidRequestURL)
             return
         }
         
         ratesTask?.cancel()
         ratesTask = session.dataTask(with: url) { (data, response, error) in
-            guard error == nil else {
-                print("The request returns an error: \n" + error!.localizedDescription)
-                callback(false, nil)
-                return
+            DispatchQueue.main.async {
+                if let failure = self.getFailure(error, response, data) {
+                    completionHandler(failure)
+                    return
+                }
+                
+                guard let data = data, let latestRates = try? JSONDecoder().decode(LatestRates.self, from: data) else {
+                    completionHandler(NetworkError.jsonDecodeFailed)
+                    return
+                }
+                
+                self.rates = latestRates.rates
+                completionHandler(nil)
             }
-            
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                print("The request response is not 200")
-                callback(false, nil)
-                return
-            }
-            
-            guard let data = data else {
-                print("The request did not return data")
-                callback(false, nil)
-                return
-            }
-            
-            guard let rates = try? JSONDecoder().decode(RelativeRates.self, from: data) else {
-                print("Error on json decode")
-                callback(false, nil)
-                return
-            }
- 
-            callback(true, rates)
         }
         ratesTask?.resume()
     }
     
     /**
-     Create the URL for the request to execute
-     - parameter resource: resource asked to the API
-     - Returns: The suitable URL to ask a resource to the API
+     Transform currencies list from API to array of Currency
+     
+     - Parameters:
+        - currenciesList: The list of currencies decoded from json
+     
+     - Returns: An array of Currency ordered alphabetically
      */
-    private func createRequestURL(for resource: Resource) -> URL? {
-        guard var components = URLComponents(string: apiUrl) else {
-            print("Could not build URLComponents")
-            return nil
+    private func formatCurrencies(from currenciesList: CurrenciesList) -> [Currency] {
+        var primaryCurrencies = [Currency]()
+        var secondaryCurrencies = [Currency]()
+        
+        for (currencyCode, currencyName) in currenciesList.symbols {
+            let newCurrency = Currency(code: currencyCode, name: currencyName)
+            if self.mainCurrenciesCode.contains(currencyCode) {
+                primaryCurrencies.append(newCurrency)
+            } else {
+                secondaryCurrencies.append(newCurrency)
+            }
         }
         
-        components.path += resource.rawValue
-        
-        components.queryItems = [
-            URLQueryItem(name: "access_key", value: apiKey)
-        ]
-        
-        return components.url
+        primaryCurrencies.sort(by: { (currencyA, currencyB) -> Bool in
+        currencyA.name < currencyB.name
+        })
+
+        secondaryCurrencies.sort(by: { (currencyA, currencyB) -> Bool in
+        currencyA.name < currencyB.name
+        })
+
+        return primaryCurrencies + secondaryCurrencies
     }
 }

@@ -104,8 +104,8 @@
 			isa = PBXGroup;
 			children = (
 				22F0C8222111F275008EC6B5 /* Currency.swift */,
-				221C95172200627B0033B8B3 /* Weather.swift */,
 				22F0C82A2114B5B0008EC6B5 /* CurrencyService.swift */,
+				221C95172200627B0033B8B3 /* Weather.swift */,
 				22433CEC21D4D91300A73EC9 /* WeatherService.swift */,
 				2218171C220DC30600B0CFB4 /* Service.swift */,
 				221966882211BDB800E59714 /* Error.swift */,

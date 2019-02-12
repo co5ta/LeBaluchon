@@ -12,6 +12,9 @@ import Foundation
 class WeatherService: Service {
     // MARK: Properties
     
+    /// Weather data given by the API
+    var cities: [Weather.City] = []
+    
     /// Base URL of the currency API
     private let apiUrl = "https://api.openweathermap.org/data/2.5/group"
     
@@ -24,7 +27,7 @@ class WeatherService: Service {
     /// Metric unit format for celcius degrees
     private let unitFormat = "metric"
     
-    /// Arguments that details what to ask to the API and include the API Key
+    /// arguments to request the API
     private var arguments: [String: String] {
         return [
             "id": citiesId.joined(separator: ","),
@@ -38,9 +41,6 @@ class WeatherService: Service {
     
     /// Task to execute
     private var task: URLSessionDataTask?
-    
-    /// Weather data given by the API
-    var cities: [Weather.City] = []
     
     // MARK: Singleton
     
@@ -57,10 +57,9 @@ extension WeatherService {
     
     /**
      Fetch weather condition relative to a city
+     
      - Parameters:
-     - callback: closure to manage data returned by the API
-     - success: indicates if the request succeeded or not
-     - data: contains the data returned by the API
+         - callback: closure to check if there is an error
      */
     func getConditions(callback: @escaping (Error?) -> Void) {
         guard let request = createRequestURL(url: apiUrl, arguments: arguments) else {

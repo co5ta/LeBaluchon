@@ -10,14 +10,6 @@ import UIKit
 
 /// Controller that manages the Currency scene
 class CurrencyViewController: UIViewController {
-    // MARK: Properties
-    
-    /// All available currencies
-    var currencies = [Currency]()
-    
-    /// Exchange rates grouped by relative currencies
-    var rates: RelativeRates?
-    
     // MARK: Outlets
     
     /// Value to convert
@@ -70,29 +62,13 @@ extension CurrencyViewController {
     
     /// Fetch currencies for pickerViews
     func getCurrencies() {
-        CurrencyService.shared.getCurrencies(callback: { (success, data) in
-            DispatchQueue.main.async {
-                if success, let data = data {
-                    self.currencies = data
-                    self.reloadPickerViews()
-                    self.getRates()
-                } else {
-                    // Display an error message
-                }
-            }
-        })
-    }
-    
-    /// Fetch latest rates, relative to EUR currency
-    private func getRates() {
-        CurrencyService.shared.getRates(callback: { (success, data) in
-            DispatchQueue.main.sync {
-                if success, let data = data {
-                    self.rates = data
-                    self.convert()
-                } else {
-                    // Display error message
-                }
+        CurrencyService.shared.getCurrencies(callback: { error in
+            if error != nil {
+                // Display an error message
+                print("error get currencies")
+            } else {
+                self.reloadPickerViews()
+                self.convert()
             }
         })
     }
@@ -108,12 +84,12 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     /// Give the number of rows in the a pickerView's component
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return currencies.count
+        return CurrencyService.shared.currencies.count
     }
     
     /// Give the content of a row
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let currency = currencies[row]
+        let currency = CurrencyService.shared.currencies[row]
         return currency.name
     }
     
@@ -125,7 +101,7 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     /// Update the short name of the currency near the value
     private func updateCurrencyLabel(pickerView: UIPickerView, row: Int) {
-        let currency = currencies[row]
+        let currency = CurrencyService.shared.currencies[row]
         if pickerView == sourceCurrencyPickerView {
             sourceCurrencyLabel.text = currency.code
         } else {
@@ -160,20 +136,20 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 extension CurrencyViewController {
     /// Convert a value from a currency to another
     func convert() {
-        let sourceCurrency = currencies[sourceCurrencyPickerView.selectedRow(inComponent: 0)]
-        let targetCurrency = currencies[targetCurrencyPickerView.selectedRow(inComponent: 0)]
+        let sourceCurrency = CurrencyService.shared.currencies[sourceCurrencyPickerView.selectedRow(inComponent: 0)]
+        let targetCurrency = CurrencyService.shared.currencies[targetCurrencyPickerView.selectedRow(inComponent: 0)]
         
         guard let sourceValue = sourceValueTextField.text else {
             print("There is no value to convert")
             return
         }
         
-        guard let sourceCurrencyRate = rates?.rates[sourceCurrency.code] else {
+        guard let sourceCurrencyRate = CurrencyService.shared.rates[sourceCurrency.code] else {
             print("Source currency rate not found")
             return
         }
         
-        guard let targetCurrencyRate = rates?.rates[targetCurrency.code] else {
+        guard let targetCurrencyRate = CurrencyService.shared.rates[targetCurrency.code] else {
             print("Target currency rate not found")
             return
         }

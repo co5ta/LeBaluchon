@@ -8,10 +8,16 @@
 
 import Foundation
 
+/// Give information on the error encountered in a request
 enum NetworkError: Error {
+    /// The request URL could not be generate
     case invalidRequestURL
+    /// The API returned an error
     case errorFromAPI(message: String)
+    /// The request returned an bad response
     case badResponse(message: String)
+    /// Data are empty
     case emptyData
+    /// Json decoding failed
     case jsonDecodeFailed
 }
