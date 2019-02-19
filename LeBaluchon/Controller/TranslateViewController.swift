@@ -1,5 +1,5 @@
 //
-//  TranslatorViewController.swift
+//  TranslateViewController.swift
 //  LeBaluchon
 //
 //  Created by co5ta on 31/07/2018.
@@ -8,28 +8,42 @@
 
 import UIKit
 
-class TranslatorViewController: UIViewController {
+class TranslateViewController: UIViewController {
 
+    /// placeholder of teh text view
+    var placeholder = "Enter text here"
+    
+    @IBOutlet weak var sourceTextView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
+}
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+extension TranslateViewController: UITextViewDelegate {
+    /// Dismiss keyboard when leaving text view edition
+    @objc func dismissKeyboard(_ sender: UITextView) {
+        if sourceTextView.text.isEmpty {
+            sourceTextView.text = placeholder
+        }
+        sourceTextView.resignFirstResponder()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        if sourceTextView.text == placeholder {
+            sourceTextView.text = ""
+        }
+        return true
     }
-    */
-
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            sourceTextView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
 }
