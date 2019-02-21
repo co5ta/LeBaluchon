@@ -58,7 +58,7 @@ extension LanguageTableViewController {
         if let language = language, let sender = sender {
             delegate?.changeLanguage(language: language, sender: sender)
         }
-        tableView.reloadData()
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -66,7 +66,7 @@ extension LanguageTableViewController {
 
 extension LanguageTableViewController {
     // Dismiss the scene
-    @IBAction func dismiss(_ sender: UIBarButtonItem) {
+    @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
 }

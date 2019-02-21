@@ -314,9 +314,9 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
                                 <navigationItem title="Language" id="evx-Ut-tOp">
-                                    <barButtonItem key="rightBarButtonItem" title="OK" id="xsH-NA-O4J">
+                                    <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="xsH-NA-O4J" userLabel="Cancel Button">
                                         <connections>
-                                            <action selector="dismiss:" destination="Xxv-fA-24b" id="0iq-cb-zuj"/>
+                                            <action selector="cancelButtonTapped:" destination="Xxv-fA-24b" id="0ic-m1-Lrt"/>
                                         </connections>
                                     </barButtonItem>
                                 </navigationItem>

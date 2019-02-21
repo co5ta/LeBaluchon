@@ -87,9 +87,6 @@ extension TranslationViewController {
     @IBAction func languageButtonTapped(_ sender: UIButton) {
         performSegue(withIdentifier: "segueToLanguage", sender: sender)
     }
-    
-    /// Return to this scene
-    @IBAction func unwindToTranslationScene(segue: UIStoryboardSegue) {}
 }
 
 // MARK: - UITextViewDelegate
@@ -139,5 +136,6 @@ extension TranslationViewController: LanguageTableViewControllerDelegate {
             TranslationService.shared.targetLanguage = language
             targetLanguageButton.setTitle(language.name, for: .normal)
         }
+        
     }
 }
