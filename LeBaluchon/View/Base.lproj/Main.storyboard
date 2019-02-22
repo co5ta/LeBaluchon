@@ -192,6 +192,10 @@
                                             <constraint firstAttribute="width" secondItem="vWR-DS-wLh" secondAttribute="height" multiplier="1:1" id="zkt-k4-80u"/>
                                         </constraints>
                                         <state key="normal" image="transfer"/>
+                                        <state key="highlighted" image="transfer-highlighted"/>
+                                        <connections>
+                                            <action selector="reverserButtonTapped:" destination="RLC-Z1-KgT" eventType="touchUpInside" id="jGC-o0-rO2"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -490,6 +494,7 @@
         <image name="currency-separator" width="229" height="76"/>
         <image name="inverter-arrow" width="68.5" height="68.5"/>
         <image name="transfer" width="192" height="192"/>
+        <image name="transfer-highlighted" width="192" height="192"/>
         <image name="translator-item" width="25" height="25"/>
         <image name="weather-item" width="25" height="25"/>
     </resources>

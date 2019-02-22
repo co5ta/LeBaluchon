@@ -28,6 +28,19 @@ class TranslationViewController: UIViewController {
     
     /// Text view to show translated text
     @IBOutlet weak var translatedTextView: UITextView!
+    
+    @IBAction func reverserButtonTapped(_ sender: UIButton) {
+        reverseLanguages()
+    }
+    
+    func reverseLanguages() {
+        let lastSourceLanguage = TranslationService.shared.sourceLanguage
+        
+        TranslationService.shared.sourceLanguage = TranslationService.shared.targetLanguage
+        TranslationService.shared.targetLanguage = lastSourceLanguage
+        sourceLanguageButton.setTitle(TranslationService.shared.sourceLanguage.name, for: .normal)
+        targetLanguageButton.setTitle(TranslationService.shared.targetLanguage.name, for: .normal)
+    }
 }
 
 // MARK: - Init
@@ -130,9 +143,17 @@ extension TranslationViewController: LanguageTableViewControllerDelegate {
     */
     func changeLanguage(language: Language, sender: UIButton) {
         if sender == sourceLanguageButton {
+            if TranslationService.shared.targetLanguage.code == language.code {
+                reverseLanguages()
+                return
+            }
             TranslationService.shared.sourceLanguage = language
             sourceLanguageButton.setTitle(language.name, for: .normal)
         } else {
+            if TranslationService.shared.sourceLanguage.code == language.code {
+                reverseLanguages()
+                return
+            }
             TranslationService.shared.targetLanguage = language
             targetLanguageButton.setTitle(language.name, for: .normal)
         }
