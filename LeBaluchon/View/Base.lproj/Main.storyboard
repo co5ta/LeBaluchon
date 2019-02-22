@@ -220,7 +220,7 @@
                                 <rect key="frame" x="0.0" y="114" width="320" height="405"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4cY-D2-Qgz" userLabel="Translation Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="168.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="189.5"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" text="Enter text here" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="n6B-vv-cKI">
                                                 <rect key="frame" x="8" y="15" width="304" height="36.5"/>
@@ -238,33 +238,56 @@
                                                     <constraint firstAttribute="height" constant="1" id="KDp-7e-sJv"/>
                                                 </constraints>
                                             </view>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SPANISH TRANSLATION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Knz-Kh-3VV">
-                                                <rect key="frame" x="8" y="101.5" width="304" height="18"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ost-yZ-LhM">
-                                                <rect key="frame" x="8" y="127.5" width="304" height="33"/>
+                                                <rect key="frame" x="8" y="148.5" width="304" height="33"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kxd-oP-vxz">
+                                                <rect key="frame" x="100" y="87.5" width="120" height="41"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDV-cn-vt8" userLabel="Translate Button">
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="41"/>
+                                                        <state key="normal" title="Translate">
+                                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="translateButtonTapped:" destination="RLC-Z1-KgT" eventType="touchUpInside" id="LWS-FE-VIO"/>
+                                                        </connections>
+                                                    </button>
+                                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="XTg-Rb-9gx">
+                                                        <rect key="frame" x="41.5" y="2" width="37" height="37"/>
+                                                    </activityIndicatorView>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="XTg-Rb-9gx" firstAttribute="centerY" secondItem="Kxd-oP-vxz" secondAttribute="centerY" id="2Dy-mq-qtD"/>
+                                                    <constraint firstItem="vDV-cn-vt8" firstAttribute="centerX" secondItem="Kxd-oP-vxz" secondAttribute="centerX" id="4hB-fx-MKh"/>
+                                                    <constraint firstAttribute="width" secondItem="Kxd-oP-vxz" secondAttribute="height" multiplier="120:41" id="FtZ-cD-JhJ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="vDV-cn-vt8" secondAttribute="trailing" id="Jlr-Rf-atz"/>
+                                                    <constraint firstAttribute="bottom" secondItem="vDV-cn-vt8" secondAttribute="bottom" id="Sdl-eo-6EN"/>
+                                                    <constraint firstItem="XTg-Rb-9gx" firstAttribute="centerX" secondItem="Kxd-oP-vxz" secondAttribute="centerX" id="Tj2-70-eCf"/>
+                                                    <constraint firstItem="vDV-cn-vt8" firstAttribute="top" secondItem="Kxd-oP-vxz" secondAttribute="top" id="tw3-Z3-7Kb"/>
+                                                    <constraint firstItem="vDV-cn-vt8" firstAttribute="centerY" secondItem="Kxd-oP-vxz" secondAttribute="centerY" id="uX2-Zj-0x7"/>
+                                                    <constraint firstItem="vDV-cn-vt8" firstAttribute="leading" secondItem="Kxd-oP-vxz" secondAttribute="leading" id="xhg-0b-kbN"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="Knz-Kh-3VV" firstAttribute="leading" secondItem="4cY-D2-Qgz" secondAttribute="leading" constant="8" id="11O-C5-d1z"/>
-                                            <constraint firstItem="Knz-Kh-3VV" firstAttribute="top" secondItem="n6B-vv-cKI" secondAttribute="bottom" constant="50" id="4PK-a9-L2Q"/>
+                                            <constraint firstItem="Kxd-oP-vxz" firstAttribute="leading" secondItem="4cY-D2-Qgz" secondAttribute="leading" constant="100" id="5BN-go-ICc"/>
+                                            <constraint firstItem="Kxd-oP-vxz" firstAttribute="top" secondItem="x35-Qv-9cb" secondAttribute="bottom" constant="20" id="6L1-Cq-Ig0"/>
                                             <constraint firstAttribute="trailing" secondItem="x35-Qv-9cb" secondAttribute="trailing" id="7q6-b3-JjM"/>
                                             <constraint firstItem="x35-Qv-9cb" firstAttribute="top" secondItem="n6B-vv-cKI" secondAttribute="bottom" constant="15" id="98W-we-ReF"/>
+                                            <constraint firstAttribute="trailing" secondItem="Kxd-oP-vxz" secondAttribute="trailing" constant="100" id="CJ9-md-x0m"/>
                                             <constraint firstAttribute="trailing" secondItem="n6B-vv-cKI" secondAttribute="trailing" constant="8" id="Jqx-cw-Ore"/>
                                             <constraint firstItem="Ost-yZ-LhM" firstAttribute="leading" secondItem="4cY-D2-Qgz" secondAttribute="leading" constant="8" id="Rtw-z8-GgQ"/>
                                             <constraint firstItem="n6B-vv-cKI" firstAttribute="leading" secondItem="4cY-D2-Qgz" secondAttribute="leading" constant="8" id="UQi-2g-ULR"/>
+                                            <constraint firstItem="Ost-yZ-LhM" firstAttribute="top" secondItem="Kxd-oP-vxz" secondAttribute="bottom" constant="20" id="WYY-KN-Eml"/>
                                             <constraint firstAttribute="trailing" secondItem="Ost-yZ-LhM" secondAttribute="trailing" constant="8" id="Zdk-Jd-FuH"/>
                                             <constraint firstItem="n6B-vv-cKI" firstAttribute="top" secondItem="4cY-D2-Qgz" secondAttribute="top" constant="15" id="iVw-2y-15J"/>
-                                            <constraint firstItem="Ost-yZ-LhM" firstAttribute="top" secondItem="Knz-Kh-3VV" secondAttribute="bottom" constant="8" id="j8X-Ur-1AO"/>
                                             <constraint firstAttribute="bottom" secondItem="Ost-yZ-LhM" secondAttribute="bottom" constant="8" id="kQU-CN-sMS"/>
-                                            <constraint firstAttribute="trailing" secondItem="Knz-Kh-3VV" secondAttribute="trailing" constant="8" id="mCM-8P-LVe"/>
                                             <constraint firstItem="x35-Qv-9cb" firstAttribute="leading" secondItem="4cY-D2-Qgz" secondAttribute="leading" id="yVq-Bg-ah2"/>
                                         </constraints>
                                     </view>
@@ -294,9 +317,12 @@
                     <tabBarItem key="tabBarItem" title="Translation" image="translator-item" id="KCc-ee-fKc" userLabel="Translation"/>
                     <navigationItem key="navigationItem" title="Translation" id="khy-z1-eeP"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="XTg-Rb-9gx" id="YCr-rz-izw"/>
                         <outlet property="sourceLanguageButton" destination="If5-N0-LQP" id="4fw-yX-XKg"/>
                         <outlet property="sourceTextView" destination="n6B-vv-cKI" id="wOb-kl-mM2"/>
                         <outlet property="targetLanguageButton" destination="CqY-Bj-NMn" id="5qB-YT-ltw"/>
+                        <outlet property="translateButton" destination="vDV-cn-vt8" id="IH1-3B-nl7"/>
+                        <outlet property="translateButtonContainer" destination="Kxd-oP-vxz" id="2XO-Q9-m44"/>
                         <outlet property="translatedTextView" destination="Ost-yZ-LhM" id="u3g-2o-0Gc"/>
                         <segue destination="Xxv-fA-24b" kind="presentation" identifier="segueToLanguage" id="lKK-cS-YTr"/>
                     </connections>

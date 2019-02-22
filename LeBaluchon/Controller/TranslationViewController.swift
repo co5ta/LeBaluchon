@@ -15,6 +15,9 @@ class TranslationViewController: UIViewController {
     /// Placeholder of the text view
     var placeholder = "Enter text here"
     
+    /// Confirms that the user filled the source text view
+    var sourceTextViewEdited = false
+    
     // MARK: Outlets
     
     /// Button to change source language
@@ -29,18 +32,13 @@ class TranslationViewController: UIViewController {
     /// Text view to show translated text
     @IBOutlet weak var translatedTextView: UITextView!
     
-    @IBAction func reverserButtonTapped(_ sender: UIButton) {
-        reverseLanguages()
-    }
+    /// Translate button container
+    @IBOutlet weak var translateButtonContainer: UIView!
     
-    func reverseLanguages() {
-        let lastSourceLanguage = TranslationService.shared.sourceLanguage
-        
-        TranslationService.shared.sourceLanguage = TranslationService.shared.targetLanguage
-        TranslationService.shared.targetLanguage = lastSourceLanguage
-        sourceLanguageButton.setTitle(TranslationService.shared.sourceLanguage.name, for: .normal)
-        targetLanguageButton.setTitle(TranslationService.shared.targetLanguage.name, for: .normal)
-    }
+    /// Translate button to run translate
+    @IBOutlet weak var translateButton: UIButton!
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 }
 
 // MARK: - Init
@@ -55,6 +53,8 @@ extension TranslationViewController {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
+        
+        translateButtonContainer.layer.cornerRadius = 10
     }
 }
 
@@ -69,13 +69,38 @@ extension TranslationViewController {
      - targetLanguage: Language in which the source text must be translated
      */
     func getTranslation(sourceText: String, sourceLanguage: Language, targetLanguage: Language) {
+        translateButton.isHidden = true
+        activityIndicator.isHidden = false
         TranslationService.shared.getTranslation(sourceText: sourceText, sourceLanguage: sourceLanguage, targetLanguage: targetLanguage) { (error) in
             if let error = error {
                 print(error)
             } else {
                 self.translatedTextView.text = TranslationService.shared.translation
             }
+            self.translateButton.isHidden = false
+            self.activityIndicator.isHidden = true
+            self.translateButtonContainer.isHidden = true
         }
+    }
+    
+    /// Reverse source and target language
+    func reverseLanguages() {
+        let lastSourceLanguage = TranslationService.shared.sourceLanguage
+        
+        TranslationService.shared.sourceLanguage = TranslationService.shared.targetLanguage
+        TranslationService.shared.targetLanguage = lastSourceLanguage
+        sourceLanguageButton.setTitle(TranslationService.shared.sourceLanguage.name, for: .normal)
+        targetLanguageButton.setTitle(TranslationService.shared.targetLanguage.name, for: .normal)
+    }
+    
+    /// Reverse languages when the button is tapped
+    @IBAction func reverserButtonTapped(_ sender: UIButton) {
+        reverseLanguages()
+    }
+    
+    /// Run translation when the button is tapped
+    @IBAction func translateButtonTapped(_ sender: UIButton) {
+        getTranslation(sourceText: sourceTextView.text, sourceLanguage: TranslationService.shared.sourceLanguage, targetLanguage: TranslationService.shared.targetLanguage)
     }
 }
 
@@ -108,20 +133,25 @@ extension TranslationViewController: UITextViewDelegate {
     /// Dismiss keyboard when leaving text view edition
     @objc func dismissKeyboard(_ sender: UITextView) {
         sourceTextView.resignFirstResponder()
-        if sourceTextView.text.isEmpty {
-            sourceTextView.text = placeholder
-        }
     }
     
-    /// Toggles the text that serves as placeholder
+    /// Remove the placeholder before editing text
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        if sourceTextView.text == placeholder {
+        if sourceTextView.text == placeholder && sourceTextViewEdited == false {
             sourceTextView.text = ""
         }
         return true
     }
     
-    /// Run translation when return key is tapped
+    /// Put the placeholder in text view if it is empty
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        if sourceTextView.text.isEmpty {
+            sourceTextView.text = placeholder
+        }
+        return true
+    }
+    
+    /// Run the translation when return key is tapped
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             sourceTextView.resignFirstResponder()
@@ -129,6 +159,18 @@ extension TranslationViewController: UITextViewDelegate {
             return false
         }
         return true
+    }
+    
+    /// Hide or show the translate button if the source text view is filled or not
+    func textViewDidChange(_ textView: UITextView) {
+        let trimmedSourceTextView = sourceTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmedSourceTextView.isEmpty == false {
+            translateButtonContainer.isHidden = false
+            sourceTextViewEdited = true
+        } else {
+            translateButtonContainer.isHidden = true
+            sourceTextViewEdited = false
+        }
     }
 }
 
