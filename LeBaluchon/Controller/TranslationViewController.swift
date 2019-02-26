@@ -77,9 +77,12 @@ extension TranslationViewController {
             } else {
                 self.translatedTextView.text = TranslationService.shared.translation
             }
+            
+            self.sourceTextView.resignFirstResponder()
+            self.translatedTextView.isHidden = false
+            self.translateButtonContainer.isHidden = true
             self.translateButton.isHidden = false
             self.activityIndicator.isHidden = true
-            self.translateButtonContainer.isHidden = true
         }
     }
     
@@ -137,6 +140,7 @@ extension TranslationViewController: UITextViewDelegate {
     
     /// Remove the placeholder before editing text
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        translatedTextView.isHidden = true
         if sourceTextView.text == placeholder && sourceTextViewEdited == false {
             sourceTextView.text = ""
         }
@@ -145,6 +149,7 @@ extension TranslationViewController: UITextViewDelegate {
     
     /// Put the placeholder in text view if it is empty
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        translatedTextView.isHidden = false
         if sourceTextView.text.isEmpty {
             sourceTextView.text = placeholder
         }
