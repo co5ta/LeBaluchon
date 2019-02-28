@@ -20,6 +20,11 @@ class TranslationViewController: UIViewController {
     
     // MARK: Outlets
     
+    /// The scroll view
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    @IBOutlet weak var translationTabBarItem: UITabBarItem!
+    
     /// Button to change source language
     @IBOutlet weak var sourceLanguageButton: UIButton!
     
@@ -38,6 +43,10 @@ class TranslationViewController: UIViewController {
     /// Translate button to run translate
     @IBOutlet weak var translateButton: UIButton!
     
+    /// Bottom constraint of translate button
+    @IBOutlet weak var translateButtonBottomConstraint: NSLayoutConstraint!
+    
+    /// Activity indicator for translation request
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 }
 
@@ -55,6 +64,8 @@ extension TranslationViewController {
         view.addGestureRecognizer(tap)
         
         translateButtonContainer.layer.cornerRadius = 10
+        
+        registerKeyboardNotifications()
     }
 }
 
@@ -79,11 +90,15 @@ extension TranslationViewController {
             }
             
             self.sourceTextView.resignFirstResponder()
-            self.translatedTextView.isHidden = false
-            self.translateButtonContainer.isHidden = true
-            self.translateButton.isHidden = false
-            self.activityIndicator.isHidden = true
+            self.resetDisplay()
         }
+    }
+    
+    /// Reset display by showing and adding elements
+    private func resetDisplay() {
+        translateButtonContainer.isHidden = true
+        translateButton.isHidden = false
+        activityIndicator.isHidden = true
     }
     
     /// Reverse source and target language
@@ -130,6 +145,43 @@ extension TranslationViewController {
     }
 }
 
+// MARK: - Keyboard show & hide notifications
+
+extension TranslationViewController {
+    /// Add notification to know when keyboard appear and disappear
+    private func registerKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    /// Called when keyboard appeared.
+    /// Set scroll view bottom edge inset equal to keyboard height.
+    @objc func keyboardDidShow(_ notification: NSNotification) {
+        guard let info = notification.userInfo,
+            let keyboardFrameValue = info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue else {
+                return
+        }
+        
+        let keyboardSize = keyboardFrameValue.cgRectValue.size
+        let safeAreaInsets = self.view.safeAreaInsets
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height - safeAreaInsets.bottom, right: 0.0)
+        
+        setScrollView(contentInsets: contentInsets)
+    }
+    
+    /// Called when keyboard will disappear.
+    /// Set scroll view edge inset to zero.
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        setScrollView(contentInsets: UIEdgeInsets.zero)
+    }
+    
+    /// Change scroll view edge inset
+    private func setScrollView(contentInsets: UIEdgeInsets) {
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+    }
+}
+
 // MARK: - UITextViewDelegate
 
 extension TranslationViewController: UITextViewDelegate {
@@ -140,7 +192,6 @@ extension TranslationViewController: UITextViewDelegate {
     
     /// Remove the placeholder before editing text
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        translatedTextView.isHidden = true
         if sourceTextView.text == placeholder && sourceTextViewEdited == false {
             sourceTextView.text = ""
         }
@@ -149,7 +200,6 @@ extension TranslationViewController: UITextViewDelegate {
     
     /// Put the placeholder in text view if it is empty
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        translatedTextView.isHidden = false
         if sourceTextView.text.isEmpty {
             sourceTextView.text = placeholder
         }

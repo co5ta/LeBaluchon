@@ -220,12 +220,11 @@
                                 <rect key="frame" x="0.0" y="114" width="320" height="405"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4cY-D2-Qgz" userLabel="Translation Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="341"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="167"/>
                                         <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="n6B-vv-cKI">
-                                                <rect key="frame" x="8" y="15" width="304" height="36.5"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" text="Enter text here" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="n6B-vv-cKI">
+                                                <rect key="frame" x="8" y="15" width="304" height="37"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <string key="text">Le temps de faire redescendre la pression, de digérer la déception. Et puis Maurizio Sarri s’est présenté devant la presse, pour parler de Chelsea, de cette finale perdue face à Manchester City (0-0, 4 tab à 3). Et de Kepa, surtout. Parce que le portier basque a sorti Wembley de sa torpeur dominicale sur un événement surréaliste au possible. Comment ? En refusant de sortir à la fin de la prolongation, alors que Sarri le lui avait demandé et que Willy Caballero s’échauffait à proximité de la ligne de touche.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="go"/>
                                                 <connections>
@@ -233,14 +232,14 @@
                                                 </connections>
                                             </textView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x35-Qv-9cb" userLabel="Separator">
-                                                <rect key="frame" x="0.0" y="66.5" width="320" height="1"/>
+                                                <rect key="frame" x="0.0" y="67" width="320" height="1"/>
                                                 <color key="backgroundColor" red="0.83921568629999999" green="0.83921568629999999" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="KDp-7e-sJv"/>
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kxd-oP-vxz">
-                                                <rect key="frame" x="100" y="82.5" width="120" height="41"/>
+                                                <rect key="frame" x="100" y="83" width="120" height="41"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDV-cn-vt8" userLabel="Translate Button">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="41"/>
@@ -252,7 +251,7 @@
                                                         </connections>
                                                     </button>
                                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="XTg-Rb-9gx">
-                                                        <rect key="frame" x="41.5" y="2" width="37" height="37"/>
+                                                        <rect key="frame" x="42" y="2" width="37" height="37"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     </activityIndicatorView>
                                                 </subviews>
@@ -266,16 +265,15 @@
                                                 </constraints>
                                             </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ost-yZ-LhM">
-                                                <rect key="frame" x="8" y="124.5" width="304" height="216.5"/>
+                                                <rect key="frame" x="8" y="129" width="304" height="33"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <string key="text">Le temps de faire redescendre la pression, de digérer la déception. Et puis Maurizio Sarri s’est présenté devant la presse, pour parler de Chelsea, de cette finale perdue face à Manchester City (0-0, 4 tab à 3). Et de Kepa, surtout. Parce que le portier basque a sorti Wembley de sa torpeur dominicale sur un événement surréaliste au possible. Comment ? En refusant de sortir à la fin de la prolongation, alors que Sarri le lui avait demandé et que Willy Caballero s’échauffait à proximité de la ligne de touche.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="Ost-yZ-LhM" secondAttribute="bottom" id="3pX-nZ-WQi"/>
+                                            <constraint firstAttribute="bottom" secondItem="Ost-yZ-LhM" secondAttribute="bottom" constant="5" id="3pX-nZ-WQi"/>
                                             <constraint firstItem="Kxd-oP-vxz" firstAttribute="leading" secondItem="4cY-D2-Qgz" secondAttribute="leading" constant="100" id="5BN-go-ICc"/>
                                             <constraint firstItem="Kxd-oP-vxz" firstAttribute="top" secondItem="x35-Qv-9cb" secondAttribute="bottom" constant="15" id="6L1-Cq-Ig0"/>
                                             <constraint firstAttribute="trailing" secondItem="x35-Qv-9cb" secondAttribute="trailing" id="7q6-b3-JjM"/>
@@ -285,7 +283,7 @@
                                             <constraint firstItem="Ost-yZ-LhM" firstAttribute="leading" secondItem="4cY-D2-Qgz" secondAttribute="leading" constant="8" id="Rtw-z8-GgQ"/>
                                             <constraint firstItem="n6B-vv-cKI" firstAttribute="leading" secondItem="4cY-D2-Qgz" secondAttribute="leading" constant="8" id="UQi-2g-ULR"/>
                                             <constraint firstAttribute="trailing" secondItem="Ost-yZ-LhM" secondAttribute="trailing" constant="8" id="Zdk-Jd-FuH"/>
-                                            <constraint firstItem="Ost-yZ-LhM" firstAttribute="top" secondItem="Kxd-oP-vxz" secondAttribute="bottom" constant="1" id="azr-TX-VSr"/>
+                                            <constraint firstItem="Ost-yZ-LhM" firstAttribute="top" secondItem="Kxd-oP-vxz" secondAttribute="bottom" constant="5" id="h1k-mS-lXa"/>
                                             <constraint firstItem="n6B-vv-cKI" firstAttribute="top" secondItem="4cY-D2-Qgz" secondAttribute="top" constant="15" id="iVw-2y-15J"/>
                                             <constraint firstItem="x35-Qv-9cb" firstAttribute="leading" secondItem="4cY-D2-Qgz" secondAttribute="leading" id="yVq-Bg-ah2"/>
                                         </constraints>
@@ -294,8 +292,8 @@
                                 <constraints>
                                     <constraint firstItem="4cY-D2-Qgz" firstAttribute="width" secondItem="0h5-sq-1P8" secondAttribute="width" id="3sD-tN-qws"/>
                                     <constraint firstItem="4cY-D2-Qgz" firstAttribute="leading" secondItem="0h5-sq-1P8" secondAttribute="leading" id="L0M-lf-q6z"/>
+                                    <constraint firstAttribute="bottom" secondItem="4cY-D2-Qgz" secondAttribute="bottom" id="aZQ-js-mNy"/>
                                     <constraint firstAttribute="trailing" secondItem="4cY-D2-Qgz" secondAttribute="trailing" id="blU-mR-eOR"/>
-                                    <constraint firstAttribute="bottom" secondItem="4cY-D2-Qgz" secondAttribute="bottom" id="hmj-4q-Qxx"/>
                                     <constraint firstItem="4cY-D2-Qgz" firstAttribute="top" secondItem="0h5-sq-1P8" secondAttribute="top" id="igK-FD-SxX"/>
                                 </constraints>
                             </scrollView>
@@ -305,10 +303,10 @@
                             <constraint firstItem="jcb-cd-s45" firstAttribute="trailing" secondItem="0h5-sq-1P8" secondAttribute="trailing" id="13V-dL-8ZV"/>
                             <constraint firstItem="0h5-sq-1P8" firstAttribute="top" secondItem="7dQ-3c-kR1" secondAttribute="bottom" constant="1" id="2cg-hp-ftt"/>
                             <constraint firstItem="Yvg-b1-wbb" firstAttribute="leading" secondItem="jcb-cd-s45" secondAttribute="leading" id="BFh-Jc-IFA"/>
+                            <constraint firstItem="jcb-cd-s45" firstAttribute="bottom" secondItem="0h5-sq-1P8" secondAttribute="bottom" id="RBN-bB-sZm"/>
                             <constraint firstItem="Yvg-b1-wbb" firstAttribute="trailing" secondItem="jcb-cd-s45" secondAttribute="trailing" id="VEW-5U-cpX"/>
                             <constraint firstItem="0h5-sq-1P8" firstAttribute="leading" secondItem="jcb-cd-s45" secondAttribute="leading" id="fnP-si-bfZ"/>
                             <constraint firstItem="0h5-sq-1P8" firstAttribute="top" secondItem="Yvg-b1-wbb" secondAttribute="bottom" id="hmm-J6-n0n"/>
-                            <constraint firstItem="jcb-cd-s45" firstAttribute="bottom" secondItem="0h5-sq-1P8" secondAttribute="bottom" id="s4h-aZ-RnK"/>
                             <constraint firstItem="Yvg-b1-wbb" firstAttribute="top" secondItem="jcb-cd-s45" secondAttribute="top" id="ugx-bz-8R0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jcb-cd-s45"/>
@@ -317,12 +315,14 @@
                     <navigationItem key="navigationItem" title="Translation" id="khy-z1-eeP"/>
                     <connections>
                         <outlet property="activityIndicator" destination="XTg-Rb-9gx" id="YCr-rz-izw"/>
+                        <outlet property="scrollView" destination="0h5-sq-1P8" id="VOG-GO-2cf"/>
                         <outlet property="sourceLanguageButton" destination="If5-N0-LQP" id="4fw-yX-XKg"/>
                         <outlet property="sourceTextView" destination="n6B-vv-cKI" id="wOb-kl-mM2"/>
                         <outlet property="targetLanguageButton" destination="CqY-Bj-NMn" id="5qB-YT-ltw"/>
                         <outlet property="translateButton" destination="vDV-cn-vt8" id="IH1-3B-nl7"/>
                         <outlet property="translateButtonContainer" destination="Kxd-oP-vxz" id="2XO-Q9-m44"/>
                         <outlet property="translatedTextView" destination="Ost-yZ-LhM" id="u3g-2o-0Gc"/>
+                        <outlet property="translationTabBarItem" destination="KCc-ee-fKc" id="nIm-u7-eEM"/>
                         <segue destination="Xxv-fA-24b" kind="presentation" identifier="segueToLanguage" id="lKK-cS-YTr"/>
                     </connections>
                 </viewController>
