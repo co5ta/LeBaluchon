@@ -67,6 +67,7 @@ extension CurrencyViewController {
                 // Display an error message
                 print("error get currencies")
             } else {
+                self.sourceValueTextField.text = "1"
                 self.reloadPickerViews()
                 self.convert()
             }

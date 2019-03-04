@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" placeholder="0.0" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Va-6b-6hL">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Va-6b-6hL">
                                 <rect key="frame" x="15" y="75" width="247" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="CZo-Ei-WB5"/>
@@ -36,7 +36,7 @@
                                     <constraint firstAttribute="width" secondItem="nWd-yF-led" secondAttribute="height" multiplier="345:125" constant="27.600000000000023" id="tlE-Hf-rt6"/>
                                 </constraints>
                             </pickerView>
-                            <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.15" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="weQ-9O-qFi">
+                            <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="weQ-9O-qFi">
                                 <rect key="frame" x="15" y="314" width="245" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="95B-53-KKJ"/>
