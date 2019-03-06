@@ -12,12 +12,16 @@ import Foundation
 enum NetworkError: Error {
     /// The request URL could not be generate
     case invalidRequestURL
+    
     /// The API returned an error
-    case errorFromAPI(message: String)
+    case errorFromAPI
+    
     /// The request returned an bad response
-    case badResponse(message: String)
+    case badResponse
+    
     /// Data are empty
     case emptyData
+    
     /// Json decoding failed
     case jsonDecodeFailed
 }

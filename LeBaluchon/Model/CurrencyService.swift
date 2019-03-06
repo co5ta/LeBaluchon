@@ -10,39 +10,6 @@ import Foundation
 
 /// Class that fetch data from the currency API
 class CurrencyService: Service {
-    // MARK: Properties
-    
-    /// All currencies
-    var currencies = [Currency]()
-   
-    // Exchange rates
-    var rates = [String: Float]()
-    
-    /// Base URL of the currency API
-    private let apiUrl = "http://data.fixer.io/api/"
-    
-    /// Key to access the API
-    private let apiKey = "5f997405a289e163b37336eeed0c04bb"
-    
-    /// Arguments to request the API
-    private var arguments: [String: String] {
-        return [
-            "access_key": apiKey
-        ]
-    }
-    
-    /// Code of main currencies that must be on top of the list
-    private let mainCurrenciesCode = ["EUR", "USD"]
-    
-    /// Session configuration
-    private var session = URLSession(configuration: .default)
-    
-    /// Task to execute to get currencies list
-    private var currenciesTask: URLSessionDataTask?
-    
-    /// Task to execute to get currencies rates
-    private var ratesTask: URLSessionDataTask?
-
     // MARK: Singleton
     
     /// Property for singleton pattern
@@ -50,6 +17,47 @@ class CurrencyService: Service {
     
     /// Init for singleton pattern
     private init() {}
+    
+    // MARK: Dependency injection
+    
+    /// Inject custom session for tests
+    init(session: URLSession) {
+        self.session = session
+    }
+    
+    /// Inject custom session and apiUrl for tests
+    init(session: URLSession, apiUrl: String) {
+        self.session = session
+        self.apiUrl = apiUrl
+    }
+    
+    // MARK: Properties
+    
+    /// Session configuration
+    private var session = URLSession(configuration: .default)
+    
+    /// Task to request data
+    private var task: URLSessionDataTask?
+    
+    /// Base URL of the currency API
+    private var apiUrl = "http://data.fixer.io/api/"
+    
+    /// Key to access the API
+    private let apiKey = "5f997405a289e163b37336eeed0c04bb"
+    
+    /// Arguments to request the API
+    private var arguments: [String: String] {
+        return [ "access_key": apiKey ]
+    }
+    
+    /// Code of main currencies that must be on top of the list
+    private let mainCurrenciesCode = ["EUR", "USD"]
+    
+    /// All currencies
+    var currencies = [Currency]()
+    
+    // Exchange rates
+    var rates = [String: Float]()
 }
 
 // MARK: - Data type
@@ -77,8 +85,8 @@ extension CurrencyService {
             return
         }
         
-        currenciesTask?.cancel()
-        currenciesTask = session.dataTask(with: url, completionHandler: { (data, response, error) in
+        task?.cancel()
+        task = session.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
                 if let failure = self.getFailure(error, response, data) {
                     callback(failure)
@@ -91,18 +99,10 @@ extension CurrencyService {
                 }
                 
                 self.currencies = self.formatCurrencies(from: currenciesList)
-                
-                self.getRates(completionHandler: { (error) in
-                    if let error = error {
-                        callback(error)
-                        return
-                    }
-                    
-                    callback(nil)
-                })
+                callback(nil)
             }
-        })
-        currenciesTask?.resume()
+        }
+        task?.resume()
     }
     
     /**
@@ -111,30 +111,30 @@ extension CurrencyService {
      - Parameters:
         - completionHandler: closure to check if there is an error
     */
-    func getRates(completionHandler: @escaping (Error?) -> ()) {
+    func getRates(callback: @escaping (Error?) -> ()) {
         guard let url = createRequestURL(url: apiUrl, arguments: arguments, path: Resource.Rates.rawValue) else {
-            completionHandler(NetworkError.invalidRequestURL)
+            callback(NetworkError.invalidRequestURL)
             return
         }
         
-        ratesTask?.cancel()
-        ratesTask = session.dataTask(with: url) { (data, response, error) in
+        task?.cancel()
+        task = session.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
                 if let failure = self.getFailure(error, response, data) {
-                    completionHandler(failure)
+                    callback(failure)
                     return
                 }
                 
                 guard let data = data, let latestRates = try? JSONDecoder().decode(LatestRates.self, from: data) else {
-                    completionHandler(NetworkError.jsonDecodeFailed)
+                    callback(NetworkError.jsonDecodeFailed)
                     return
                 }
                 
                 self.rates = latestRates.rates
-                completionHandler(nil)
+                callback(nil)
             }
         }
-        ratesTask?.resume()
+        task?.resume()
     }
     
     /**

@@ -10,7 +10,12 @@
 		221558E2221C18AB00AC2329 /* Translation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221558E1221C18AB00AC2329 /* Translation.swift */; };
 		221558E4221C18C600AC2329 /* TranslationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221558E3221C18C600AC2329 /* TranslationService.swift */; };
 		2218171D220DC30600B0CFB4 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2218171C220DC30600B0CFB4 /* Service.swift */; };
+		221930D82230105D0051CF85 /* rates.json in Resources */ = {isa = PBXBuildFile; fileRef = 221930D72230105D0051CF85 /* rates.json */; };
 		221966892211BDB800E59714 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221966882211BDB800E59714 /* Error.swift */; };
+		221B47DD222D679700DA52CC /* CurrencyServiceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221B47DC222D679700DA52CC /* CurrencyServiceTestCase.swift */; };
+		221B47DF222D6C5200DA52CC /* currencies.json in Resources */ = {isa = PBXBuildFile; fileRef = 221B47DE222D6C5200DA52CC /* currencies.json */; };
+		221B47E1222D726B00DA52CC /* CurrencyServiceFakeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221B47E0222D726B00DA52CC /* CurrencyServiceFakeData.swift */; };
+		221B47E3222DBA8A00DA52CC /* URLSessionFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221B47E2222DBA8A00DA52CC /* URLSessionFake.swift */; };
 		221C95182200627B0033B8B3 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C95172200627B0033B8B3 /* Weather.swift */; };
 		221C951A220485300033B8B3 /* WeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C9519220485300033B8B3 /* WeatherCollectionViewCell.swift */; };
 		223592C321106EE400A2D659 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223592C221106EE400A2D659 /* AppDelegate.swift */; };
@@ -26,11 +31,28 @@
 		22F0C82B2114B5B0008EC6B5 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F0C82A2114B5B0008EC6B5 /* CurrencyService.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		221B47D7222D670200DA52CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 223592B721106EE400A2D659 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 223592BE21106EE400A2D659;
+			remoteInfo = LeBaluchon;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		221558E1221C18AB00AC2329 /* Translation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Translation.swift; sourceTree = "<group>"; };
 		221558E3221C18C600AC2329 /* TranslationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationService.swift; sourceTree = "<group>"; };
 		2218171C220DC30600B0CFB4 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		221930D72230105D0051CF85 /* rates.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rates.json; sourceTree = "<group>"; };
 		221966882211BDB800E59714 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		221B47D2222D670200DA52CC /* LeBaluchonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeBaluchonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		221B47D6222D670200DA52CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		221B47DC222D679700DA52CC /* CurrencyServiceTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyServiceTestCase.swift; sourceTree = "<group>"; };
+		221B47DE222D6C5200DA52CC /* currencies.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = currencies.json; sourceTree = "<group>"; };
+		221B47E0222D726B00DA52CC /* CurrencyServiceFakeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyServiceFakeData.swift; sourceTree = "<group>"; };
+		221B47E2222DBA8A00DA52CC /* URLSessionFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionFake.swift; sourceTree = "<group>"; };
 		221C95172200627B0033B8B3 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		221C9519220485300033B8B3 /* WeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 		223592BF21106EE400A2D659 /* LeBaluchon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeBaluchon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +71,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		221B47CF222D670200DA52CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		223592BC21106EE400A2D659 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -59,10 +88,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		221B47D3222D670200DA52CC /* LeBaluchonTests */ = {
+			isa = PBXGroup;
+			children = (
+				221B47D6222D670200DA52CC /* Info.plist */,
+				221B47DC222D679700DA52CC /* CurrencyServiceTestCase.swift */,
+				221B47E2222DBA8A00DA52CC /* URLSessionFake.swift */,
+				221B47E0222D726B00DA52CC /* CurrencyServiceFakeData.swift */,
+				221B47DE222D6C5200DA52CC /* currencies.json */,
+				221930D72230105D0051CF85 /* rates.json */,
+			);
+			path = LeBaluchonTests;
+			sourceTree = "<group>";
+		};
 		223592B621106EE400A2D659 = {
 			isa = PBXGroup;
 			children = (
 				223592C121106EE400A2D659 /* LeBaluchon */,
+				221B47D3222D670200DA52CC /* LeBaluchonTests */,
 				223592C021106EE400A2D659 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				223592BF21106EE400A2D659 /* LeBaluchon.app */,
+				221B47D2222D670200DA52CC /* LeBaluchonTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,6 +179,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		221B47D1222D670200DA52CC /* LeBaluchonTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 221B47DB222D670200DA52CC /* Build configuration list for PBXNativeTarget "LeBaluchonTests" */;
+			buildPhases = (
+				221B47CE222D670200DA52CC /* Sources */,
+				221B47CF222D670200DA52CC /* Frameworks */,
+				221B47D0222D670200DA52CC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				221B47D8222D670200DA52CC /* PBXTargetDependency */,
+			);
+			name = LeBaluchonTests;
+			productName = LeBaluchonTests;
+			productReference = 221B47D2222D670200DA52CC /* LeBaluchonTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		223592BE21106EE400A2D659 /* LeBaluchon */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 223592D121106EE500A2D659 /* Build configuration list for PBXNativeTarget "LeBaluchon" */;
@@ -158,10 +220,15 @@
 		223592B721106EE400A2D659 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0940;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Co5ta;
 				TargetAttributes = {
+					221B47D1222D670200DA52CC = {
+						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
+						TestTargetID = 223592BE21106EE400A2D659;
+					};
 					223592BE21106EE400A2D659 = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 0940;
@@ -182,11 +249,21 @@
 			projectRoot = "";
 			targets = (
 				223592BE21106EE400A2D659 /* LeBaluchon */,
+				221B47D1222D670200DA52CC /* LeBaluchonTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		221B47D0222D670200DA52CC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				221B47DF222D6C5200DA52CC /* currencies.json in Resources */,
+				221930D82230105D0051CF85 /* rates.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		223592BD21106EE400A2D659 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -200,6 +277,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		221B47CE222D670200DA52CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				221B47E1222D726B00DA52CC /* CurrencyServiceFakeData.swift in Sources */,
+				221B47E3222DBA8A00DA52CC /* URLSessionFake.swift in Sources */,
+				221B47DD222D679700DA52CC /* CurrencyServiceTestCase.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		223592BB21106EE400A2D659 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -223,6 +310,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		221B47D8222D670200DA52CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 223592BE21106EE400A2D659 /* LeBaluchon */;
+			targetProxy = 221B47D7222D670200DA52CC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		223592C621106EE400A2D659 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -243,6 +338,52 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		221B47D9222D670200DA52CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LeBaluchonTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.co5ta.LeBaluchonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LeBaluchon.app/LeBaluchon";
+			};
+			name = Debug;
+		};
+		221B47DA222D670200DA52CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LeBaluchonTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.co5ta.LeBaluchonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LeBaluchon.app/LeBaluchon";
+			};
+			name = Release;
+		};
 		223592CF21106EE500A2D659 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -398,6 +539,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		221B47DB222D670200DA52CC /* Build configuration list for PBXNativeTarget "LeBaluchonTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				221B47D9222D670200DA52CC /* Debug */,
+				221B47DA222D670200DA52CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		223592BA21106EE400A2D659 /* Build configuration list for PBXProject "LeBaluchon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

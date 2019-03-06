@@ -59,19 +59,33 @@ extension CurrencyViewController {
         
         getCurrencies()
     }
-    
+}
+
+// MARK: - Requests
+
+extension CurrencyViewController {
     /// Fetch currencies for pickerViews
     func getCurrencies() {
         CurrencyService.shared.getCurrencies(callback: { error in
             if error != nil {
-                // Display an error message
-                print("error get currencies")
+                print("error getting currencies")
             } else {
-                self.sourceValueTextField.text = "1"
                 self.reloadPickerViews()
-                self.convert()
+                self.getRates()
             }
         })
+    }
+    
+    /// Fetch currencies rates
+    func getRates() {
+        CurrencyService.shared.getRates { (error) in
+            if error != nil {
+                print("error geting rates")
+            } else {
+                self.sourceValueTextField.text = "1"
+                self.convert()
+            }
+        }
     }
 }
 
