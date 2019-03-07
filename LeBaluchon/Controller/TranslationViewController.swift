@@ -79,10 +79,11 @@ extension TranslationViewController {
      - sourceLanguage: Language of the text to translate
      - targetLanguage: Language in which the source text must be translated
      */
-    func getTranslation(sourceText: String, sourceLanguage: Language, targetLanguage: Language) {
+    func getTranslation() {
         translateButton.isHidden = true
         activityIndicator.isHidden = false
-        TranslationService.shared.getTranslation(sourceText: sourceText, sourceLanguage: sourceLanguage, targetLanguage: targetLanguage) { (error) in
+        TranslationService.shared.sourceText = sourceTextView.text
+        TranslationService.shared.getTranslation() { (error) in
             if let error = error {
                 print(error)
             } else {
@@ -96,9 +97,9 @@ extension TranslationViewController {
     
     /// Reset display by showing and adding elements
     private func resetDisplay() {
-        translateButtonContainer.isHidden = true
-        translateButton.isHidden = false
         activityIndicator.isHidden = true
+        translateButton.isHidden = false
+        translateButtonContainer.isHidden = true
     }
     
     /// Reverse source and target language
@@ -118,7 +119,7 @@ extension TranslationViewController {
     
     /// Run translation when the button is tapped
     @IBAction func translateButtonTapped(_ sender: UIButton) {
-        getTranslation(sourceText: sourceTextView.text, sourceLanguage: TranslationService.shared.sourceLanguage, targetLanguage: TranslationService.shared.targetLanguage)
+        getTranslation()
     }
 }
 
@@ -157,9 +158,8 @@ extension TranslationViewController {
     /// Called when keyboard appeared.
     /// Set scroll view bottom edge inset equal to keyboard height.
     @objc func keyboardDidShow(_ notification: NSNotification) {
-        guard let info = notification.userInfo,
-            let keyboardFrameValue = info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue else {
-                return
+        guard let info = notification.userInfo, let keyboardFrameValue = info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue else {
+            return
         }
         
         let keyboardSize = keyboardFrameValue.cgRectValue.size
@@ -210,7 +210,7 @@ extension TranslationViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             sourceTextView.resignFirstResponder()
-            getTranslation(sourceText: sourceTextView.text, sourceLanguage: TranslationService.shared.sourceLanguage, targetLanguage: TranslationService.shared.targetLanguage)
+            getTranslation()
             return false
         }
         return true
