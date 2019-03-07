@@ -11,10 +11,12 @@
 		221558E4221C18C600AC2329 /* TranslationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221558E3221C18C600AC2329 /* TranslationService.swift */; };
 		2218171D220DC30600B0CFB4 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2218171C220DC30600B0CFB4 /* Service.swift */; };
 		221930D82230105D0051CF85 /* rates.json in Resources */ = {isa = PBXBuildFile; fileRef = 221930D72230105D0051CF85 /* rates.json */; };
+		221930DC2230350E0051CF85 /* WeatherServiceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221930DB2230350E0051CF85 /* WeatherServiceTestCase.swift */; };
+		221930DE2230495C0051CF85 /* weather.json in Resources */ = {isa = PBXBuildFile; fileRef = 221930DD2230495C0051CF85 /* weather.json */; };
+		221930E222304A3F0051CF85 /* ServiceFakeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221930E122304A3F0051CF85 /* ServiceFakeData.swift */; };
 		221966892211BDB800E59714 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221966882211BDB800E59714 /* Error.swift */; };
 		221B47DD222D679700DA52CC /* CurrencyServiceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221B47DC222D679700DA52CC /* CurrencyServiceTestCase.swift */; };
 		221B47DF222D6C5200DA52CC /* currencies.json in Resources */ = {isa = PBXBuildFile; fileRef = 221B47DE222D6C5200DA52CC /* currencies.json */; };
-		221B47E1222D726B00DA52CC /* CurrencyServiceFakeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221B47E0222D726B00DA52CC /* CurrencyServiceFakeData.swift */; };
 		221B47E3222DBA8A00DA52CC /* URLSessionFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221B47E2222DBA8A00DA52CC /* URLSessionFake.swift */; };
 		221C95182200627B0033B8B3 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C95172200627B0033B8B3 /* Weather.swift */; };
 		221C951A220485300033B8B3 /* WeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C9519220485300033B8B3 /* WeatherCollectionViewCell.swift */; };
@@ -46,12 +48,14 @@
 		221558E3221C18C600AC2329 /* TranslationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationService.swift; sourceTree = "<group>"; };
 		2218171C220DC30600B0CFB4 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		221930D72230105D0051CF85 /* rates.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rates.json; sourceTree = "<group>"; };
+		221930DB2230350E0051CF85 /* WeatherServiceTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherServiceTestCase.swift; sourceTree = "<group>"; };
+		221930DD2230495C0051CF85 /* weather.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = weather.json; sourceTree = "<group>"; };
+		221930E122304A3F0051CF85 /* ServiceFakeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceFakeData.swift; sourceTree = "<group>"; };
 		221966882211BDB800E59714 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		221B47D2222D670200DA52CC /* LeBaluchonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeBaluchonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		221B47D6222D670200DA52CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		221B47DC222D679700DA52CC /* CurrencyServiceTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyServiceTestCase.swift; sourceTree = "<group>"; };
 		221B47DE222D6C5200DA52CC /* currencies.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = currencies.json; sourceTree = "<group>"; };
-		221B47E0222D726B00DA52CC /* CurrencyServiceFakeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyServiceFakeData.swift; sourceTree = "<group>"; };
 		221B47E2222DBA8A00DA52CC /* URLSessionFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionFake.swift; sourceTree = "<group>"; };
 		221C95172200627B0033B8B3 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		221C9519220485300033B8B3 /* WeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -91,12 +95,14 @@
 		221B47D3222D670200DA52CC /* LeBaluchonTests */ = {
 			isa = PBXGroup;
 			children = (
-				221B47D6222D670200DA52CC /* Info.plist */,
 				221B47DC222D679700DA52CC /* CurrencyServiceTestCase.swift */,
-				221B47E2222DBA8A00DA52CC /* URLSessionFake.swift */,
-				221B47E0222D726B00DA52CC /* CurrencyServiceFakeData.swift */,
 				221B47DE222D6C5200DA52CC /* currencies.json */,
 				221930D72230105D0051CF85 /* rates.json */,
+				221930DB2230350E0051CF85 /* WeatherServiceTestCase.swift */,
+				221930DD2230495C0051CF85 /* weather.json */,
+				221B47D6222D670200DA52CC /* Info.plist */,
+				221B47E2222DBA8A00DA52CC /* URLSessionFake.swift */,
+				221930E122304A3F0051CF85 /* ServiceFakeData.swift */,
 			);
 			path = LeBaluchonTests;
 			sourceTree = "<group>";
@@ -261,6 +267,7 @@
 			files = (
 				221B47DF222D6C5200DA52CC /* currencies.json in Resources */,
 				221930D82230105D0051CF85 /* rates.json in Resources */,
+				221930DE2230495C0051CF85 /* weather.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +288,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				221B47E1222D726B00DA52CC /* CurrencyServiceFakeData.swift in Sources */,
+				221930E222304A3F0051CF85 /* ServiceFakeData.swift in Sources */,
+				221930DC2230350E0051CF85 /* WeatherServiceTestCase.swift in Sources */,
 				221B47E3222DBA8A00DA52CC /* URLSessionFake.swift in Sources */,
 				221B47DD222D679700DA52CC /* CurrencyServiceTestCase.swift in Sources */,
 			);

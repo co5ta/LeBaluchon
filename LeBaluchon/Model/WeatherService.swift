@@ -10,13 +10,34 @@ import Foundation
 
 /// Class that fetch data from the weather API
 class WeatherService: Service {
+    // MARK: Singleton
+    
+    /// Unique instance of WeatherService
+    static var shared = WeatherService()
+    
+    /// Private initializer
+    private init() {}
+    
+    // MARK: Dependency injection
+    
+    /// Inject custom session and apiUrl for tests
+    init(session: URLSession, apiUrl: String? = nil) {
+        self.session = session
+        if let apiUrl = apiUrl {
+            self.apiUrl = apiUrl
+        }
+    }
+    
     // MARK: Properties
     
-    /// Weather data given by the API
-    var cities: [Weather.City] = []
+    /// Session configuration
+    private var session = URLSession(configuration: .default)
+    
+    /// Task to execute
+    private var task: URLSessionDataTask?
     
     /// Base URL of the currency API
-    private let apiUrl = "https://api.openweathermap.org/data/2.5/group"
+    private var apiUrl = "https://api.openweathermap.org/data/2.5/group"
     
     /// API key
     private let apiKey = "951fdc1ed16481d96c1728da1c3cf6cd"
@@ -36,19 +57,8 @@ class WeatherService: Service {
         ]
     }
     
-    /// Session configuration
-    private let session = URLSession(configuration: .default)
-    
-    /// Task to execute
-    private var task: URLSessionDataTask?
-    
-    // MARK: Singleton
-    
-    /// Unique instance of WeatherService
-    static var shared = WeatherService()
-    
-    /// Private initializer
-    private init() {}
+    /// Weather data given by the API
+    var cities: [Weather.City] = []
 }
 
 // MARK: - Methods

@@ -20,15 +20,12 @@ class CurrencyService: Service {
     
     // MARK: Dependency injection
     
-    /// Inject custom session for tests
-    init(session: URLSession) {
-        self.session = session
-    }
-    
     /// Inject custom session and apiUrl for tests
-    init(session: URLSession, apiUrl: String) {
+    init(session: URLSession, apiUrl: String? = nil) {
         self.session = session
-        self.apiUrl = apiUrl
+        if let apiUrl = apiUrl {
+            self.apiUrl = apiUrl
+        }
     }
     
     // MARK: Properties
