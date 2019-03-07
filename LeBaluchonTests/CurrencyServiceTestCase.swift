@@ -187,7 +187,8 @@ class CurrencyServiceTestCase: XCTestCase {
         currencyService.getRates { (error) in
             // Then
             XCTAssertNil(error)
-            XCTAssertFalse(currencyService.rates.isEmpty)
+            XCTAssertEqual(currencyService.rates["EUR"],  1)
+            XCTAssertEqual(currencyService.rates["USD"],  1.132394)
             self.expectation.fulfill()
         }
         wait(for: [expectation], timeout: 0.01)
