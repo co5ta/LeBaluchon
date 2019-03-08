@@ -61,7 +61,7 @@ class CurrencyService: Service {
 
 extension CurrencyService {
     /// Data type that can be asked
-    enum Resource: String {
+    private enum Resource: String {
         /// Data type available in the API
         case Rates = "latest", Currencies = "symbols"
     }

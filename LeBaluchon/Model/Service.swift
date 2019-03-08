@@ -8,10 +8,11 @@
 
 import Foundation
 
-/// The Service protocol defines methods necessary interact more easily with an API
+/// The Service protocol defines necessary methods to interact more easily with an API
 protocol Service {
     /// Create url to request an API by using URLComponents
     func createRequestURL(url: String, arguments: [String: String], path: String) -> URL?
+    
     /// Check if there is an anomaly in the API response
     func getFailure(_ error: Error?, _ response: URLResponse?, _ data: Data?) -> Error?
 }
@@ -22,7 +23,7 @@ extension Service {
      - Parameters:
          - url: URL of the API
          - arguments: Parameters of the request
-         - path: Path of the request
+         - path: Add path to the request
     */
     func createRequestURL(url: String, arguments: [String: String], path: String = "") -> URL? {
         guard var components = URLComponents(string: url) else {
@@ -39,7 +40,7 @@ extension Service {
      Check if there is an anomaly in the API response
      - Parameters:
      - error: error returned by the request
-     - arguments: response returned by the request
+     - response: response returned by the request
      - path: data returned by the request
      */
     func getFailure(_ error: Error?, _ response: URLResponse?, _ data: Data?) -> Error? {

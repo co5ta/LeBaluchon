@@ -31,10 +31,10 @@ class TranslationService: Service {
     // MARK: Properties
     
     /// Session configuration
-    var session = URLSession(configuration: .default)
+    private var session = URLSession(configuration: .default)
     
     /// Task to execute
-    var task: URLSessionDataTask?
+    private var task: URLSessionDataTask?
     
     /// Url of the API
     private var apiUrl = "https://translation.googleapis.com/language/translate/v2"
