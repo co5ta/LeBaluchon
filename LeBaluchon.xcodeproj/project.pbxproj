@@ -96,18 +96,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		221B47D3222D670200DA52CC /* LeBaluchonTests */ = {
+		221746432231AF8000AF7FAB /* json */ = {
 			isa = PBXGroup;
 			children = (
-				221B47E2222DBA8A00DA52CC /* URLSessionFake.swift */,
-				221930E122304A3F0051CF85 /* ServiceFakeData.swift */,
-				221B47DC222D679700DA52CC /* CurrencyServiceTestCase.swift */,
-				221930DB2230350E0051CF85 /* WeatherServiceTestCase.swift */,
-				221746412231531000AF7FAB /* TranslationServiceTestCase.swift */,
 				221B47DE222D6C5200DA52CC /* currencies.json */,
 				221930D72230105D0051CF85 /* rates.json */,
 				221930DD2230495C0051CF85 /* weather.json */,
 				2217463F22314AB500AF7FAB /* translation.json */,
+			);
+			name = json;
+			sourceTree = "<group>";
+		};
+		221B47D3222D670200DA52CC /* LeBaluchonTests */ = {
+			isa = PBXGroup;
+			children = (
+				221B47DC222D679700DA52CC /* CurrencyServiceTestCase.swift */,
+				221930DB2230350E0051CF85 /* WeatherServiceTestCase.swift */,
+				221746412231531000AF7FAB /* TranslationServiceTestCase.swift */,
+				221B47E2222DBA8A00DA52CC /* URLSessionFake.swift */,
+				221930E122304A3F0051CF85 /* ServiceFakeData.swift */,
+				221746432231AF8000AF7FAB /* json */,
 				221B47D6222D670200DA52CC /* Info.plist */,
 			);
 			path = LeBaluchonTests;
@@ -156,8 +164,8 @@
 		223592D521106F2200A2D659 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				223592C621106EE400A2D659 /* Main.storyboard */,
 				223592D92110AF1700A2D659 /* Assets.xcassets */,
+				223592C621106EE400A2D659 /* Main.storyboard */,
 				221C9519220485300033B8B3 /* WeatherCollectionViewCell.swift */,
 			);
 			path = View;
@@ -166,9 +174,9 @@
 		223592D621106F2B00A2D659 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				22F0C8222111F275008EC6B5 /* Currency.swift */,
 				22F0C82A2114B5B0008EC6B5 /* CurrencyService.swift */,
 				221C95172200627B0033B8B3 /* Weather.swift */,
+				22F0C8222111F275008EC6B5 /* Currency.swift */,
 				22433CEC21D4D91300A73EC9 /* WeatherService.swift */,
 				221558E1221C18AB00AC2329 /* Translation.swift */,
 				221558E3221C18C600AC2329 /* TranslationService.swift */,

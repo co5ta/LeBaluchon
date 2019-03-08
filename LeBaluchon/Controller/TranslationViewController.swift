@@ -16,13 +16,22 @@ class TranslationViewController: UIViewController {
     var placeholder = "Enter text here"
     
     /// Confirms that the user filled the source text view
-    var sourceTextViewEdited = false
+    var sourceTextViewEdited = false {
+        didSet {
+            cancelButton.isHidden = !sourceTextViewEdited
+            translateButtonContainer.isHidden = !sourceTextViewEdited
+        }
+    }
     
     // MARK: Outlets
     
     /// The scroll view
     @IBOutlet weak var scrollView: UIScrollView!
     
+    /// Cancel button
+    @IBOutlet weak var cancelButton: UIButton!
+    
+    /// Tab bar item
     @IBOutlet weak var translationTabBarItem: UITabBarItem!
     
     /// Button to change source language
@@ -42,9 +51,6 @@ class TranslationViewController: UIViewController {
     
     /// Translate button to run translate
     @IBOutlet weak var translateButton: UIButton!
-    
-    /// Bottom constraint of translate button
-    @IBOutlet weak var translateButtonBottomConstraint: NSLayoutConstraint!
     
     /// Activity indicator for translation request
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -112,12 +118,26 @@ extension TranslationViewController {
         targetLanguageButton.setTitle(TranslationService.shared.targetLanguage.name, for: .normal)
     }
     
-    /// Reverse languages when the button is tapped
+    /// Clean source text view
+    func cleanSourceTextView() {
+        sourceTextView.text = ""
+        sourceTextViewEdited = false
+        if sourceTextView.isFocused == false {
+            sourceTextView.becomeFirstResponder()
+        }
+    }
+    
+    /// Clean source text view when button is tapped
+    @IBAction func cancelButtonTapped(_ sender: UIButton) {
+        cleanSourceTextView()
+    }
+    
+    /// Reverse languages when button is tapped
     @IBAction func reverserButtonTapped(_ sender: UIButton) {
         reverseLanguages()
     }
     
-    /// Run translation when the button is tapped
+    /// Run translation when button is tapped
     @IBAction func translateButtonTapped(_ sender: UIButton) {
         getTranslation()
     }
@@ -219,13 +239,7 @@ extension TranslationViewController: UITextViewDelegate {
     /// Hide or show the translate button if the source text view is filled or not
     func textViewDidChange(_ textView: UITextView) {
         let trimmedSourceTextView = sourceTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
-        if trimmedSourceTextView.isEmpty == false {
-            translateButtonContainer.isHidden = false
-            sourceTextViewEdited = true
-        } else {
-            translateButtonContainer.isHidden = true
-            sourceTextViewEdited = false
-        }
+        sourceTextViewEdited = trimmedSourceTextView.isEmpty ? false: true
     }
 }
 

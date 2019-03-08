@@ -220,26 +220,26 @@
                                 <rect key="frame" x="0.0" y="114" width="320" height="405"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4cY-D2-Qgz" userLabel="Translation Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="167"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" text="Enter text here" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="n6B-vv-cKI">
-                                                <rect key="frame" x="8" y="15" width="304" height="37"/>
+                                                <rect key="frame" x="8" y="15" width="279" height="34"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="go"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="RLC-Z1-KgT" id="hZP-pz-ixv"/>
                                                 </connections>
                                             </textView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x35-Qv-9cb" userLabel="Separator">
-                                                <rect key="frame" x="0.0" y="67" width="320" height="1"/>
+                                                <rect key="frame" x="0.0" y="64" width="320" height="1"/>
                                                 <color key="backgroundColor" red="0.83921568629999999" green="0.83921568629999999" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="KDp-7e-sJv"/>
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kxd-oP-vxz">
-                                                <rect key="frame" x="100" y="83" width="120" height="41"/>
+                                                <rect key="frame" x="100" y="80" width="120" height="41"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDV-cn-vt8" userLabel="Translate Button">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="41"/>
@@ -264,12 +264,24 @@
                                                     <constraint firstItem="vDV-cn-vt8" firstAttribute="leading" secondItem="Kxd-oP-vxz" secondAttribute="leading" id="xhg-0b-kbN"/>
                                                 </constraints>
                                             </view>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ost-yZ-LhM">
-                                                <rect key="frame" x="8" y="129" width="304" height="33"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ost-yZ-LhM">
+                                                <rect key="frame" x="8" y="126" width="304" height="33"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O4p-lf-zAr">
+                                                <rect key="frame" x="287" y="21" width="25" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="25" id="dVT-dM-JxN"/>
+                                                    <constraint firstAttribute="width" secondItem="O4p-lf-zAr" secondAttribute="height" multiplier="1:1" id="sQ3-sf-wqv"/>
+                                                </constraints>
+                                                <state key="normal" title="Button" image="cancel"/>
+                                                <state key="highlighted" image="cancel-highlighted"/>
+                                                <connections>
+                                                    <action selector="cancelButtonTapped:" destination="RLC-Z1-KgT" eventType="touchUpInside" id="z6n-Np-MFH"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -279,12 +291,14 @@
                                             <constraint firstAttribute="trailing" secondItem="x35-Qv-9cb" secondAttribute="trailing" id="7q6-b3-JjM"/>
                                             <constraint firstItem="x35-Qv-9cb" firstAttribute="top" secondItem="n6B-vv-cKI" secondAttribute="bottom" constant="15" id="98W-we-ReF"/>
                                             <constraint firstAttribute="trailing" secondItem="Kxd-oP-vxz" secondAttribute="trailing" constant="100" id="CJ9-md-x0m"/>
-                                            <constraint firstAttribute="trailing" secondItem="n6B-vv-cKI" secondAttribute="trailing" constant="8" id="Jqx-cw-Ore"/>
+                                            <constraint firstAttribute="trailing" secondItem="O4p-lf-zAr" secondAttribute="trailing" constant="8" id="CZM-ls-ghq"/>
+                                            <constraint firstItem="O4p-lf-zAr" firstAttribute="leading" secondItem="n6B-vv-cKI" secondAttribute="trailing" id="KxY-9o-iKH"/>
                                             <constraint firstItem="Ost-yZ-LhM" firstAttribute="leading" secondItem="4cY-D2-Qgz" secondAttribute="leading" constant="8" id="Rtw-z8-GgQ"/>
                                             <constraint firstItem="n6B-vv-cKI" firstAttribute="leading" secondItem="4cY-D2-Qgz" secondAttribute="leading" constant="8" id="UQi-2g-ULR"/>
                                             <constraint firstAttribute="trailing" secondItem="Ost-yZ-LhM" secondAttribute="trailing" constant="8" id="Zdk-Jd-FuH"/>
                                             <constraint firstItem="Ost-yZ-LhM" firstAttribute="top" secondItem="Kxd-oP-vxz" secondAttribute="bottom" constant="5" id="h1k-mS-lXa"/>
                                             <constraint firstItem="n6B-vv-cKI" firstAttribute="top" secondItem="4cY-D2-Qgz" secondAttribute="top" constant="15" id="iVw-2y-15J"/>
+                                            <constraint firstItem="O4p-lf-zAr" firstAttribute="top" secondItem="4cY-D2-Qgz" secondAttribute="top" constant="21" id="lj6-g9-MZH"/>
                                             <constraint firstItem="x35-Qv-9cb" firstAttribute="leading" secondItem="4cY-D2-Qgz" secondAttribute="leading" id="yVq-Bg-ah2"/>
                                         </constraints>
                                     </view>
@@ -315,6 +329,7 @@
                     <navigationItem key="navigationItem" title="Translation" id="khy-z1-eeP"/>
                     <connections>
                         <outlet property="activityIndicator" destination="XTg-Rb-9gx" id="YCr-rz-izw"/>
+                        <outlet property="cancelButton" destination="O4p-lf-zAr" id="4DJ-uR-Zjj"/>
                         <outlet property="scrollView" destination="0h5-sq-1P8" id="VOG-GO-2cf"/>
                         <outlet property="sourceLanguageButton" destination="If5-N0-LQP" id="4fw-yX-XKg"/>
                         <outlet property="sourceTextView" destination="n6B-vv-cKI" id="wOb-kl-mM2"/>
@@ -515,6 +530,8 @@
     </scenes>
     <resources>
         <image name="01d" width="409.60000610351562" height="409.60000610351562"/>
+        <image name="cancel" width="192" height="192"/>
+        <image name="cancel-highlighted" width="192" height="192"/>
         <image name="currency-item" width="25" height="25"/>
         <image name="currency-separator" width="229" height="76"/>
         <image name="inverter-arrow" width="68.5" height="68.5"/>
