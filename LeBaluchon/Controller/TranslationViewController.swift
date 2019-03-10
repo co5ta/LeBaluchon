@@ -91,7 +91,7 @@ extension TranslationViewController {
         TranslationService.shared.sourceText = sourceTextView.text
         TranslationService.shared.getTranslation() { (error) in
             if let error = error {
-                print(error)
+                self.present(NetworkError.getAlert(error), animated: true)
             } else {
                 self.translatedTextView.text = TranslationService.shared.translation
             }

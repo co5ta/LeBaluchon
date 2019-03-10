@@ -16,7 +16,7 @@ class WeatherService: Service {
     static var shared = WeatherService()
     
     /// Private initializer
-    private init() {}
+    private override init() {}
     
     // MARK: Dependency injection
     
@@ -71,7 +71,7 @@ extension WeatherService {
      - Parameters:
          - callback: closure to check if there is an error
      */
-    func getConditions(callback: @escaping (Error?) -> Void) {
+    func getConditions(callback: @escaping (NetworkError?) -> Void) {
         guard let request = createRequestURL(url: apiUrl, arguments: arguments) else {
             callback(NetworkError.invalidRequestURL)
             return

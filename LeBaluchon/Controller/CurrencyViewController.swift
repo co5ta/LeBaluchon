@@ -67,8 +67,8 @@ extension CurrencyViewController {
     /// Fetch currencies for pickerViews
     func getCurrencies() {
         CurrencyService.shared.getCurrencies(callback: { error in
-            if error != nil {
-                print("error getting currencies")
+            if let error = error {
+                self.present(NetworkError.getAlert(error), animated: true)
             } else {
                 self.reloadPickerViews()
                 self.getRates()
@@ -76,11 +76,15 @@ extension CurrencyViewController {
         })
     }
     
+    func presentAlert(_ error: Error) {
+        
+    }
+    
     /// Fetch currencies rates
     func getRates() {
         CurrencyService.shared.getRates { (error) in
-            if error != nil {
-                print("error geting rates")
+            if let error = error {
+                self.present(NetworkError.getAlert(error), animated: true)
             } else {
                 self.sourceValueTextField.text = "1"
                 self.convert()

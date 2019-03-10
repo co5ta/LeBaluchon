@@ -20,7 +20,7 @@ class TranslationServiceTestCase: XCTestCase {
         //When
         translationService.getTranslation { (error) in
             //Then
-            XCTAssertEqual(error as! NetworkError, NetworkError.invalidRequestURL)
+            XCTAssertEqual(error, NetworkError.invalidRequestURL)
             XCTAssert(translationService.translation.isEmpty)
             self.expectation.fulfill()
         }
@@ -36,7 +36,7 @@ class TranslationServiceTestCase: XCTestCase {
         // When
         translationService.getTranslation { (error) in
             // Then
-            XCTAssertEqual(error as! NetworkError, NetworkError.errorFromAPI)
+            XCTAssertEqual(error, NetworkError.errorFromAPI)
             XCTAssert(translationService.translation.isEmpty)
             self.expectation.fulfill()
         }
@@ -52,7 +52,7 @@ class TranslationServiceTestCase: XCTestCase {
         //When
         translationService.getTranslation { (error) in
             // Then
-            XCTAssertEqual(error as! NetworkError, NetworkError.badResponse)
+            XCTAssertEqual(error, NetworkError.badResponse)
             XCTAssert(translationService.translation.isEmpty)
             self.expectation.fulfill()
         }
@@ -68,7 +68,7 @@ class TranslationServiceTestCase: XCTestCase {
         //When
         translationService.getTranslation { (error) in
             // Then
-            XCTAssertEqual(error as! NetworkError, NetworkError.emptyData)
+            XCTAssertEqual(error, NetworkError.emptyData)
             XCTAssert(translationService.translation.isEmpty)
             self.expectation.fulfill()
         }
@@ -84,7 +84,7 @@ class TranslationServiceTestCase: XCTestCase {
         //When
         translationService.getTranslation { (error) in
             // Then
-            XCTAssertEqual(error as! NetworkError, NetworkError.jsonDecodeFailed)
+            XCTAssertEqual(error, NetworkError.jsonDecodeFailed)
             XCTAssert(translationService.translation.isEmpty)
             self.expectation.fulfill()
         }

@@ -20,7 +20,7 @@ class CurrencyServiceTestCase: XCTestCase {
         // When
         currencyService.getCurrencies { (error) in
             // Then
-            XCTAssert(error as! NetworkError == NetworkError.invalidRequestURL)
+            XCTAssert(error == NetworkError.invalidRequestURL)
             XCTAssert(currencyService.currencies.isEmpty)
             self.expectation.fulfill()
         }
@@ -35,7 +35,7 @@ class CurrencyServiceTestCase: XCTestCase {
         // When
         currencyService.getRates { (error) in
             // Then
-            XCTAssert(error as! NetworkError == NetworkError.invalidRequestURL)
+            XCTAssert(error == NetworkError.invalidRequestURL)
             XCTAssert(currencyService.rates.isEmpty)
             self.expectation.fulfill()
         }
@@ -50,7 +50,7 @@ class CurrencyServiceTestCase: XCTestCase {
         // When
         currencyService.getCurrencies { (error) in
             // Then
-            XCTAssert(error as! NetworkError == NetworkError.errorFromAPI)
+            XCTAssert(error == NetworkError.errorFromAPI)
             XCTAssert(currencyService.currencies.isEmpty)
             self.expectation.fulfill()
         }
@@ -65,7 +65,7 @@ class CurrencyServiceTestCase: XCTestCase {
         // When
         currencyService.getRates { (error) in
             // Then
-            XCTAssert(error as! NetworkError == NetworkError.errorFromAPI)
+            XCTAssert(error == NetworkError.errorFromAPI)
             XCTAssert(currencyService.rates.isEmpty)
             self.expectation.fulfill()
         }
@@ -80,7 +80,7 @@ class CurrencyServiceTestCase: XCTestCase {
         // When
         currencyService.getCurrencies { (error) in
             // Then
-            XCTAssert(error as! NetworkError == NetworkError.badResponse)
+            XCTAssert(error == NetworkError.badResponse)
             XCTAssert(currencyService.currencies.isEmpty)
             self.expectation.fulfill()
         }
@@ -95,7 +95,7 @@ class CurrencyServiceTestCase: XCTestCase {
         // When
         currencyService.getRates { (error) in
             // Then
-            XCTAssert(error as! NetworkError == NetworkError.badResponse)
+            XCTAssert(error == NetworkError.badResponse)
             XCTAssert(currencyService.rates.isEmpty)
             self.expectation.fulfill()
         }
@@ -110,7 +110,7 @@ class CurrencyServiceTestCase: XCTestCase {
         // When
         currencyService.getCurrencies { (error) in
             // Then
-            XCTAssert(error as! NetworkError == NetworkError.emptyData)
+            XCTAssert(error == NetworkError.emptyData)
             XCTAssert(currencyService.currencies.isEmpty)
             self.expectation.fulfill()
         }
@@ -125,7 +125,7 @@ class CurrencyServiceTestCase: XCTestCase {
         // When
         currencyService.getRates { (error) in
             // Then
-            XCTAssert(error as! NetworkError == NetworkError.emptyData)
+            XCTAssert(error == NetworkError.emptyData)
             XCTAssert(currencyService.rates.isEmpty)
             self.expectation.fulfill()
         }
@@ -140,7 +140,7 @@ class CurrencyServiceTestCase: XCTestCase {
         // When
         currencyService.getCurrencies { (error) in
             // Then
-            XCTAssert(error as! NetworkError == NetworkError.jsonDecodeFailed)
+            XCTAssert(error == NetworkError.jsonDecodeFailed)
             XCTAssert(currencyService.currencies.isEmpty)
             self.expectation.fulfill()
         }
@@ -155,7 +155,7 @@ class CurrencyServiceTestCase: XCTestCase {
         // When
         currencyService.getRates { (error) in
             // Then
-            XCTAssert(error as! NetworkError == NetworkError.jsonDecodeFailed)
+            XCTAssert(error == NetworkError.jsonDecodeFailed)
             XCTAssert(currencyService.rates.isEmpty)
             self.expectation.fulfill()
         }

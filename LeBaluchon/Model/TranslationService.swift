@@ -16,7 +16,7 @@ class TranslationService: Service {
     static let shared = TranslationService()
     
     /// Private init for singleton pattern
-    private init() {}
+    private override init() {}
     
     // MARK: Dependency injection
     
@@ -74,7 +74,7 @@ extension TranslationService {
         - sourceText: Text to translate
         - callback: closure wich return an optional Error
      */
-    func getTranslation(callback: @escaping (Error?) -> Void) {
+    func getTranslation(callback: @escaping (NetworkError?) -> Void) {
         guard let url = createRequestURL(url: apiUrl, arguments: arguments) else {
             callback(NetworkError.invalidRequestURL)
             return

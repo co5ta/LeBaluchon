@@ -9,15 +9,7 @@
 import Foundation
 
 /// The Service protocol defines necessary methods to interact more easily with an API
-protocol Service {
-    /// Create url to request an API by using URLComponents
-    func createRequestURL(url: String, arguments: [String: String], path: String) -> URL?
-    
-    /// Check if there is an anomaly in the API response
-    func getFailure(_ error: Error?, _ response: URLResponse?, _ data: Data?) -> Error?
-}
-
-extension Service {
+class Service {
     /**
     Create url to request an API by using URLComponents
      - Parameters:
@@ -43,7 +35,7 @@ extension Service {
      - response: response returned by the request
      - path: data returned by the request
      */
-    func getFailure(_ error: Error?, _ response: URLResponse?, _ data: Data?) -> Error? {
+    func getFailure(_ error: Error?, _ response: URLResponse?, _ data: Data?) -> NetworkError? {
         if error != nil {
             return(NetworkError.errorFromAPI)
         }
@@ -52,7 +44,7 @@ extension Service {
             return(NetworkError.badResponse)
         }
         
-        if data == nil {
+        if data != nil {
             return(NetworkError.emptyData)
         }
         

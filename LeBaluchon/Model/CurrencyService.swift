@@ -16,7 +16,7 @@ class CurrencyService: Service {
     static let shared = CurrencyService()
     
     /// Init for singleton pattern
-    private init() {}
+    private override init() {}
     
     // MARK: Dependency injection
     
@@ -76,7 +76,7 @@ extension CurrencyService {
      - Parameters:
         - callback: closure to check if there is an error
      */
-    func getCurrencies(callback: @escaping (Error?) -> ()) {
+    func getCurrencies(callback: @escaping (NetworkError?) -> ()) {
         guard let url = createRequestURL(url: apiUrl, arguments: arguments, path: Resource.Currencies.rawValue) else {
             callback(NetworkError.invalidRequestURL)
             return
@@ -106,9 +106,9 @@ extension CurrencyService {
      Fetch curency rates relative to EUR as base
      
      - Parameters:
-        - completionHandler: closure to check if there is an error
+        - callback: closure to check if there is an error
     */
-    func getRates(callback: @escaping (Error?) -> ()) {
+    func getRates(callback: @escaping (NetworkError?) -> ()) {
         guard let url = createRequestURL(url: apiUrl, arguments: arguments, path: Resource.Rates.rawValue) else {
             callback(NetworkError.invalidRequestURL)
             return
