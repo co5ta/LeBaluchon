@@ -44,7 +44,7 @@ class Service {
             return(NetworkError.badResponse)
         }
         
-        if data != nil {
+        if data == nil {
             return(NetworkError.emptyData)
         }
         

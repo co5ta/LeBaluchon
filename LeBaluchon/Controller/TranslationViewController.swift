@@ -86,25 +86,31 @@ extension TranslationViewController {
      - targetLanguage: Language in which the source text must be translated
      */
     func getTranslation() {
-        translateButton.isHidden = true
-        activityIndicator.isHidden = false
+        toggleActivityIndicator(show: true)
         TranslationService.shared.sourceText = sourceTextView.text
+        
         TranslationService.shared.getTranslation() { (error) in
             if let error = error {
                 self.present(NetworkError.getAlert(error), animated: true)
+                self.toggleActivityIndicator(show: false)
             } else {
                 self.translatedTextView.text = TranslationService.shared.translation
+                self.reinitializeDisplay()
             }
             
             self.sourceTextView.resignFirstResponder()
-            self.resetDisplay()
         }
     }
     
+    /// Toggle activity indicator
+    private func toggleActivityIndicator(show: Bool) {
+        translateButton.isHidden = show
+        activityIndicator.isHidden = !show
+    }
+    
     /// Reset display by showing and adding elements
-    private func resetDisplay() {
-        activityIndicator.isHidden = true
-        translateButton.isHidden = false
+    private func reinitializeDisplay() {
+        toggleActivityIndicator(show: false)
         translateButtonContainer.isHidden = true
     }
     
