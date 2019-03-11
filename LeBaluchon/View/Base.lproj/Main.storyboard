@@ -433,7 +433,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="01d" translatesAutoresizingMaskIntoConstraints="NO" id="KYs-7X-YEH">
-                                                    <rect key="frame" x="75" y="117" width="149" height="149"/>
+                                                    <rect key="frame" x="80" y="122" width="139" height="139"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="KYs-7X-YEH" secondAttribute="height" multiplier="1:1" id="3IK-iN-ha3"/>
                                                     </constraints>
@@ -456,9 +456,9 @@
                                             <constraint firstAttribute="bottomMargin" secondItem="C4K-bG-bhz" secondAttribute="bottom" constant="50" id="0gE-GE-4Sc"/>
                                             <constraint firstItem="Cy7-1M-lkm" firstAttribute="top" secondItem="dnw-Ap-HX7" secondAttribute="topMargin" constant="20" id="990-dI-1Mm"/>
                                             <constraint firstItem="JIz-RF-ayF" firstAttribute="top" secondItem="Cy7-1M-lkm" secondAttribute="bottom" constant="5" id="RnI-Dr-HnV"/>
-                                            <constraint firstItem="KYs-7X-YEH" firstAttribute="leading" secondItem="dnw-Ap-HX7" secondAttribute="leading" constant="75" id="bsd-dY-K06"/>
+                                            <constraint firstItem="KYs-7X-YEH" firstAttribute="leading" secondItem="dnw-Ap-HX7" secondAttribute="leading" constant="80" id="bsd-dY-K06"/>
                                             <constraint firstItem="KYs-7X-YEH" firstAttribute="centerX" secondItem="dnw-Ap-HX7" secondAttribute="centerX" id="g1s-QI-qpH"/>
-                                            <constraint firstAttribute="trailing" secondItem="KYs-7X-YEH" secondAttribute="trailing" constant="75" id="g24-Cp-ahP"/>
+                                            <constraint firstAttribute="trailing" secondItem="KYs-7X-YEH" secondAttribute="trailing" constant="80" id="g24-Cp-ahP"/>
                                             <constraint firstItem="JIz-RF-ayF" firstAttribute="centerX" secondItem="dnw-Ap-HX7" secondAttribute="centerX" id="h1t-Nx-8Mm"/>
                                             <constraint firstItem="KYs-7X-YEH" firstAttribute="centerY" secondItem="dnw-Ap-HX7" secondAttribute="centerY" id="qWV-jP-XeG"/>
                                             <constraint firstItem="Cy7-1M-lkm" firstAttribute="centerX" secondItem="dnw-Ap-HX7" secondAttribute="centerX" id="qpJ-tg-bfM"/>
