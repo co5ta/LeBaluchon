@@ -250,15 +250,16 @@
                                                             <action selector="translateButtonTapped:" destination="RLC-Z1-KgT" eventType="touchUpInside" id="LWS-FE-VIO"/>
                                                         </connections>
                                                     </button>
-                                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="XTg-Rb-9gx">
-                                                        <rect key="frame" x="42" y="2" width="37" height="37"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="XTg-Rb-9gx">
+                                                        <rect key="frame" x="41.5" y="2" width="37" height="37"/>
                                                     </activityIndicatorView>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
+                                                    <constraint firstItem="XTg-Rb-9gx" firstAttribute="centerY" secondItem="Kxd-oP-vxz" secondAttribute="centerY" id="6ix-vC-qwp"/>
                                                     <constraint firstAttribute="width" secondItem="Kxd-oP-vxz" secondAttribute="height" multiplier="120:41" id="FtZ-cD-JhJ"/>
                                                     <constraint firstAttribute="trailing" secondItem="vDV-cn-vt8" secondAttribute="trailing" id="Jlr-Rf-atz"/>
+                                                    <constraint firstItem="XTg-Rb-9gx" firstAttribute="centerX" secondItem="Kxd-oP-vxz" secondAttribute="centerX" id="Jzs-Ss-hHY"/>
                                                     <constraint firstAttribute="bottom" secondItem="vDV-cn-vt8" secondAttribute="bottom" id="Sdl-eo-6EN"/>
                                                     <constraint firstItem="vDV-cn-vt8" firstAttribute="top" secondItem="Kxd-oP-vxz" secondAttribute="top" id="tw3-Z3-7Kb"/>
                                                     <constraint firstItem="vDV-cn-vt8" firstAttribute="leading" secondItem="Kxd-oP-vxz" secondAttribute="leading" id="xhg-0b-kbN"/>
