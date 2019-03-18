@@ -27,7 +27,7 @@ struct Translation: Decodable {
 }
 
 /// Representation of a language
-struct Language {
+struct Language: Codable {
     /// Name of the language
     let name: String
     /// Code of the language

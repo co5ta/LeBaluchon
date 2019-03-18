@@ -62,14 +62,13 @@ extension TranslationViewController {
     /// Custom init in the scene
     override func viewDidLoad() {
         super.viewDidLoad()
+        translateButtonContainer.layer.cornerRadius = 10
         
-        sourceLanguageButton.setTitle(TranslationService.shared.sourceLanguage.name, for: .normal)
-        targetLanguageButton.setTitle(TranslationService.shared.targetLanguage.name, for: .normal)
+        sourceLanguageButton.setTitle(Settings.Translation.sourceLanguage.name, for: .normal)
+        targetLanguageButton.setTitle(Settings.Translation.targetLanguage.name, for: .normal)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
-        
-        translateButtonContainer.layer.cornerRadius = 10
         
         registerKeyboardNotifications()
     }
@@ -78,13 +77,7 @@ extension TranslationViewController {
 // MARK: - Methods
 
 extension TranslationViewController {
-    /**
-     Ask to TranslationService to fetch translation of a source text
-     - Parameters:
-     - sourceText: Text to translate
-     - sourceLanguage: Language of the text to translate
-     - targetLanguage: Language in which the source text must be translated
-     */
+    /// Ask to TranslationService to fetch translation of a source text
     func getTranslation() {
         toggleActivityIndicator(show: true)
         TranslationService.shared.sourceText = sourceTextView.text
@@ -116,12 +109,12 @@ extension TranslationViewController {
     
     /// Reverse source and target language
     func reverseLanguages() {
-        let lastSourceLanguage = TranslationService.shared.sourceLanguage
+        let lastSourceLanguage = Settings.Translation.sourceLanguage
         
-        TranslationService.shared.sourceLanguage = TranslationService.shared.targetLanguage
-        TranslationService.shared.targetLanguage = lastSourceLanguage
-        sourceLanguageButton.setTitle(TranslationService.shared.sourceLanguage.name, for: .normal)
-        targetLanguageButton.setTitle(TranslationService.shared.targetLanguage.name, for: .normal)
+        Settings.Translation.sourceLanguage = Settings.Translation.targetLanguage
+        Settings.Translation.targetLanguage = lastSourceLanguage
+        sourceLanguageButton.setTitle(Settings.Translation.sourceLanguage.name, for: .normal)
+        targetLanguageButton.setTitle(Settings.Translation.targetLanguage.name, for: .normal)
     }
     
     /// Clean source text view
@@ -158,10 +151,10 @@ extension TranslationViewController {
             languageVC.delegate = self
             languageVC.sender = sender
             if sender == sourceLanguageButton {
-                languageVC.language = TranslationService.shared.sourceLanguage
+                languageVC.language = Settings.Translation.sourceLanguage
             }
             else {
-                languageVC.language = TranslationService.shared.targetLanguage
+                languageVC.language = Settings.Translation.targetLanguage
             }
         }
     }
@@ -260,18 +253,18 @@ extension TranslationViewController: LanguageTableViewControllerDelegate {
     */
     func changeLanguage(language: Language, sender: UIButton) {
         if sender == sourceLanguageButton {
-            if TranslationService.shared.targetLanguage.code == language.code {
+            if Settings.Translation.targetLanguage.code == language.code {
                 reverseLanguages()
                 return
             }
-            TranslationService.shared.sourceLanguage = language
+            Settings.Translation.sourceLanguage = language
             sourceLanguageButton.setTitle(language.name, for: .normal)
         } else {
-            if TranslationService.shared.sourceLanguage.code == language.code {
+            if Settings.Translation.sourceLanguage.code == language.code {
                 reverseLanguages()
                 return
             }
-            TranslationService.shared.targetLanguage = language
+            Settings.Translation.targetLanguage = language
             targetLanguageButton.setTitle(language.name, for: .normal)
         }
         
