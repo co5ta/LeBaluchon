@@ -64,8 +64,8 @@ extension TranslationViewController {
         super.viewDidLoad()
         translateButtonContainer.layer.cornerRadius = 10
         
-        sourceLanguageButton.setTitle(Settings.Translation.sourceLanguage.name, for: .normal)
-        targetLanguageButton.setTitle(Settings.Translation.targetLanguage.name, for: .normal)
+        sourceLanguageButton.setTitle(Language.sourceLanguage.name, for: .normal)
+        targetLanguageButton.setTitle(Language.targetLanguage.name, for: .normal)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -109,12 +109,12 @@ extension TranslationViewController {
     
     /// Reverse source and target language
     func reverseLanguages() {
-        let lastSourceLanguage = Settings.Translation.sourceLanguage
+        let lastSourceLanguage = Language.sourceLanguage
         
-        Settings.Translation.sourceLanguage = Settings.Translation.targetLanguage
-        Settings.Translation.targetLanguage = lastSourceLanguage
-        sourceLanguageButton.setTitle(Settings.Translation.sourceLanguage.name, for: .normal)
-        targetLanguageButton.setTitle(Settings.Translation.targetLanguage.name, for: .normal)
+        Language.sourceLanguage = Language.targetLanguage
+        Language.targetLanguage = lastSourceLanguage
+        sourceLanguageButton.setTitle(Language.sourceLanguage.name, for: .normal)
+        targetLanguageButton.setTitle(Language.targetLanguage.name, for: .normal)
     }
     
     /// Clean source text view
@@ -151,10 +151,10 @@ extension TranslationViewController {
             languageVC.delegate = self
             languageVC.sender = sender
             if sender == sourceLanguageButton {
-                languageVC.language = Settings.Translation.sourceLanguage
+                languageVC.language = Language.sourceLanguage
             }
             else {
-                languageVC.language = Settings.Translation.targetLanguage
+                languageVC.language = Language.targetLanguage
             }
         }
     }
@@ -253,18 +253,18 @@ extension TranslationViewController: LanguageTableViewControllerDelegate {
     */
     func changeLanguage(language: Language, sender: UIButton) {
         if sender == sourceLanguageButton {
-            if Settings.Translation.targetLanguage.code == language.code {
+            if Language.targetLanguage.code == language.code {
                 reverseLanguages()
                 return
             }
-            Settings.Translation.sourceLanguage = language
+            Language.sourceLanguage = language
             sourceLanguageButton.setTitle(language.name, for: .normal)
         } else {
-            if Settings.Translation.sourceLanguage.code == language.code {
+            if Language.sourceLanguage.code == language.code {
                 reverseLanguages()
                 return
             }
-            Settings.Translation.targetLanguage = language
+            Language.targetLanguage = language
             targetLanguageButton.setTitle(language.name, for: .normal)
         }
         

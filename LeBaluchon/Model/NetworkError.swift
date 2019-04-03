@@ -30,6 +30,7 @@ enum NetworkError: String {
         let alert = UIAlertController(title: "Error", message: error.rawValue, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(confirmAction)
+        
         return alert
     }
 }
