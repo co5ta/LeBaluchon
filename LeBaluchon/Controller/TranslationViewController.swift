@@ -10,7 +10,8 @@ import UIKit
 
 /// Manages the Translation scene
 class TranslationViewController: UIViewController {
-    //MARK: Properties
+    // MARK: Properties
+    let translationService = TranslationService.shared
     
     /// Placeholder of the text view
     var placeholder = "Enter text here"
@@ -80,14 +81,14 @@ extension TranslationViewController {
     /// Ask to TranslationService to fetch translation of a source text
     func getTranslation() {
         toggleActivityIndicator(show: true)
-        TranslationService.shared.sourceText = sourceTextView.text
+        translationService.sourceText = sourceTextView.text
         
-        TranslationService.shared.getTranslation() { (error) in
+        translationService.getTranslation() { (error) in
             if let error = error {
                 self.present(NetworkError.getAlert(error), animated: true)
                 self.toggleActivityIndicator(show: false)
             } else {
-                self.translatedTextView.text = TranslationService.shared.translation
+                self.translatedTextView.text = self.translationService.translation
                 self.reinitializeDisplay()
             }
             

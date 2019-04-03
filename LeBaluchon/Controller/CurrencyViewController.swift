@@ -10,6 +10,9 @@ import UIKit
 
 /// Controller that manages the Currency scene
 class CurrencyViewController: UIViewController {
+    // MARK: Properties
+    let currencyService = CurrencyService.shared
+    
     // MARK: Outlets
     
     /// Value to convert
@@ -66,7 +69,7 @@ extension CurrencyViewController {
 extension CurrencyViewController {
     /// Fetch currencies for pickerViews
     func getCurrencies() {
-        CurrencyService.shared.getCurrencies(callback: { error in
+        currencyService.getCurrencies(callback: { error in
             if let error = error {
                 self.present(NetworkError.getAlert(error), animated: true)
             } else {
@@ -82,7 +85,7 @@ extension CurrencyViewController {
     
     /// Fetch currencies rates
     func getRates() {
-        CurrencyService.shared.getRates { (error) in
+        currencyService.getRates { (error) in
             if let error = error {
                 self.present(NetworkError.getAlert(error), animated: true)
             } else {
@@ -103,12 +106,12 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     /// Give the number of rows in the a pickerView's component
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return CurrencyService.shared.currencies.count
+        return currencyService.currencies.count
     }
     
     /// Give the content of a row
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let currency = CurrencyService.shared.currencies[row]
+        let currency = currencyService.currencies[row]
         return currency.name
     }
     
@@ -120,7 +123,7 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     /// Update the short name of the currency near the value
     private func updateCurrencyLabel(pickerView: UIPickerView, row: Int) {
-        let currency = CurrencyService.shared.currencies[row]
+        let currency = currencyService.currencies[row]
         if pickerView == sourceCurrencyPickerView {
             sourceCurrencyLabel.text = currency.code
         } else {
@@ -155,20 +158,20 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 extension CurrencyViewController {
     /// Convert a value from a currency to another
     func convert() {
-        let sourceCurrency = CurrencyService.shared.currencies[sourceCurrencyPickerView.selectedRow(inComponent: 0)]
-        let targetCurrency = CurrencyService.shared.currencies[targetCurrencyPickerView.selectedRow(inComponent: 0)]
+        let sourceCurrency = currencyService.currencies[sourceCurrencyPickerView.selectedRow(inComponent: 0)]
+        let targetCurrency = currencyService.currencies[targetCurrencyPickerView.selectedRow(inComponent: 0)]
         
         guard let sourceValue = sourceValueTextField.text else {
             print("There is no value to convert")
             return
         }
         
-        guard let sourceCurrencyRate = CurrencyService.shared.rates[sourceCurrency.code] else {
+        guard let sourceCurrencyRate = currencyService.rates[sourceCurrency.code] else {
             print("Source currency rate not found")
             return
         }
         
-        guard let targetCurrencyRate = CurrencyService.shared.rates[targetCurrency.code] else {
+        guard let targetCurrencyRate = currencyService.rates[targetCurrency.code] else {
             print("Target currency rate not found")
             return
         }

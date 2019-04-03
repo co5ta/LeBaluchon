@@ -16,11 +16,11 @@ class TranslationService: Service {
     static let shared = TranslationService()
     
     /// Private init for singleton pattern
-    private override init() {}
+    private init() {}
     
     // MARK: Dependency injection
     
-    /// Inject custom session and apiUrl for tests
+    /// Custom session and apiUrl for tests
     init(session: URLSession, apiUrl: String? = nil) {
         self.session = session
         if let apiUrl = apiUrl {
@@ -48,18 +48,12 @@ class TranslationService: Service {
     /// Text translated
     var translation = ""
     
-    /// Language of the text to translate
-    var sourceLanguage: Language = Language.list[0]
-    
-    /// Language in which the source text must be translated
-    var targetLanguage: Language = Language.list[1]
-    
     /// Arguments nesserary to request the API
     private var arguments: [String: String] {
         return [
             "q": sourceText,
-            "source": sourceLanguage.code,
-            "target": targetLanguage.code,
+            "source": Language.sourceLanguage.code,
+            "target": Language.targetLanguage.code,
             "key": apiKey
         ]
     }

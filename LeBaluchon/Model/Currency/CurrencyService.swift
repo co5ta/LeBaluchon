@@ -16,11 +16,11 @@ class CurrencyService: Service {
     static let shared = CurrencyService()
     
     /// Init for singleton pattern
-    private override init() {}
+    private init() {}
     
     // MARK: Dependency injection
     
-    /// Inject custom session and apiUrl for tests
+    /// Custom session and apiUrl for tests
     init(session: URLSession, apiUrl: String? = nil) {
         self.session = session
         if let apiUrl = apiUrl {

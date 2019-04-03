@@ -10,6 +10,9 @@ import UIKit
 
 /// Controller that manages the Weather scene
 class WeatherViewController: UIViewController {
+    // MARK: Properties
+    let weatherService = WeatherService.shared
+    
     // MARK: Outlets
     
     /// Collection view listing weather for each city
@@ -30,12 +33,12 @@ extension WeatherViewController {
     
     /// Fetch currents weather conditions
     func getConditions() {
-        WeatherService.shared.getConditions { (error) in
+        weatherService.getConditions { (error) in
             if let error = error {
                 self.present(NetworkError.getAlert(error), animated: true)
             } else {
                 self.collectionView.reloadData()
-                self.pageController.numberOfPages = WeatherService.shared.cities.count
+                self.pageController.numberOfPages = self.weatherService.cities.count
             }
         }
     }
@@ -53,7 +56,7 @@ extension WeatherViewController {
 extension WeatherViewController: UICollectionViewDataSource {
     /// Give the number of items in the collection view
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return WeatherService.shared.cities.count
+        return weatherService.cities.count
     }
     
     /// Give the content of an item
@@ -62,7 +65,7 @@ extension WeatherViewController: UICollectionViewDataSource {
             return collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherCell", for: indexPath)
         }
         
-        let city = WeatherService.shared.cities[indexPath.row]
+        let city = weatherService.cities[indexPath.row]
         cell.configure(city)
         
         return cell

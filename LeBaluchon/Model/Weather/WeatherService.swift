@@ -16,11 +16,11 @@ class WeatherService: Service {
     static var shared = WeatherService()
     
     /// Private initializer
-    private override init() {}
+    private init() {}
     
     // MARK: Dependency injection
     
-    /// Inject custom session and apiUrl for tests
+    /// Custom session and apiUrl for tests
     init(session: URLSession, apiUrl: String? = nil) {
         self.session = session
         if let apiUrl = apiUrl {
