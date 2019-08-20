@@ -102,8 +102,8 @@ class TranslationServiceTestCase: XCTestCase {
             // Then
             XCTAssertNil(error)
             XCTAssertEqual(translationService.translation, "You're welcome")
-            XCTAssertEqual(translationService.sourceLanguage.code, "fr")
-            XCTAssertEqual(translationService.targetLanguage.code, "en")
+            XCTAssertEqual(Language.sourceLanguage.code, "fr")
+            XCTAssertEqual(Language.targetLanguage.code, "en")
             self.expectation.fulfill()
         }
         
