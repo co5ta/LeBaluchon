@@ -34,17 +34,23 @@ extension Language {
 // MARK: Persistence
 
 extension Language {
+    /// Contains key values for languages storage
+    enum Key: String {
+        case source = "sourceLanguage"
+        case target = "targetLanguage"
+    }
+    
     /// Store source language
     static var sourceLanguage: Language {
         get {
-            guard let json = UserDefaults.standard.object(forKey: "sourceLanguage") as? Data, let language = try? JSONDecoder().decode(Language.self, from: json) else {
+            guard let json = UserDefaults.standard.object(forKey: Language.Key.source.rawValue) as? Data, let language = try? JSONDecoder().decode(Language.self, from: json) else {
                 return list[0]
             }
             return language
         }
         set {
             if let json = try? JSONEncoder().encode(newValue) {
-                UserDefaults.standard.set(json, forKey: "sourceLanguage")
+                UserDefaults.standard.set(json, forKey: Language.Key.source.rawValue)
             }
         }
     }
@@ -52,14 +58,14 @@ extension Language {
     /// Store target language
     static var targetLanguage: Language {
         get {
-            guard let json = UserDefaults.standard.object(forKey: "targetLanguage") as? Data, let language = try? JSONDecoder().decode(Language.self, from: json) else {
+            guard let json = UserDefaults.standard.object(forKey: Language.Key.target.rawValue) as? Data, let language = try? JSONDecoder().decode(Language.self, from: json) else {
                 return list[1]
             }
             return language
         }
         set {
             if let json = try? JSONEncoder().encode(newValue) {
-                UserDefaults.standard.set(json, forKey: "targetLanguage")
+                UserDefaults.standard.set(json, forKey: Language.Key.target.rawValue)
             }
         }
     }
