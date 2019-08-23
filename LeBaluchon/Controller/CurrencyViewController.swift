@@ -83,7 +83,7 @@ extension CurrencyViewController {
         
     }
     
-    /// Fetch currencies rates
+    /// Fetch currencies values
     func getRates() {
         currencyService.getRates { (error) in
             if let error = error {

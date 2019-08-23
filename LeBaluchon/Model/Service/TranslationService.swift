@@ -87,7 +87,7 @@ extension TranslationService {
                     return
                 }
                 
-                self.translation = translation.data.translations[0].translatedText.replacingOccurrences(of: "&#39;", with: "'")
+                self.translation = translation.data.translations[0].text.replacingOccurrences(of: "&#39;", with: "'")
                 callback(nil)
             }
         }

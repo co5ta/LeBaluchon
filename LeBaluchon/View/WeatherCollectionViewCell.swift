@@ -29,10 +29,10 @@ class WeatherCollectionViewCell: UICollectionViewCell {
 
 extension WeatherCollectionViewCell {
     /// Configure the cell with data
-    func configure(_ city: Weather.City) {
-        locationLabel.text = city.name
-        conditionLabel.text = city.primaryCondition.description
-        conditionImageView.image = UIImage(named: city.primaryCondition.icon)
-        temperatureLabel.text = city.celciusTemperatures
+    func configure(_ location: Location) {
+        locationLabel.text = location.name
+        conditionLabel.text = location.condition.description
+        conditionImageView.image = UIImage(named: location.condition.icon)
+        temperatureLabel.text = location.celciusTemperatures
     }
 }

@@ -122,12 +122,12 @@ extension CurrencyService {
                     return
                 }
                 
-                guard let data = data, let latestRates = try? JSONDecoder().decode(LatestRates.self, from: data) else {
+                guard let data = data, let Rates = try? JSONDecoder().decode(Rates.self, from: data) else {
                     callback(NetworkError.jsonDecodeFailed)
                     return
                 }
                 
-                self.rates = latestRates.rates
+                self.rates = Rates.values
                 callback(nil)
             }
         }

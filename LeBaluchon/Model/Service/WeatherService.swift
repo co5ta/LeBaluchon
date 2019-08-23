@@ -42,8 +42,8 @@ class WeatherService: Service {
     /// API key
     private let apiKey = "951fdc1ed16481d96c1728da1c3cf6cd"
     
-    /// ID of the cities
-    private let citiesId: [String] = ["5128581", "6455259"]
+    /// ID of the locations
+    private let locationsID: [String] = ["5128581", "6455259"]
     
     /// Metric unit format for celcius degrees
     private let unitFormat = "metric"
@@ -51,14 +51,14 @@ class WeatherService: Service {
     /// arguments to request the API
     private var arguments: [String: String] {
         return [
-            "id": citiesId.joined(separator: ","),
+            "id": locationsID.joined(separator: ","),
             "APPID": apiKey,
             "units": unitFormat
         ]
     }
     
     /// Weather data given by the API
-    var cities: [Weather.City] = []
+    var locations: [Location] = []
 }
 
 // MARK: - Methods
@@ -90,7 +90,7 @@ extension WeatherService {
                     return
                 }
                 
-                self.cities = weather.cities
+                self.locations = weather.locations
                 callback(nil)
             }
         } 

@@ -38,7 +38,7 @@ extension WeatherViewController {
                 self.present(NetworkError.getAlert(error), animated: true)
             } else {
                 self.collectionView.reloadData()
-                self.pageController.numberOfPages = self.weatherService.cities.count
+                self.pageController.numberOfPages = self.weatherService.locations.count
             }
         }
     }
@@ -56,7 +56,7 @@ extension WeatherViewController {
 extension WeatherViewController: UICollectionViewDataSource {
     /// Give the number of items in the collection view
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return weatherService.cities.count
+        return weatherService.locations.count
     }
     
     /// Give the content of an item
@@ -65,8 +65,8 @@ extension WeatherViewController: UICollectionViewDataSource {
             return collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherCell", for: indexPath)
         }
         
-        let city = weatherService.cities[indexPath.row]
-        cell.configure(city)
+        let location = weatherService.locations[indexPath.row]
+        cell.configure(location)
         
         return cell
     }
