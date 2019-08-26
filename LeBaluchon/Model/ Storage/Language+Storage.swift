@@ -9,39 +9,12 @@
 import Foundation
 
 extension Language {
-    /// Store source language
-    static var sourceLanguage: Language {
-        get {
-            guard let json = UserDefaults.standard.object(forKey: StorageKey.sourceLanguage) as? Data, let language = try? JSONDecoder().decode(Language.self, from: json) else {
-                return list[0]
-            }
-            return language
-        }
-        set {
-            if let json = try? JSONEncoder().encode(newValue) {
-                UserDefaults.standard.set(json, forKey: StorageKey.sourceLanguage)
-            }
-        }
-    }
+    /// Source language by default
+    static let defaultSourceLanguage = list[0]
     
-    /// Store target language
-    static var targetLanguage: Language {
-        get {
-            guard let json = UserDefaults.standard.object(forKey: StorageKey.targetLanguage) as? Data, let language = try? JSONDecoder().decode(Language.self, from: json) else {
-                return list[1]
-            }
-            return language
-        }
-        set {
-            if let json = try? JSONEncoder().encode(newValue) {
-                UserDefaults.standard.set(json, forKey: StorageKey.targetLanguage)
-            }
-        }
-    }
-}
-
-
-extension Language {
+    /// Target language by default
+    static let defaultTargetLanguage = list[1]
+    
     /// Available languages for translation
     static let list = [
         Language(name: "French", code: "fr"),
@@ -52,4 +25,32 @@ extension Language {
         Language(name: "Portuguese", code: "pt"),
         Language(name: "Spanish", code: "es"),
     ]
+}
+
+extension Language {
+    /// Stored source language
+    static var sourceLanguage: Language {
+        get {
+            guard let data = UserDefaults.standard.data(forKey: StorageKey.sourceLanguage) else { return defaultSourceLanguage }
+            guard let language = try? JSONDecoder().decode(Language.self, from: data) else { return defaultSourceLanguage }
+            return language
+        }
+        set {
+            guard let json = try? JSONEncoder().encode(newValue) else { return }
+            UserDefaults.standard.set(json, forKey: StorageKey.sourceLanguage)
+        }
+    }
+    
+    /// Stored target language
+    static var targetLanguage: Language {
+        get {
+            guard let data = UserDefaults.standard.data(forKey: StorageKey.targetLanguage) else { return defaultTargetLanguage }
+            guard let language = try? JSONDecoder().decode(Language.self, from: data) else { return defaultTargetLanguage }
+            return language
+        }
+        set {
+            guard let data = try? JSONEncoder().encode(newValue) else { return }
+            UserDefaults.standard.set(data, forKey: StorageKey.targetLanguage)
+        }
+    }
 }

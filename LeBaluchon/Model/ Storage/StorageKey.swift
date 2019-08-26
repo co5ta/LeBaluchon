@@ -8,7 +8,9 @@
 
 import Foundation
 
+/// List of string keys for data storage
 enum StorageKey {
+    ///string key for data storage
     static let sourceLanguage = "sourceLanguage"
     static let targetLanguage = "targetLanguage"
 }
