@@ -193,7 +193,6 @@
 		223592D521106F2200A2D659 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				223592D92110AF1700A2D659 /* Assets.xcassets */,
 				223592C621106EE400A2D659 /* Main.storyboard */,
 				221C9519220485300033B8B3 /* WeatherCollectionViewCell.swift */,
 			);
@@ -220,6 +219,7 @@
 				223592CE21106EE500A2D659 /* Info.plist */,
 				223592C221106EE400A2D659 /* AppDelegate.swift */,
 				223592CB21106EE500A2D659 /* LaunchScreen.storyboard */,
+				223592D92110AF1700A2D659 /* Assets.xcassets */,
 			);
 			path = "Supporting files";
 			sourceTree = "<group>";

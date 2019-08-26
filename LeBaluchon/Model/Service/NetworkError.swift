@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 /// Give information on the error encountered in a request
-enum NetworkError: String {
+enum NetworkError: String, Error {
     /// The request URL could not be generate
     case invalidRequestURL = "Invalid data provider"
     
@@ -24,13 +24,13 @@ enum NetworkError: String {
     case emptyData = "No data found"
     
     /// Json decoding failed
-    case jsonDecodeFailed = "Unexpected data"
+    case jsonDecodeFailed = "The request received unexpected data"
     
-    static func getAlert(_ error: NetworkError) -> UIAlertController {
-        let alert = UIAlertController(title: "Error", message: error.rawValue, preferredStyle: .alert)
+    /// Prepare an alert to explain an error
+    static func getAlert(_ networkError: NetworkError) -> UIAlertController {
+        let alert = UIAlertController(title: "Error", message: networkError.rawValue, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(confirmAction)
-        
         return alert
     }
 }

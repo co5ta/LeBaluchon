@@ -45,10 +45,7 @@ class TranslationService: Service {
     /// Source text that have to be translated
     var sourceText = ""
     
-    /// Text translated
-    var translation = ""
-    
-    /// Arguments nesserary to request the API
+    /// necessary arguments to request the API
     private var arguments: [String: String] {
         return [
             "q": sourceText,
@@ -62,33 +59,27 @@ class TranslationService: Service {
 // MARK: - Methods
 
 extension TranslationService {
-    /**
-     Fetch translation of a source text
-     - Parameters:
-        - sourceText: Text to translate
-        - callback: closure wich return an optional Error
-     */
-    func getTranslation(callback: @escaping (NetworkError?) -> Void) {
+    /// Get a translation of a text with an API
+    func getTranslation(callback: @escaping (Result<String, NetworkError>) -> Void) {
         guard let url = createRequestURL(url: apiUrl, arguments: arguments) else {
-            callback(NetworkError.invalidRequestURL)
+            callback(.failure(NetworkError.invalidRequestURL))
             return
         }
         
         task?.cancel()
         task = session.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
-                if let failure = self.getFailure(error, response, data) {
-                    callback(failure)
+                if let badResult = self.getFailure(error, response, data) {
+                    callback(.failure(badResult))
                     return
                 }
-                
-                guard let data = data, let translation = try? JSONDecoder().decode(TranslationResult.self, from: data) else {
-                    callback(NetworkError.jsonDecodeFailed)
-                    return
+
+                do {
+                    let translationResult = try JSONDecoder().decode(TranslationResult.self, from: data!)
+                    callback(.success(translationResult.data.translations[0].text))
+                } catch {
+                    callback(.failure(NetworkError.jsonDecodeFailed))
                 }
-                
-                self.translation = translation.data.translations[0].text.replacingOccurrences(of: "&#39;", with: "'")
-                callback(nil)
             }
         }
         task?.resume()

@@ -83,15 +83,15 @@ extension TranslationViewController {
         toggleActivityIndicator(show: true)
         translationService.sourceText = sourceTextView.text
         
-        translationService.getTranslation() { (error) in
-            if let error = error {
+        translationService.getTranslation() { (result) in
+            switch result {
+            case .success(let translation):
+                self.translatedTextView.text = translation
+                self.resetDisplay()
+            case .failure(let error):
                 self.present(NetworkError.getAlert(error), animated: true)
                 self.toggleActivityIndicator(show: false)
-            } else {
-                self.translatedTextView.text = self.translationService.translation
-                self.reinitializeDisplay()
             }
-            
             self.sourceTextView.resignFirstResponder()
         }
     }
@@ -103,7 +103,7 @@ extension TranslationViewController {
     }
     
     /// Reset display by showing and adding elements
-    private func reinitializeDisplay() {
+    private func resetDisplay() {
         toggleActivityIndicator(show: false)
         translateButtonContainer.isHidden = true
     }
