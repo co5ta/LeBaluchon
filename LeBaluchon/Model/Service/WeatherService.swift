@@ -63,11 +63,11 @@ class WeatherService: Service {
 extension WeatherService {
     
     /**
-     Fetch weather condition relative to some locations
+     Fetch weather conditions for given locations
      - parameter callback: closure to manage the result of the request
      - parameter result: weather conditions or network error
      */
-    func getConditions(callback: @escaping (_ result: Result<[Location], NetworkError>) -> Void) {
+    func getConditions(callback: @escaping (_ result: Result<[WeatherCondition], NetworkError>) -> Void) {
         guard let request = createRequestURL(url: apiUrl, arguments: arguments) else {
             callback(.failure(NetworkError.invalidRequestURL))
             return
@@ -92,10 +92,10 @@ extension WeatherService {
      - parameter data: Data to decode
      - returns: Data decoded or error
      */
-    func decode(_ data: Data) -> Result<[Location], NetworkError> {
+    func decode(_ data: Data) -> Result<[WeatherCondition], NetworkError> {
         do {
             let weather = try JSONDecoder().decode(Weather.self, from: data)
-            return .success(weather.locations)
+            return .success(weather.weatherConditions)
         } catch {
             return .failure(NetworkError.jsonDecodeFailed)
         }

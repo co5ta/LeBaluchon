@@ -13,7 +13,7 @@ class WeatherViewController: UIViewController {
     // MARK: Properties
     
     /// List of weather conditions
-    var locations = [Location]()
+    var weatherConditions = [WeatherCondition]()
     
     // MARK: Outlets
     
@@ -40,9 +40,9 @@ extension WeatherViewController {
             case .failure(let error):
                 self.present(NetworkError.alert(error), animated: true)
             case .success(let data):
-                self.locations = data
+                self.weatherConditions = data
                 self.collectionView.reloadData()
-                self.pageController.numberOfPages = self.locations.count
+                self.pageController.numberOfPages = self.weatherConditions.count
             }
         }
     }
@@ -59,7 +59,7 @@ extension WeatherViewController {
 extension WeatherViewController: UICollectionViewDataSource {
     /// Give the number of items in the collection view
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return locations.count
+        return weatherConditions.count
     }
     
     /// Give the content of an item
@@ -68,8 +68,8 @@ extension WeatherViewController: UICollectionViewDataSource {
             return collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherCell", for: indexPath)
         }
         
-        let location = locations[indexPath.row]
-        cell.configure(location)
+        let weatherCondition = weatherConditions[indexPath.row]
+        cell.configure(weatherCondition)
         
         return cell
     }

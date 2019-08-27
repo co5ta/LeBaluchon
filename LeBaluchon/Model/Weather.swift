@@ -11,18 +11,18 @@ import Foundation
 /// Weather data sent by the API
 struct Weather: Decodable {
     /// Weather for each city requested
-    let locations: [Location]
+    let weatherConditions: [WeatherCondition]
     
     /// Relations between properties and json
     enum CodingKeys: String, CodingKey {
-        case locations = "list"
+        case weatherConditions = "list"
     }
 }
 
 // MARK: -
 
 /// Current weather conditions for a location
-struct Location: Decodable {
+struct WeatherCondition: Decodable {
     /// List of current weather conditions
     private let conditions: [Condition]
     
@@ -30,7 +30,7 @@ struct Location: Decodable {
     private let temperatures: Temperature
     
     /// Name of the location
-    let name: String
+    let location: String
     
     /// Temperature in text
     var celciusTemperatures: String {
@@ -44,7 +44,7 @@ struct Location: Decodable {
     
     /// Relations between properties and json
     enum CodingKeys: String, CodingKey {
-        case name
+        case location = "name"
         case conditions = "weather"
         case temperatures = "main"
     }
