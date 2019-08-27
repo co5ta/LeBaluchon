@@ -103,10 +103,7 @@ extension TranslationViewController {
     
     /// Reverse source and target language
     func reverseLanguages() {
-        let lastSourceLanguage = Language.sourceLanguage
-        
-        Language.sourceLanguage = Language.targetLanguage
-        Language.targetLanguage = lastSourceLanguage
+        (Language.sourceLanguage, Language.targetLanguage) = (Language.targetLanguage, Language.sourceLanguage)
         sourceLanguageButton.setTitle(Language.sourceLanguage.name, for: .normal)
         targetLanguageButton.setTitle(Language.targetLanguage.name, for: .normal)
     }
