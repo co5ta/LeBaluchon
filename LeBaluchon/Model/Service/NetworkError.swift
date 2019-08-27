@@ -27,7 +27,7 @@ enum NetworkError: String, Error {
     case jsonDecodeFailed = "The request received unexpected data"
     
     /// Prepare an alert to explain an error
-    static func getAlert(_ networkError: NetworkError) -> UIAlertController {
+    static func alert(_ networkError: NetworkError) -> UIAlertController {
         let alert = UIAlertController(title: "Error", message: networkError.rawValue, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(confirmAction)

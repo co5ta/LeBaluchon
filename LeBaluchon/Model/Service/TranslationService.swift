@@ -59,8 +59,12 @@ class TranslationService: Service {
 // MARK: - Methods
 
 extension TranslationService {
-    /// Get a translation of a text with an API
-    func getTranslation(callback: @escaping (Result<String, NetworkError>) -> Void) {
+    /**
+    Get a translation of a text with an API
+     - parameter callback: closure to manage the result of the request
+     - parameter result: text translated or error
+    */
+    func getTranslation(callback: @escaping (_ result: Result<String, NetworkError>) -> Void) {
         guard let url = createRequestURL(url: apiUrl, arguments: arguments) else {
             callback(.failure(NetworkError.invalidRequestURL))
             return
@@ -69,19 +73,28 @@ extension TranslationService {
         task?.cancel()
         task = session.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
-                if let badResult = self.getFailure(error, response, data) {
-                    callback(.failure(badResult))
-                    return
-                }
-
-                do {
-                    let translationResult = try JSONDecoder().decode(TranslationResult.self, from: data!)
-                    callback(.success(translationResult.data.translations[0].text))
-                } catch {
-                    callback(.failure(NetworkError.jsonDecodeFailed))
+                switch self.handleResult(error, response, data) {
+                case.failure(let error):
+                    callback(.failure(error))
+                case .success(let data):
+                    callback(self.decode(data))
                 }
             }
         }
         task?.resume()
+    }
+    
+    /**
+     Decode data from the API
+     - parameter data: Data to decode
+     - returns: Data decoded or error
+     */
+    func decode(_ data: Data) -> Result<String, NetworkError> {
+        do {
+            let translationResult = try JSONDecoder().decode(TranslationResult.self, from: data)
+            return .success(translationResult.data.translations[0].translatedText)
+        } catch {
+           return .failure(NetworkError.jsonDecodeFailed)
+        }
     }
 }

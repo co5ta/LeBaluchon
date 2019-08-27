@@ -71,7 +71,7 @@ extension CurrencyViewController {
     func getCurrencies() {
         currencyService.getCurrencies(callback: { error in
             if let error = error {
-                self.present(NetworkError.getAlert(error), animated: true)
+                self.present(NetworkError.alert(error), animated: true)
             } else {
                 self.reloadPickerViews()
                 self.getRates()
@@ -87,7 +87,7 @@ extension CurrencyViewController {
     func getRates() {
         currencyService.getRates { (error) in
             if let error = error {
-                self.present(NetworkError.getAlert(error), animated: true)
+                self.present(NetworkError.alert(error), animated: true)
             } else {
                 self.sourceValueTextField.text = "1"
                 self.convert()

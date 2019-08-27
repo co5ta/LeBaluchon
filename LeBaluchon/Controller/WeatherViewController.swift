@@ -11,7 +11,9 @@ import UIKit
 /// Controller that manages the Weather scene
 class WeatherViewController: UIViewController {
     // MARK: Properties
-    let weatherService = WeatherService.shared
+    
+    /// List of weather conditions
+    var locations = [Location]()
     
     // MARK: Outlets
     
@@ -33,12 +35,14 @@ extension WeatherViewController {
     
     /// Fetch currents weather conditions
     func getConditions() {
-        weatherService.getConditions { (error) in
-            if let error = error {
-                self.present(NetworkError.getAlert(error), animated: true)
-            } else {
+        WeatherService.shared.getConditions { (result) in
+            switch result {
+            case .failure(let error):
+                self.present(NetworkError.alert(error), animated: true)
+            case .success(let data):
+                self.locations = data
                 self.collectionView.reloadData()
-                self.pageController.numberOfPages = self.weatherService.locations.count
+                self.pageController.numberOfPages = self.locations.count
             }
         }
     }
@@ -46,7 +50,6 @@ extension WeatherViewController {
     /// Update current page in page controller
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let x = targetContentOffset.pointee.x
-        
         pageController.currentPage = Int(x / collectionView.frame.width)
     }
 }
@@ -56,7 +59,7 @@ extension WeatherViewController {
 extension WeatherViewController: UICollectionViewDataSource {
     /// Give the number of items in the collection view
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return weatherService.locations.count
+        return locations.count
     }
     
     /// Give the content of an item
@@ -65,7 +68,7 @@ extension WeatherViewController: UICollectionViewDataSource {
             return collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherCell", for: indexPath)
         }
         
-        let location = weatherService.locations[indexPath.row]
+        let location = locations[indexPath.row]
         cell.configure(location)
         
         return cell

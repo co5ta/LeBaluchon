@@ -23,5 +23,5 @@ struct TranslationData: Decodable {
 /// Translation in one language
 struct Translation: Decodable {
     /// The text translated
-    var text: String
+    var translatedText: String
 }

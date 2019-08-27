@@ -11,7 +11,6 @@ import UIKit
 /// Manages the Translation scene
 class TranslationViewController: UIViewController {
     // MARK: Properties
-    let translationService = TranslationService.shared
     
     /// Placeholder of the text view
     var placeholder = "Enter text here"
@@ -20,7 +19,7 @@ class TranslationViewController: UIViewController {
     var sourceTextViewEdited = false {
         didSet {
             cancelButton.isHidden = !sourceTextViewEdited
-            translateButtonContainer.isHidden = !sourceTextViewEdited
+            translateButtonView.isHidden = !sourceTextViewEdited
         }
     }
     
@@ -48,7 +47,7 @@ class TranslationViewController: UIViewController {
     @IBOutlet weak var translatedTextView: UITextView!
     
     /// Translate button container
-    @IBOutlet weak var translateButtonContainer: UIView!
+    @IBOutlet weak var translateButtonView: UIView!
     
     /// Translate button to run translate
     @IBOutlet weak var translateButton: UIButton!
@@ -63,7 +62,7 @@ extension TranslationViewController {
     /// Custom init in the scene
     override func viewDidLoad() {
         super.viewDidLoad()
-        translateButtonContainer.layer.cornerRadius = 10
+        translateButtonView.layer.cornerRadius = 10
         
         sourceLanguageButton.setTitle(Language.sourceLanguage.name, for: .normal)
         targetLanguageButton.setTitle(Language.targetLanguage.name, for: .normal)
@@ -81,17 +80,17 @@ extension TranslationViewController {
     /// Ask to TranslationService to fetch translation of a source text
     func getTranslation() {
         toggleActivityIndicator(show: true)
-        translationService.sourceText = sourceTextView.text
+        TranslationService.shared.sourceText = sourceTextView.text
         
-        translationService.getTranslation() { (result) in
+        TranslationService.shared.getTranslation() { (result) in
             switch result {
-            case .success(let translation):
-                self.translatedTextView.text = translation
-                self.resetDisplay()
             case .failure(let error):
-                self.present(NetworkError.getAlert(error), animated: true)
-                self.toggleActivityIndicator(show: false)
+                self.present(NetworkError.alert(error), animated: true)
+            case .success(let data):
+                self.translatedTextView.text = data
+                self.translateButtonView.isHidden = true
             }
+            self.toggleActivityIndicator(show: false)
             self.sourceTextView.resignFirstResponder()
         }
     }
@@ -100,12 +99,6 @@ extension TranslationViewController {
     private func toggleActivityIndicator(show: Bool) {
         translateButton.isHidden = show
         activityIndicator.isHidden = !show
-    }
-    
-    /// Reset display by showing and adding elements
-    private func resetDisplay() {
-        toggleActivityIndicator(show: false)
-        translateButtonContainer.isHidden = true
     }
     
     /// Reverse source and target language

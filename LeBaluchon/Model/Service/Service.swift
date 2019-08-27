@@ -58,4 +58,16 @@ extension Service {
         
         return nil
     }
+    
+    
+    func handleResult(_ error: Error?, _ response: URLResponse?, _ data: Data?) -> Result<Data, NetworkError> {
+        if error != nil {
+            return .failure(NetworkError.errorFromAPI)
+        } else if let response = response as? HTTPURLResponse, response.statusCode != 200 {
+            return .failure(NetworkError.badResponse)
+        } else if data == nil {
+            return .failure(NetworkError.emptyData)
+        }
+        return .success(data!)
+    }
 }

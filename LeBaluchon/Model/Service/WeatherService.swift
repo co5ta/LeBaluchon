@@ -56,9 +56,6 @@ class WeatherService: Service {
             "units": unitFormat
         ]
     }
-    
-    /// Weather data given by the API
-    var locations: [Location] = []
 }
 
 // MARK: - Methods
@@ -66,34 +63,41 @@ class WeatherService: Service {
 extension WeatherService {
     
     /**
-     Fetch weather condition relative to a city
-     
-     - Parameters:
-         - callback: closure to check if there is an error
+     Fetch weather condition relative to some locations
+     - parameter callback: closure to manage the result of the request
+     - parameter result: weather conditions or network error
      */
-    func getConditions(callback: @escaping (NetworkError?) -> Void) {
+    func getConditions(callback: @escaping (_ result: Result<[Location], NetworkError>) -> Void) {
         guard let request = createRequestURL(url: apiUrl, arguments: arguments) else {
-            callback(NetworkError.invalidRequestURL)
+            callback(.failure(NetworkError.invalidRequestURL))
             return
         }
         
         task?.cancel()
         task = session.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
-                if let failure = self.getFailure(error, response, data) {
-                    callback(failure)
-                    return
+                switch self.handleResult(error, response, data) {
+                case.failure(let error):
+                    callback(.failure(error))
+                case .success(let data):
+                     callback(self.decode(data))
                 }
-                
-                guard let data = data, let weather = try? JSONDecoder().decode(Weather.self, from: data) else {
-                    callback(NetworkError.jsonDecodeFailed)
-                    return
-                }
-                
-                self.locations = weather.locations
-                callback(nil)
             }
         } 
         task?.resume()
+    }
+    
+    /**
+     Decode data from the API
+     - parameter data: Data to decode
+     - returns: Data decoded or error
+     */
+    func decode(_ data: Data) -> Result<[Location], NetworkError> {
+        do {
+            let weather = try JSONDecoder().decode(Weather.self, from: data)
+            return .success(weather.locations)
+        } catch {
+            return .failure(NetworkError.jsonDecodeFailed)
+        }
     }
 }
