@@ -136,33 +136,21 @@ extension CurrencyService {
     
     /**
      Transform currencies list from API to array of Currency
-     
      - Parameters:
-        - currenciesList: The list of currencies decoded from json
-     
+     - currenciesList: The list of currencies decoded from json
      - Returns: An array of Currency ordered alphabetically
      */
-    private func formatCurrencies(from currenciesList: CurrenciesList) -> [Currency] {
-        var primaryCurrencies = [Currency]()
-        var secondaryCurrencies = [Currency]()
+    private func createCurrencyObjects(with currenciesList: CurrenciesList, and rates: Rates) -> [Currency] {
+        var currencies = [Currency]()
         
         for (currencyCode, currencyName) in currenciesList.symbols {
             let newCurrency = Currency(code: currencyCode, name: currencyName)
             if self.mainCurrenciesCode.contains(currencyCode) {
-                primaryCurrencies.append(newCurrency)
+                currencies.insert(newCurrency, at: 0)
             } else {
-                secondaryCurrencies.append(newCurrency)
+                currencies.append(newCurrency)
             }
         }
-        
-        primaryCurrencies.sort(by: { (currencyA, currencyB) -> Bool in
-        currencyA.name < currencyB.name
-        })
-
-        secondaryCurrencies.sort(by: { (currencyA, currencyB) -> Bool in
-        currencyA.name < currencyB.name
-        })
-
-        return primaryCurrencies + secondaryCurrencies
+        return currencies.sorted { $0.name < $1.name }
     }
 }
