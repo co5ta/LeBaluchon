@@ -49,8 +49,8 @@ class TranslationService: Service {
     private var arguments: [String: String] {
         return [
             "q": sourceText,
-            "source": Language.sourceLanguage.code,
-            "target": Language.targetLanguage.code,
+            "source": Language.source.code,
+            "target": Language.target.code,
             "key": apiKey
         ]
     }

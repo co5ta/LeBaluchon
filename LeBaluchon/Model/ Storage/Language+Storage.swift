@@ -10,10 +10,10 @@ import Foundation
 
 extension Language {
     /// Source language by default
-    static let defaultSourceLanguage = list[0]
+    static let defaultSource = list[0]
     
     /// Target language by default
-    static let defaultTargetLanguage = list[1]
+    static let defaultTarget = list[1]
     
     /// Available languages for translation
     static let list = [
@@ -29,10 +29,10 @@ extension Language {
 
 extension Language {
     /// Stored source language
-    static var sourceLanguage: Language {
+    static var source: Language {
         get {
-            guard let data = UserDefaults.standard.data(forKey: StorageKey.sourceLanguage) else { return defaultSourceLanguage }
-            guard let language = try? JSONDecoder().decode(Language.self, from: data) else { return defaultSourceLanguage }
+            guard let data = UserDefaults.standard.data(forKey: StorageKey.sourceLanguage) else { return defaultSource }
+            guard let language = try? JSONDecoder().decode(Language.self, from: data) else { return defaultSource }
             return language
         }
         set {
@@ -42,10 +42,10 @@ extension Language {
     }
     
     /// Stored target language
-    static var targetLanguage: Language {
+    static var target: Language {
         get {
-            guard let data = UserDefaults.standard.data(forKey: StorageKey.targetLanguage) else { return defaultTargetLanguage }
-            guard let language = try? JSONDecoder().decode(Language.self, from: data) else { return defaultTargetLanguage }
+            guard let data = UserDefaults.standard.data(forKey: StorageKey.targetLanguage) else { return defaultTarget }
+            guard let language = try? JSONDecoder().decode(Language.self, from: data) else { return defaultTarget }
             return language
         }
         set {

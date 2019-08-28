@@ -64,8 +64,8 @@ extension TranslationViewController {
         super.viewDidLoad()
         translateButtonView.layer.cornerRadius = 10
         
-        sourceLanguageButton.setTitle(Language.sourceLanguage.name, for: .normal)
-        targetLanguageButton.setTitle(Language.targetLanguage.name, for: .normal)
+        sourceLanguageButton.setTitle(Language.source.name, for: .normal)
+        targetLanguageButton.setTitle(Language.target.name, for: .normal)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -103,9 +103,9 @@ extension TranslationViewController {
     
     /// Reverse source and target language
     func reverseLanguages() {
-        (Language.sourceLanguage, Language.targetLanguage) = (Language.targetLanguage, Language.sourceLanguage)
-        sourceLanguageButton.setTitle(Language.sourceLanguage.name, for: .normal)
-        targetLanguageButton.setTitle(Language.targetLanguage.name, for: .normal)
+        (Language.source, Language.target) = (Language.target, Language.source)
+        sourceLanguageButton.setTitle(Language.source.name, for: .normal)
+        targetLanguageButton.setTitle(Language.target.name, for: .normal)
     }
     
     /// Clean source text view
@@ -142,10 +142,10 @@ extension TranslationViewController {
             languageVC.delegate = self
             languageVC.sender = sender
             if sender == sourceLanguageButton {
-                languageVC.language = Language.sourceLanguage
+                languageVC.language = Language.source
             }
             else {
-                languageVC.language = Language.targetLanguage
+                languageVC.language = Language.target
             }
         }
     }
@@ -244,18 +244,18 @@ extension TranslationViewController: LanguageTableViewControllerDelegate {
     */
     func changeLanguage(language: Language, sender: UIButton) {
         if sender == sourceLanguageButton {
-            if Language.targetLanguage.code == language.code {
+            if Language.target.code == language.code {
                 reverseLanguages()
                 return
             }
-            Language.sourceLanguage = language
+            Language.source = language
             sourceLanguageButton.setTitle(language.name, for: .normal)
         } else {
-            if Language.sourceLanguage.code == language.code {
+            if Language.source.code == language.code {
                 reverseLanguages()
                 return
             }
-            Language.targetLanguage = language
+            Language.target = language
             targetLanguageButton.setTitle(language.name, for: .normal)
         }
         
