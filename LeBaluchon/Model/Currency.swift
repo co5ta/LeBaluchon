@@ -20,12 +20,16 @@ struct Currency {
     let rate: Float
 }
 
-// =============================================
-
 // MARK: - Decoding entity
 
-/// Struct that contains currencies taken from the API
+/// Struct to decode currencies names
 struct CurrenciesList: Decodable {
     /// The list of currencies resulting from the json API
     let symbols: [String: String]
+}
+
+/// Struct to decode currencies rates
+struct Rates: Decodable {
+    /// List of currencies with their rates
+    let rates: [String: Float]
 }

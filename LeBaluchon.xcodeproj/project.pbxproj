@@ -24,7 +24,6 @@
 		221C951A220485300033B8B3 /* WeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C9519220485300033B8B3 /* WeatherCollectionViewCell.swift */; };
 		221FC1EC230E9FF1002BF1F7 /* Language+Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221FC1EB230E9FF1002BF1F7 /* Language+Storage.swift */; };
 		221FC1EE230EA234002BF1F7 /* StorageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221FC1ED230EA234002BF1F7 /* StorageKey.swift */; };
-		221FC1F0230EB064002BF1F7 /* Rates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221FC1EF230EB064002BF1F7 /* Rates.swift */; };
 		223592C321106EE400A2D659 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223592C221106EE400A2D659 /* AppDelegate.swift */; };
 		223592C821106EE400A2D659 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 223592C621106EE400A2D659 /* Main.storyboard */; };
 		223592CD21106EE500A2D659 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 223592CB21106EE500A2D659 /* LaunchScreen.storyboard */; };
@@ -69,7 +68,6 @@
 		221C9519220485300033B8B3 /* WeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 		221FC1EB230E9FF1002BF1F7 /* Language+Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Language+Storage.swift"; sourceTree = "<group>"; };
 		221FC1ED230EA234002BF1F7 /* StorageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageKey.swift; sourceTree = "<group>"; };
-		221FC1EF230EB064002BF1F7 /* Rates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rates.swift; sourceTree = "<group>"; };
 		223592BF21106EE400A2D659 /* LeBaluchon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeBaluchon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		223592C221106EE400A2D659 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		223592C721106EE400A2D659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -203,7 +201,6 @@
 			isa = PBXGroup;
 			children = (
 				22F0C8222111F275008EC6B5 /* Currency.swift */,
-				221FC1EF230EB064002BF1F7 /* Rates.swift */,
 				221C95172200627B0033B8B3 /* Weather.swift */,
 				221558E1221C18AB00AC2329 /* Translation.swift */,
 				22880A612254BA08005D75D5 /* Language.swift */,
@@ -356,7 +353,6 @@
 				221558E4221C18C600AC2329 /* TranslationService.swift in Sources */,
 				223592E02110EA5900A2D659 /* WeatherViewController.swift in Sources */,
 				223592DC2110E9BC00A2D659 /* CurrencyViewController.swift in Sources */,
-				221FC1F0230EB064002BF1F7 /* Rates.swift in Sources */,
 				223592DE2110EA4200A2D659 /* TranslationViewController.swift in Sources */,
 				22880A622254BA08005D75D5 /* Language.swift in Sources */,
 				22433CED21D4D91300A73EC9 /* WeatherService.swift in Sources */,

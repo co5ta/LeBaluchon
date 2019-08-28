@@ -117,7 +117,7 @@ extension CurrencyService {
                 case.failure(let error):
                     callback(.failure(error))
                 case .success(let data):
-                    callback(.success(data.values))
+                    callback(.success(data.rates))
                 }
             }
         }
