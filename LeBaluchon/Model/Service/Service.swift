@@ -14,7 +14,8 @@ protocol Service {
     func createRequestURL(url: String, arguments: [String: String], path: String) -> URL?
     
     /// Check if there is an anomaly in the API response
-    func getFailure(_ error: Error?, _ response: URLResponse?, _ data: Data?) -> NetworkError?
+    func handleResult<T>(_ error: Error?, _ response: URLResponse?, _ data: Data?,
+                         _ dataType: T.Type) -> Result<T, NetworkError> where T: Decodable
 }
 
 extension Service {
@@ -26,13 +27,9 @@ extension Service {
      - path: Add path to the request
      */
     func createRequestURL(url: String, arguments: [String: String], path: String = "") -> URL? {
-        guard var components = URLComponents(string: url) else {
-            return nil
-        }
-        
+        guard var components = URLComponents(string: url) else { return nil }
         components.path += path
         components.queryItems = arguments.map { URLQueryItem(name: $0.key, value: $0.value) }
-        
         return components.url
     }
     
@@ -43,31 +40,20 @@ extension Service {
      - response: response returned by the request
      - path: data returned by the request
      */
-    func getFailure(_ error: Error?, _ response: URLResponse?, _ data: Data?) -> NetworkError? {
-        if error != nil {
-            return(NetworkError.errorFromAPI)
-        }
-        
-        if let response = response as? HTTPURLResponse, response.statusCode != 200 {
-            return(NetworkError.badResponse)
-        }
-        
-        if data == nil {
-            return(NetworkError.emptyData)
-        }
-        
-        return nil
-    }
-    
-    
-    func handleResult(_ error: Error?, _ response: URLResponse?, _ data: Data?) -> Result<Data, NetworkError> {
+    func handleResult<T>(_ error: Error?, _ response: URLResponse?, _ data: Data?,
+                         _ dataType: T.Type) -> Result<T, NetworkError> where T: Decodable {
         if error != nil {
             return .failure(NetworkError.errorFromAPI)
-        } else if let response = response as? HTTPURLResponse, response.statusCode != 200 {
+        }
+        if let response = response as? HTTPURLResponse, response.statusCode != 200 {
             return .failure(NetworkError.badResponse)
-        } else if data == nil {
+        }
+        guard let data = data else {
             return .failure(NetworkError.emptyData)
         }
-        return .success(data!)
+        guard let decodedData = try? JSONDecoder().decode(dataType, from: data) else {
+            return .failure(NetworkError.jsonDecodeFailed)
+        }
+        return .success(decodedData)
     }
 }

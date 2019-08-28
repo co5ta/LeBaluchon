@@ -49,12 +49,6 @@ class CurrencyService: Service {
     
     /// Code of main currencies that must be on top of the list
     private let mainCurrenciesCode = ["EUR", "USD"]
-    
-    /// All currencies
-    var currencies = [Currency]()
-    
-    // Exchange rates
-    var rates = [String: Float]()
 }
 
 // MARK: - Data type
@@ -70,65 +64,61 @@ extension CurrencyService {
 // MARK: - Methods
 
 extension CurrencyService {
-    /**
-     Fetch the list of all currencies
-     
-     - Parameters:
-        - callback: closure to check if there is an error
-     */
-    func getCurrencies(callback: @escaping (NetworkError?) -> ()) {
+    
+    func getCurrencies(callback: @escaping (Result<[Currency], NetworkError>) -> Void) {
+        self.getCurrenciesNames { (result) in
+            switch result {
+            case .failure(let error):
+                callback(.failure(error))
+            case .success(let namesData):
+                self.getCurrenciesRates { (result) in
+                    switch result {
+                    case .failure(let error):
+                        callback(.failure(error))
+                    case .success(let ratesData):
+                        let currencies = self.createCurrenciesObjects(with: namesData, and: ratesData)
+                        callback(.success(currencies))
+                    }
+                }
+            }
+        }
+    }
+    
+     /// Fetch currencies names
+    func getCurrenciesNames(callback: @escaping (Result<[String: String], NetworkError>) -> Void) {
         guard let url = createRequestURL(url: apiUrl, arguments: arguments, path: Resource.Currencies.rawValue) else {
-            callback(NetworkError.invalidRequestURL)
+            callback(.failure(NetworkError.invalidRequestURL))
             return
         }
-        
         task?.cancel()
         task = session.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
-                if let failure = self.getFailure(error, response, data) {
-                    callback(failure)
-                    return
+                switch self.handleResult(error, response, data, CurrenciesList.self) {
+                case.failure(let error):
+                    callback(.failure(error))
+                case .success(let data):
+                    callback(.success(data.symbols))
                 }
-                
-                guard let data = data, let currenciesList = try? JSONDecoder().decode(CurrenciesList.self, from: data) else {
-                    callback(NetworkError.jsonDecodeFailed)
-                    return
-                }
-                
-                self.currencies = self.formatCurrencies(from: currenciesList)
-                callback(nil)
             }
         }
         task?.resume()
     }
     
-    /**
-     Fetch curency rates relative to EUR as base
-     
-     - Parameters:
-        - callback: closure to check if there is an error
-    */
-    func getRates(callback: @escaping (NetworkError?) -> ()) {
+    /// Fetch currency rates
+    func getCurrenciesRates(callback: @escaping (Result<[String: Float], NetworkError>) -> Void) {
         guard let url = createRequestURL(url: apiUrl, arguments: arguments, path: Resource.Rates.rawValue) else {
-            callback(NetworkError.invalidRequestURL)
+            callback(.failure(NetworkError.invalidRequestURL))
             return
         }
-        
         task?.cancel()
         task = session.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
-                if let failure = self.getFailure(error, response, data) {
-                    callback(failure)
-                    return
+                switch self.handleResult(error, response, data, Rates.self) {
+                case.failure(let error):
+                    callback(.failure(error))
+                case .success(let data):
+                    callback(.success(data.values))
                 }
-                
-                guard let data = data, let Rates = try? JSONDecoder().decode(Rates.self, from: data) else {
-                    callback(NetworkError.jsonDecodeFailed)
-                    return
-                }
-                
-                self.rates = Rates.values
-                callback(nil)
             }
         }
         task?.resume()
@@ -140,17 +130,19 @@ extension CurrencyService {
      - currenciesList: The list of currencies decoded from json
      - Returns: An array of Currency ordered alphabetically
      */
-    private func createCurrencyObjects(with currenciesList: CurrenciesList, and rates: Rates) -> [Currency] {
+    private func createCurrenciesObjects(with currenciesNames: [String: String], and currenciesRates: [String: Float]) -> [Currency] {
+        var mainCurrencies = [Currency]()
         var currencies = [Currency]()
         
-        for (currencyCode, currencyName) in currenciesList.symbols {
-            let newCurrency = Currency(code: currencyCode, name: currencyName)
+        for (currencyCode, currencyRate) in currenciesRates {
+            let currencyName = currenciesNames[currencyCode] ?? currencyCode
+            let newCurrency = Currency(code: currencyCode, name: currencyName, rate: currencyRate)
             if self.mainCurrenciesCode.contains(currencyCode) {
-                currencies.insert(newCurrency, at: 0)
+                mainCurrencies.append(newCurrency)
             } else {
                 currencies.append(newCurrency)
             }
         }
-        return currencies.sorted { $0.name < $1.name }
+        return mainCurrencies.sorted { $0.name < $1.name } + currencies.sorted { $0.name < $1.name }
     }
 }

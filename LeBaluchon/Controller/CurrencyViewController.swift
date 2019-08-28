@@ -11,7 +11,9 @@ import UIKit
 /// Controller that manages the Currency scene
 class CurrencyViewController: UIViewController {
     // MARK: Properties
-    let currencyService = CurrencyService.shared
+    
+    /// List of all currencies
+    var currencies = [Currency]()
     
     // MARK: Outlets
     
@@ -49,17 +51,17 @@ extension CurrencyViewController {
     /// Setup the scene before first display
     override func viewDidLoad() {
         super.viewDidLoad()
-        sourceValueTextField.delegate = self
         
+        sourceValueTextField.delegate = self
         sourceCurrencyPickerView.dataSource = self
         sourceCurrencyPickerView.delegate = self
-        
         targetCurrencyPickerView.dataSource = self
         targetCurrencyPickerView.delegate = self
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        self.view.addGestureRecognizer(tapGesture)
+        view.addGestureRecognizer(tapGesture)
         
+        sourceValueTextField.text = "1"
         getCurrencies()
     }
 }
@@ -69,27 +71,13 @@ extension CurrencyViewController {
 extension CurrencyViewController {
     /// Fetch currencies for pickerViews
     func getCurrencies() {
-        currencyService.getCurrencies(callback: { error in
-            if let error = error {
+        CurrencyService.shared.getCurrencies { result in
+            switch result {
+            case .failure(let error):
                 self.present(NetworkError.alert(error), animated: true)
-            } else {
+            case .success(let data):
+                self.currencies = data
                 self.reloadPickerViews()
-                self.getRates()
-            }
-        })
-    }
-    
-    func presentAlert(_ error: Error) {
-        
-    }
-    
-    /// Fetch currencies values
-    func getRates() {
-        currencyService.getRates { (error) in
-            if let error = error {
-                self.present(NetworkError.alert(error), animated: true)
-            } else {
-                self.sourceValueTextField.text = "1"
                 self.convert()
             }
         }
@@ -106,12 +94,12 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     /// Give the number of rows in the a pickerView's component
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return currencyService.currencies.count
+        return currencies.count
     }
     
     /// Give the content of a row
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let currency = currencyService.currencies[row]
+        let currency = currencies[row]
         return currency.name
     }
     
@@ -123,7 +111,7 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     /// Update the short name of the currency near the value
     private func updateCurrencyLabel(pickerView: UIPickerView, row: Int) {
-        let currency = currencyService.currencies[row]
+        let currency = currencies[row]
         if pickerView == sourceCurrencyPickerView {
             sourceCurrencyLabel.text = currency.code
         } else {
@@ -158,27 +146,13 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 extension CurrencyViewController {
     /// Convert a value from a currency to another
     func convert() {
-        let sourceCurrency = currencyService.currencies[sourceCurrencyPickerView.selectedRow(inComponent: 0)]
-        let targetCurrency = currencyService.currencies[targetCurrencyPickerView.selectedRow(inComponent: 0)]
+        let sourceCurrency = currencies[sourceCurrencyPickerView.selectedRow(inComponent: 0)]
+        let targetCurrency = currencies[targetCurrencyPickerView.selectedRow(inComponent: 0)]
         
-        guard let sourceValue = sourceValueTextField.text else {
-            print("There is no value to convert")
-            return
-        }
+        guard let sourceValue = sourceValueTextField.text else { return }
+        let euroValue = (sourceValue as NSString).floatValue / sourceCurrency.rate
         
-        guard let sourceCurrencyRate = currencyService.rates[sourceCurrency.code] else {
-            print("Source currency rate not found")
-            return
-        }
-        
-        guard let targetCurrencyRate = currencyService.rates[targetCurrency.code] else {
-            print("Target currency rate not found")
-            return
-        }
-        
-        let euroValue = (sourceValue as NSString).floatValue / sourceCurrencyRate
-        
-        let targetValue = euroValue * targetCurrencyRate
+        let targetValue = euroValue * targetCurrency.rate
         if targetValue.truncatingRemainder(dividingBy: 1) == 0 {
             targetValueTextField.text = String(Int(targetValue))
         } else {

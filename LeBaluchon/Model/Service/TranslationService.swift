@@ -73,28 +73,14 @@ extension TranslationService {
         task?.cancel()
         task = session.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
-                switch self.handleResult(error, response, data) {
+                switch self.handleResult(error, response, data, TranslationResult.self) {
                 case.failure(let error):
                     callback(.failure(error))
-                case .success(let data):
-                    callback(self.decode(data))
+                case .success(let translationData):
+                    callback(.success(translationData.data.translations[0].translatedText))
                 }
             }
         }
         task?.resume()
-    }
-    
-    /**
-     Decode data from the API
-     - parameter data: Data to decode
-     - returns: Data decoded or error
-     */
-    func decode(_ data: Data) -> Result<String, NetworkError> {
-        do {
-            let translationResult = try JSONDecoder().decode(TranslationResult.self, from: data)
-            return .success(translationResult.data.translations[0].translatedText)
-        } catch {
-           return .failure(NetworkError.jsonDecodeFailed)
-        }
     }
 }

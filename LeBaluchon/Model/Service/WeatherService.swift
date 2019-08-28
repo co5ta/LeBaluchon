@@ -72,32 +72,17 @@ extension WeatherService {
             callback(.failure(NetworkError.invalidRequestURL))
             return
         }
-        
         task?.cancel()
         task = session.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
-                switch self.handleResult(error, response, data) {
+                switch self.handleResult(error, response, data, Weather.self) {
                 case.failure(let error):
                     callback(.failure(error))
                 case .success(let data):
-                     callback(self.decode(data))
+                     callback(.success(data.weatherConditions))
                 }
             }
         } 
         task?.resume()
-    }
-    
-    /**
-     Decode data from the API
-     - parameter data: Data to decode
-     - returns: Data decoded or error
-     */
-    func decode(_ data: Data) -> Result<[WeatherCondition], NetworkError> {
-        do {
-            let weather = try JSONDecoder().decode(Weather.self, from: data)
-            return .success(weather.weatherConditions)
-        } catch {
-            return .failure(NetworkError.jsonDecodeFailed)
-        }
     }
 }

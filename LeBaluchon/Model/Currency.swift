@@ -15,11 +15,14 @@ struct Currency {
     
     /// Full name of the currency
     let name: String
+    
+    /// Rate of the currency based on EUR
+    let rate: Float
 }
 
 // =============================================
 
-// MARK: - Decoding entities
+// MARK: - Decoding entity
 
 /// Struct that contains currencies taken from the API
 struct CurrenciesList: Decodable {
