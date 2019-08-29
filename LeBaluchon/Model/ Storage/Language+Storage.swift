@@ -31,26 +31,26 @@ extension Language {
     /// Stored source language
     static var source: Language {
         get {
-            guard let data = UserDefaults.standard.data(forKey: StorageKey.sourceLanguage) else { return defaultSource }
+            guard let data = UserDefaults.standard.data(forKey: StorageKey.languageSource) else { return defaultSource }
             guard let language = try? JSONDecoder().decode(Language.self, from: data) else { return defaultSource }
             return language
         }
         set {
             guard let json = try? JSONEncoder().encode(newValue) else { return }
-            UserDefaults.standard.set(json, forKey: StorageKey.sourceLanguage)
+            UserDefaults.standard.set(json, forKey: StorageKey.languageSource)
         }
     }
     
     /// Stored target language
     static var target: Language {
         get {
-            guard let data = UserDefaults.standard.data(forKey: StorageKey.targetLanguage) else { return defaultTarget }
+            guard let data = UserDefaults.standard.data(forKey: StorageKey.languageTarget) else { return defaultTarget }
             guard let language = try? JSONDecoder().decode(Language.self, from: data) else { return defaultTarget }
             return language
         }
         set {
             guard let data = try? JSONEncoder().encode(newValue) else { return }
-            UserDefaults.standard.set(data, forKey: StorageKey.targetLanguage)
+            UserDefaults.standard.set(data, forKey: StorageKey.languageTarget)
         }
     }
 }

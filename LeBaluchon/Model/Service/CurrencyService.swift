@@ -66,7 +66,7 @@ extension CurrencyService {
 extension CurrencyService {
     
     func getCurrencies(callback: @escaping (Result<[Currency], NetworkError>) -> Void) {
-        self.getCurrenciesNames { (result) in
+        getCurrenciesNames { (result) in
             switch result {
             case .failure(let error):
                 callback(.failure(error))

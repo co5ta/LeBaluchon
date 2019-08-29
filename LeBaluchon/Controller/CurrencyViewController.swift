@@ -10,11 +10,6 @@ import UIKit
 
 /// Controller that manages the Currency scene
 class CurrencyViewController: UIViewController {
-    // MARK: Properties
-    
-    /// List of all currencies
-    var currencies = [Currency]()
-    
     // MARK: Outlets
     
     /// Value to convert
@@ -51,18 +46,32 @@ extension CurrencyViewController {
     /// Setup the scene before first display
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        sourceValueTextField.text = "1"
+        setUpGestures()
+        setUpDelegates()
+        addCurrencies()
+    }
+    
+    
+    private func setUpDelegates() {
         sourceValueTextField.delegate = self
         sourceCurrencyPickerView.dataSource = self
         sourceCurrencyPickerView.delegate = self
         targetCurrencyPickerView.dataSource = self
         targetCurrencyPickerView.delegate = self
-        
+    }
+    
+    private func setUpGestures() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
-        
-        sourceValueTextField.text = "1"
-        getCurrencies()
+    }
+    
+    private func addCurrencies() {
+        if Currency.needsUpdate {
+            getCurrencies()
+        } else {
+            reloadPickerViews()
+        }
     }
 }
 
@@ -75,10 +84,9 @@ extension CurrencyViewController {
             switch result {
             case .failure(let error):
                 self.present(NetworkError.alert(error), animated: true)
-            case .success(let data):
-                self.currencies = data
+            case .success(let currencies):
+                Currency.list = currencies
                 self.reloadPickerViews()
-                self.convert()
             }
         }
     }
@@ -94,12 +102,12 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     /// Give the number of rows in the a pickerView's component
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return currencies.count
+        return Currency.list.count
     }
     
     /// Give the content of a row
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let currency = currencies[row]
+        let currency = Currency.list[row]
         return currency.name
     }
     
@@ -111,11 +119,13 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     /// Update the short name of the currency near the value
     private func updateCurrencyLabel(pickerView: UIPickerView, row: Int) {
-        let currency = currencies[row]
+        let currency = Currency.list[row]
         if pickerView == sourceCurrencyPickerView {
             sourceCurrencyLabel.text = currency.code
+            Currency.sourceIndex = row
         } else {
             targetCurrencyLabel.text = currency.code
+            Currency.targetIndex = row
         }
     }
     
@@ -123,11 +133,21 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     fileprivate func reloadPickerViews() {
         sourceCurrencyPickerView.reloadComponent(0)
         targetCurrencyPickerView.reloadComponent(0)
-        targetCurrencyPickerView.selectRow(1, inComponent: 0, animated: false)
+        selectRows()
+        convert()
+    }
+    
+    private func selectRows() {
+        var targetCurrencyIndex = Currency.targetIndex
+        if (Currency.targetIndex == 0 && Currency.sourceIndex == 0) {
+            targetCurrencyIndex = 1
+        }
+        sourceCurrencyPickerView.selectRow(Currency.sourceIndex, inComponent: 0, animated: false)
+        targetCurrencyPickerView.selectRow(targetCurrencyIndex, inComponent: 0, animated: false)
     }
     
     ///  Invert currencies
-    @IBAction func interchangerButtonTaped(_ sender: Any) {
+    @IBAction func exchangeButtonTaped(_ sender: Any) {
         let currentSourceCurrency = sourceCurrencyPickerView.selectedRow(inComponent: 0)
         let currentTargetCurrency = targetCurrencyPickerView.selectedRow(inComponent: 0)
         
@@ -146,8 +166,8 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 extension CurrencyViewController {
     /// Convert a value from a currency to another
     func convert() {
-        let sourceCurrency = currencies[sourceCurrencyPickerView.selectedRow(inComponent: 0)]
-        let targetCurrency = currencies[targetCurrencyPickerView.selectedRow(inComponent: 0)]
+        let sourceCurrency = Currency.list[sourceCurrencyPickerView.selectedRow(inComponent: 0)]
+        let targetCurrency = Currency.list[targetCurrencyPickerView.selectedRow(inComponent: 0)]
         
         guard let sourceValue = sourceValueTextField.text else { return }
         let euroValue = (sourceValue as NSString).floatValue / sourceCurrency.rate

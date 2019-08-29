@@ -9,7 +9,7 @@
 import Foundation
 
 /// Struct that represents a currency
-struct Currency {
+struct Currency: Codable {
     /// Code name of the currency
     let code: String
     

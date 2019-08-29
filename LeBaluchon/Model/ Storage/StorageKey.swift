@@ -11,6 +11,10 @@ import Foundation
 /// List of string keys for data storage
 enum StorageKey {
     ///string key for data storage
-    static let sourceLanguage = "sourceLanguage"
-    static let targetLanguage = "targetLanguage"
+    static let languageSource = "sourceLanguage"
+    static let languageTarget = "targetLanguage"
+    static let currencySourceIndex = "sourceCurrency"
+    static let currencyTargetIndex = "targetCurrency"
+    static let currenciesList = "currenciesList"
+    static let currenciesLastUpdate = "currenciesLastUpdate"
 }
