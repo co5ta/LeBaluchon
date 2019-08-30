@@ -49,7 +49,7 @@ extension CurrencyViewController {
         sourceValueTextField.text = "1"
         setUpGestures()
         setUpDelegates()
-        addCurrencies()
+        loadCurrencies()
     }
     
     
@@ -66,7 +66,7 @@ extension CurrencyViewController {
         view.addGestureRecognizer(tapGesture)
     }
     
-    private func addCurrencies() {
+    private func loadCurrencies() {
         if Currency.needsUpdate {
             getCurrencies()
         } else {
@@ -133,17 +133,18 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     fileprivate func reloadPickerViews() {
         sourceCurrencyPickerView.reloadComponent(0)
         targetCurrencyPickerView.reloadComponent(0)
-        selectRows()
+        showSelectedRows()
         convert()
     }
     
-    private func selectRows() {
-        var targetCurrencyIndex = Currency.targetIndex
-        if (Currency.targetIndex == 0 && Currency.sourceIndex == 0) {
-            targetCurrencyIndex = 1
+    private func showSelectedRows() {
+        let sourceIndex = Currency.sourceIndex
+        var targetIndex = Currency.targetIndex
+        if (targetIndex == 0 && sourceIndex == 0) {
+            targetIndex = 1
         }
-        sourceCurrencyPickerView.selectRow(Currency.sourceIndex, inComponent: 0, animated: false)
-        targetCurrencyPickerView.selectRow(targetCurrencyIndex, inComponent: 0, animated: false)
+        sourceCurrencyPickerView.selectRow(sourceIndex, inComponent: 0, animated: false)
+        targetCurrencyPickerView.selectRow(targetIndex, inComponent: 0, animated: false)
     }
     
     ///  Invert currencies
