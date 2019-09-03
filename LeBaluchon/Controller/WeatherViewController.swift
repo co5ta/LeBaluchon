@@ -10,11 +10,6 @@ import UIKit
 
 /// Controller that manages the Weather scene
 class WeatherViewController: UIViewController {
-    // MARK: Properties
-    
-    /// List of weather conditions
-    var weatherConditions = [WeatherCondition]()
-    
     // MARK: Outlets
     
     /// Collection view listing weather for each city
@@ -30,7 +25,15 @@ extension WeatherViewController {
     /// Setup the scene before first display
     override func viewDidLoad() {
         super.viewDidLoad()
-        getConditions()
+        loadWeatherData()
+    }
+    
+    private func loadWeatherData() {
+        if WeatherCondition.needsUpdate {
+            getConditions()
+        } else {
+            reloadCollectionView()
+        }
     }
     
     /// Fetch currents weather conditions
@@ -39,12 +42,16 @@ extension WeatherViewController {
             switch result {
             case .failure(let error):
                 self.present(NetworkError.alert(error), animated: true)
-            case .success(let data):
-                self.weatherConditions = data
-                self.collectionView.reloadData()
-                self.pageController.numberOfPages = self.weatherConditions.count
+            case .success(let weatherConditions):
+                WeatherCondition.list = weatherConditions
+                self.reloadCollectionView()
             }
         }
+    }
+    
+    private func reloadCollectionView() {
+        self.collectionView.reloadData()
+        self.pageController.numberOfPages = WeatherCondition.list.count
     }
     
     /// Update current page in page controller
@@ -59,7 +66,7 @@ extension WeatherViewController {
 extension WeatherViewController: UICollectionViewDataSource {
     /// Give the number of items in the collection view
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return weatherConditions.count
+        return WeatherCondition.list.count
     }
     
     /// Give the content of an item
@@ -68,7 +75,7 @@ extension WeatherViewController: UICollectionViewDataSource {
             return collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherCell", for: indexPath)
         }
         
-        let weatherCondition = weatherConditions[indexPath.row]
+        let weatherCondition = WeatherCondition.list[indexPath.row]
         cell.configure(weatherCondition)
         
         return cell

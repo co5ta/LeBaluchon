@@ -15,6 +15,8 @@ enum StorageKey {
     static let languageTarget = "targetLanguage"
     static let currencySourceIndex = "sourceCurrency"
     static let currencyTargetIndex = "targetCurrency"
-    static let currenciesList = "currenciesList"
+    static let currencies = "currencies"
     static let currenciesLastUpdate = "currenciesLastUpdate"
+    static let weather = "weather"
+    static let weatherLastUpdate = "weatherLastUpdate"
 }

@@ -38,6 +38,7 @@
 		22F0C8232111F275008EC6B5 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F0C8222111F275008EC6B5 /* Currency.swift */; };
 		22F0C82B2114B5B0008EC6B5 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F0C82A2114B5B0008EC6B5 /* CurrencyService.swift */; };
 		22F67A262318259F00F6BE7E /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F67A252318259F00F6BE7E /* Config.swift */; };
+		22F67A28231971EA00F6BE7E /* Weather+Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F67A27231971EA00F6BE7E /* Weather+Storage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		22F0C8222111F275008EC6B5 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		22F0C82A2114B5B0008EC6B5 /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		22F67A252318259F00F6BE7E /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		22F67A27231971EA00F6BE7E /* Weather+Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Weather+Storage.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 				221FC1ED230EA234002BF1F7 /* StorageKey.swift */,
 				221FC1EB230E9FF1002BF1F7 /* Language+Storage.swift */,
 				22D287392316DEFF00934FD5 /* Currency+Storage.swift */,
+				22F67A27231971EA00F6BE7E /* Weather+Storage.swift */,
 			);
 			path = " Storage";
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				223592E02110EA5900A2D659 /* WeatherViewController.swift in Sources */,
 				223592DC2110E9BC00A2D659 /* CurrencyViewController.swift in Sources */,
 				223592DE2110EA4200A2D659 /* TranslationViewController.swift in Sources */,
+				22F67A28231971EA00F6BE7E /* Weather+Storage.swift in Sources */,
 				22880A622254BA08005D75D5 /* Language.swift in Sources */,
 				22433CED21D4D91300A73EC9 /* WeatherService.swift in Sources */,
 				221558E2221C18AB00AC2329 /* Translation.swift in Sources */,

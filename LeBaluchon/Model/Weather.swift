@@ -22,7 +22,7 @@ struct Weather: Decodable {
 // MARK: -
 
 /// Current weather conditions for a location
-struct WeatherCondition: Decodable {
+struct WeatherCondition: Codable {
     /// List of current weather conditions
     private let conditions: [Condition]
     
@@ -53,7 +53,7 @@ struct WeatherCondition: Decodable {
 // MARK: -
 
 /// Detailed weather conditions
-struct Condition: Decodable {
+struct Condition: Codable {
     /// Name of the icon which illustrate the weather condition
     let icon: String
     
@@ -70,7 +70,7 @@ struct Condition: Decodable {
 // MARK: -
 
 /// Detailed temperatures
-struct Temperature: Decodable {
+struct Temperature: Codable {
     /// Current temperature
     let current: Float
     

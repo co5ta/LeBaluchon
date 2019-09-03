@@ -11,9 +11,9 @@ import Foundation
 extension Currency {
     /// Return true if last update time is superior to update interval value
     static var needsUpdate: Bool {
-        guard let lastUpdate = Currency.lastUpdate else { return true }
+        guard let lastUpdate = lastUpdate else { return true }
         let difference = Calendar.current.dateComponents([.hour], from: lastUpdate, to: Date())
-        guard let hour = difference.hour, hour >= Config.updateInterval else { return true }
+        guard let hour = difference.hour, hour <= Config.updateInterval else { return true }
         return false
     }
     
@@ -23,16 +23,16 @@ extension Currency {
         set { UserDefaults.standard.set(newValue, forKey: StorageKey.currenciesLastUpdate) }
     }
     
-    /// List of all available currencies
+    /// Stored currencies data
     static var list: [Currency] {
         get {
-            guard let currenciesData = UserDefaults.standard.data(forKey: StorageKey.currenciesList) else { return [] }
+            guard let currenciesData = UserDefaults.standard.data(forKey: StorageKey.currencies) else { return [] }
             guard let currencies = try? JSONDecoder().decode([Currency].self, from: currenciesData) else { return [] }
             return currencies
         }
         set {
             guard let currenciesData = try? JSONEncoder().encode(newValue) else { return }
-            UserDefaults.standard.set(currenciesData, forKey: StorageKey.currenciesList)
+            UserDefaults.standard.set(currenciesData, forKey: StorageKey.currencies)
             lastUpdate = Date()
         }
     }
