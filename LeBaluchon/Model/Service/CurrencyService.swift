@@ -23,9 +23,6 @@ class CurrencyService: Service {
     /// Custom session and apiUrl for tests
     init(session: URLSession, apiUrl: String? = nil) {
         self.session = session
-        if let apiUrl = apiUrl {
-            self.apiUrl = apiUrl
-        }
     }
     
     // MARK: Properties
@@ -36,28 +33,9 @@ class CurrencyService: Service {
     /// Task to request data
     private var task: URLSessionDataTask?
     
-    /// Base URL of the currency API
-    private var apiUrl = "http://data.fixer.io/api/"
-    
-    /// Key to access the API
-    private let apiKey = "5f997405a289e163b37336eeed0c04bb"
-    
     /// Arguments to request the API
     private var arguments: [String: String] {
-        return [ "access_key": apiKey ]
-    }
-    
-    /// Code of main currencies that must be on top of the list
-    private let mainCurrenciesCode = ["EUR", "USD"]
-}
-
-// MARK: - Data type
-
-extension CurrencyService {
-    /// Data type that can be asked
-    private enum Resource: String {
-        /// Data type available in the API
-        case Rates = "latest", Currencies = "symbols"
+        return [ "access_key": Config.Currency.apiKey ]
     }
 }
 
@@ -86,7 +64,7 @@ extension CurrencyService {
     
      /// Fetch currencies names
     func getCurrenciesNames(callback: @escaping (Result<[String: String], NetworkError>) -> Void) {
-        guard let url = createRequestURL(url: apiUrl, arguments: arguments, path: Resource.Currencies.rawValue) else {
+        guard let url = createRequestURL(url: Config.Currency.apiUrl, arguments: arguments, path: Config.Currency.endpointCurrencies) else {
             callback(.failure(NetworkError.invalidRequestURL))
             return
         }
@@ -106,7 +84,7 @@ extension CurrencyService {
     
     /// Fetch currency rates
     func getCurrenciesRates(callback: @escaping (Result<[String: Float], NetworkError>) -> Void) {
-        guard let url = createRequestURL(url: apiUrl, arguments: arguments, path: Resource.Rates.rawValue) else {
+        guard let url = createRequestURL(url: Config.Currency.apiUrl, arguments: arguments, path: Config.Currency.endpointRates) else {
             callback(.failure(NetworkError.invalidRequestURL))
             return
         }
@@ -137,7 +115,7 @@ extension CurrencyService {
         for (currencyCode, currencyRate) in currenciesRates {
             let currencyName = currenciesNames[currencyCode] ?? currencyCode
             let newCurrency = Currency(code: currencyCode, name: currencyName, rate: currencyRate)
-            if self.mainCurrenciesCode.contains(currencyCode) {
+            if Config.Currency.mainCurrenciesCode.contains(currencyCode) {
                 mainCurrencies.append(newCurrency)
             } else {
                 currencies.append(newCurrency)

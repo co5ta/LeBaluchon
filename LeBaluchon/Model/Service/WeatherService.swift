@@ -23,9 +23,6 @@ class WeatherService: Service {
     /// Custom session and apiUrl for tests
     init(session: URLSession, apiUrl: String? = nil) {
         self.session = session
-        if let apiUrl = apiUrl {
-            self.apiUrl = apiUrl
-        }
     }
     
     // MARK: Properties
@@ -36,24 +33,12 @@ class WeatherService: Service {
     /// Task to execute
     private var task: URLSessionDataTask?
     
-    /// Base URL of the currency API
-    private var apiUrl = "https://api.openweathermap.org/data/2.5/group"
-    
-    /// API key
-    private let apiKey = "951fdc1ed16481d96c1728da1c3cf6cd"
-    
-    /// ID of the locations
-    private let locationsID: [String] = ["5128581", "6455259"]
-    
-    /// Metric unit format for celcius degrees
-    private let unitFormat = "metric"
-    
     /// arguments to request the API
     private var arguments: [String: String] {
         return [
-            "id": locationsID.joined(separator: ","),
-            "APPID": apiKey,
-            "units": unitFormat
+            "id": Config.Weather.locationsID.joined(separator: ","),
+            "APPID": Config.Weather.apiKey,
+            "units": Config.Weather.unit
         ]
     }
 }
@@ -68,7 +53,7 @@ extension WeatherService {
      - parameter result: weather conditions or network error
      */
     func getConditions(callback: @escaping (_ result: Result<[WeatherCondition], NetworkError>) -> Void) {
-        guard let request = createRequestURL(url: apiUrl, arguments: arguments) else {
+        guard let request = createRequestURL(url: Config.Weather.apiUrl, arguments: arguments) else {
             callback(.failure(NetworkError.invalidRequestURL))
             return
         }

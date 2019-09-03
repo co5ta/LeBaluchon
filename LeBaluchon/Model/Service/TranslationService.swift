@@ -23,9 +23,6 @@ class TranslationService: Service {
     /// Custom session and apiUrl for tests
     init(session: URLSession, apiUrl: String? = nil) {
         self.session = session
-        if let apiUrl = apiUrl {
-            self.apiUrl = apiUrl
-        }
     }
     
     // MARK: Properties
@@ -36,12 +33,6 @@ class TranslationService: Service {
     /// Task to execute
     private var task: URLSessionDataTask?
     
-    /// Url of the API
-    private var apiUrl = "https://translation.googleapis.com/language/translate/v2"
-    
-    /// Key to access the API
-    private let apiKey = "AIzaSyDX07xWgK_IQRN3wXHFBopwycC9AzachOU"
-    
     /// Source text that have to be translated
     var sourceText = ""
     
@@ -51,7 +42,7 @@ class TranslationService: Service {
             "q": sourceText,
             "source": Language.source.code,
             "target": Language.target.code,
-            "key": apiKey
+            "key": Config.Translation.apiKey
         ]
     }
 }
@@ -65,7 +56,7 @@ extension TranslationService {
      - parameter result: text translated or error
     */
     func getTranslation(callback: @escaping (_ result: Result<String, NetworkError>) -> Void) {
-        guard let url = createRequestURL(url: apiUrl, arguments: arguments) else {
+        guard let url = createRequestURL(url: Config.Translation.apiUrl, arguments: arguments) else {
             callback(.failure(NetworkError.invalidRequestURL))
             return
         }
