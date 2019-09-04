@@ -10,27 +10,34 @@ import Foundation
 import UIKit
 
 /// Give information on the error encountered in a request
-enum NetworkError: String, Error {
-    /// The request URL could not be generate
-    case invalidRequestURL = "Invalid data provider"
-    
-    /// The API returned an error
-    case errorFromAPI = "The request returned an error"
-    
-    /// The request returned an bad response
-    case badResponse = "The request returned a bad response"
-    
-    /// Data are empty
-    case emptyData = "No data found"
-    
-    /// Json decoding failed
-    case jsonDecodeFailed = "The request received unexpected data"
+enum NetworkError: Error {
+    /// Error occured during the request
+    case invalidRequestURL, errorFromAPI(String), badResponse, badResponseNumber(String), emptyData, jsonDecodeFailed
     
     /// Prepare an alert to explain an error
     static func alert(_ networkError: NetworkError) -> UIAlertController {
-        let alert = UIAlertController(title: "Error", message: networkError.rawValue, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Error", message: networkError.localizedDescription, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(confirmAction)
         return alert
+    }
+}
+
+extension NetworkError: LocalizedError {
+    var errorDescription: String? {
+        switch self {
+        case .invalidRequestURL:
+            return "Invalid data provider"
+        case .errorFromAPI(let message):
+            return message
+        case .badResponse:
+            return "The request returned a bad response"
+        case .badResponseNumber(let message):
+            return message
+        case .emptyData:
+            return "No data returned"
+        case .jsonDecodeFailed:
+            return "Data decoding failed"
+        }
     }
 }

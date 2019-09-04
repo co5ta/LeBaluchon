@@ -42,17 +42,20 @@ extension Service {
      */
     func handleResult<T>(_ error: Error?, _ response: URLResponse?, _ data: Data?,
                          _ dataType: T.Type) -> Result<T, NetworkError> where T: Decodable {
-        if error != nil {
-            return .failure(NetworkError.errorFromAPI)
+        if let error = error {
+            return .failure(.errorFromAPI(error.localizedDescription))
         }
-        if let response = response as? HTTPURLResponse, response.statusCode != 200 {
-            return .failure(NetworkError.badResponse)
+        guard let response = response as? HTTPURLResponse else {
+            return .failure(.badResponse)
+        }
+        guard (200...299).contains(response.statusCode) else {
+            return .failure(.badResponseNumber("The response returned a code \(response.statusCode)"))
         }
         guard let data = data else {
-            return .failure(NetworkError.emptyData)
+            return .failure(.emptyData)
         }
         guard let decodedData = try? JSONDecoder().decode(dataType, from: data) else {
-            return .failure(NetworkError.jsonDecodeFailed)
+            return .failure(.jsonDecodeFailed)
         }
         return .success(decodedData)
     }
