@@ -85,7 +85,7 @@ extension TranslationViewController {
         TranslationService.shared.getTranslation() { (result) in
             switch result {
             case .failure(let error):
-                self.present(NetworkError.alert(error), animated: true)
+                self.present(UIAlertController.alert(error), animated: true)
             case .success(let data):
                 self.translatedTextView.text = data
                 self.translateButtonView.isHidden = true

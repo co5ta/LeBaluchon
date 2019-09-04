@@ -41,7 +41,7 @@ extension WeatherViewController {
         WeatherService.shared.getConditions { (result) in
             switch result {
             case .failure(let error):
-                self.present(NetworkError.alert(error), animated: true)
+                self.present(UIAlertController.alert(error), animated: true)
             case .success(let weatherConditions):
                 WeatherCondition.list = weatherConditions
                 self.reloadCollectionView()

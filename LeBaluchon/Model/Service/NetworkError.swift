@@ -7,20 +7,11 @@
 //
 
 import Foundation
-import UIKit
 
 /// Give information on the error encountered in a request
 enum NetworkError: Error {
     /// Error occured during the request
     case invalidRequestURL, errorFromAPI(String), badResponse, badResponseNumber(String), emptyData, jsonDecodeFailed
-    
-    /// Prepare an alert to explain an error
-    static func alert(_ networkError: NetworkError) -> UIAlertController {
-        let alert = UIAlertController(title: "Error", message: networkError.localizedDescription, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(confirmAction)
-        return alert
-    }
 }
 
 extension NetworkError: LocalizedError {

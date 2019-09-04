@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2206055723201C6E00DC880E /* UIAlertController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2206055623201C6E00DC880E /* UIAlertController+Alert.swift */; };
 		221558E2221C18AB00AC2329 /* Translation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221558E1221C18AB00AC2329 /* Translation.swift */; };
 		221558E4221C18C600AC2329 /* TranslationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221558E3221C18C600AC2329 /* TranslationService.swift */; };
 		2217464022314AB500AF7FAB /* translation.json in Resources */ = {isa = PBXBuildFile; fileRef = 2217463F22314AB500AF7FAB /* translation.json */; };
@@ -52,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2206055623201C6E00DC880E /* UIAlertController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Alert.swift"; sourceTree = "<group>"; };
 		221558E1221C18AB00AC2329 /* Translation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Translation.swift; sourceTree = "<group>"; };
 		221558E3221C18C600AC2329 /* TranslationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationService.swift; sourceTree = "<group>"; };
 		2217463F22314AB500AF7FAB /* translation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = translation.json; sourceTree = "<group>"; };
@@ -108,6 +110,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2206055523201B5600DC880E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2206055623201C6E00DC880E /* UIAlertController+Alert.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		221746432231AF8000AF7FAB /* json */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +191,7 @@
 				223592D621106F2B00A2D659 /* Model */,
 				223592D521106F2200A2D659 /* View */,
 				223592D421106F0E00A2D659 /* Controller */,
+				2206055523201B5600DC880E /* Extensions */,
 				22F0C8242111F430008EC6B5 /* Supporting files */,
 			);
 			path = LeBaluchon;
@@ -356,6 +367,7 @@
 				22F67A262318259F00F6BE7E /* Config.swift in Sources */,
 				221C95182200627B0033B8B3 /* Weather.swift in Sources */,
 				221966892211BDB800E59714 /* NetworkError.swift in Sources */,
+				2206055723201C6E00DC880E /* UIAlertController+Alert.swift in Sources */,
 				223592C321106EE400A2D659 /* AppDelegate.swift in Sources */,
 				22F0C8232111F275008EC6B5 /* Currency.swift in Sources */,
 				22D2873A2316DEFF00934FD5 /* Currency+Storage.swift in Sources */,
