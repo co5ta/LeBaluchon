@@ -86,8 +86,8 @@ extension TranslationViewController {
             switch result {
             case .failure(let error):
                 self.present(UIAlertController.alert(error), animated: true)
-            case .success(let data):
-                self.translatedTextView.text = data
+            case .success(let translation):
+                self.translatedTextView.text = translation
                 self.translateButtonView.isHidden = true
             }
             self.toggleActivityIndicator(show: false)

@@ -23,13 +23,13 @@ struct Currency: Codable {
 // MARK: - Decoding entity
 
 /// Struct to decode currencies names
-struct CurrenciesList: Decodable {
-    /// The list of currencies resulting from the json API
+struct CurrenciesNames: Decodable {
+    /// List of currencies with their complete names
     let symbols: [String: String]
 }
 
 /// Struct to decode currencies rates
-struct Rates: Decodable {
+struct CurrenciesRates: Decodable {
     /// List of currencies with their rates
     let rates: [String: Float]
 }

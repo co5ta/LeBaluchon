@@ -63,8 +63,8 @@ extension WeatherService {
                 switch self.handleResult(error, response, data, Weather.self) {
                 case.failure(let error):
                     callback(.failure(error))
-                case .success(let data):
-                     callback(.success(data.weatherConditions))
+                case .success(let weather):
+                     callback(.success(weather.weatherConditions))
                 }
             }
         } 

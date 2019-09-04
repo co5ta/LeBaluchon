@@ -67,8 +67,8 @@ extension TranslationService {
                 switch self.handleResult(error, response, data, TranslationResult.self) {
                 case.failure(let error):
                     callback(.failure(error))
-                case .success(let translationData):
-                    callback(.success(translationData.data.translations[0].translatedText))
+                case .success(let translationResult):
+                    callback(.success(translationResult.data.translations[0].translatedText))
                 }
             }
         }
