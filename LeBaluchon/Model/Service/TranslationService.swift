@@ -42,6 +42,7 @@ class TranslationService: Service {
             "q": sourceText,
             "source": Language.source.code,
             "target": Language.target.code,
+            "format": "text",
             "key": Config.Translation.apiKey
         ]
     }
