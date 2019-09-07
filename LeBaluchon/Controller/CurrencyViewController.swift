@@ -80,13 +80,13 @@ extension CurrencyViewController {
 extension CurrencyViewController {
     /// Fetch currencies for pickerViews
     func getCurrencies() {
-        CurrencyService.shared.getCurrencies { result in
+        CurrencyService.shared.getCurrencies { [weak self] result in
             switch result {
             case .failure(let error):
-                self.present(UIAlertController.alert(error), animated: true)
+                self?.present(UIAlertController.alert(error), animated: true)
             case .success(let currencies):
                 Currency.list = currencies
-                self.reloadPickerViews()
+                self?.reloadPickerViews()
             }
         }
     }

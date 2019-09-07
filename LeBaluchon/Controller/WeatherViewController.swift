@@ -38,20 +38,20 @@ extension WeatherViewController {
     
     /// Fetch currents weather conditions
     func getConditions() {
-        WeatherService.shared.getConditions { (result) in
+        WeatherService.shared.getConditions { [weak self] (result) in
             switch result {
             case .failure(let error):
-                self.present(UIAlertController.alert(error), animated: true)
+                self?.present(UIAlertController.alert(error), animated: true)
             case .success(let weatherConditions):
                 WeatherCondition.list = weatherConditions
-                self.reloadCollectionView()
+                self?.reloadCollectionView()
             }
         }
     }
     
     private func reloadCollectionView() {
-        self.collectionView.reloadData()
-        self.pageController.numberOfPages = WeatherCondition.list.count
+        collectionView.reloadData()
+        pageController.numberOfPages = WeatherCondition.list.count
     }
     
     /// Update current page in page controller

@@ -69,9 +69,10 @@ extension CurrencyService {
             return
         }
         task?.cancel()
-        task = session.dataTask(with: url) { (data, response, error) in
+        task = session.dataTask(with: url) { [weak self] (data, response, error) in
             DispatchQueue.main.async {
-                switch self.handleResult(error, response, data, CurrenciesNames.self) {
+                guard let result = self?.handleResult(error, response, data, CurrenciesNames.self) else { return }
+                switch result {
                 case.failure(let error):
                     callback(.failure(error))
                 case .success(let currenciesNames):
@@ -89,9 +90,10 @@ extension CurrencyService {
             return
         }
         task?.cancel()
-        task = session.dataTask(with: url) { (data, response, error) in
+        task = session.dataTask(with: url) { [weak self] (data, response, error) in
             DispatchQueue.main.async {
-                switch self.handleResult(error, response, data, CurrenciesRates.self) {
+                guard let result = self?.handleResult(error, response, data, CurrenciesRates.self) else { return }
+                switch result {
                 case.failure(let error):
                     callback(.failure(error))
                 case .success(let currenciesRates):

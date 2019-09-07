@@ -63,10 +63,11 @@ extension TranslationService {
         }
         
         task?.cancel()
-        task = session.dataTask(with: url) { (data, response, error) in
+        task = session.dataTask(with: url) { [weak self] (data, response, error) in
             DispatchQueue.main.async {
-                switch self.handleResult(error, response, data, TranslationResult.self) {
-                case.failure(let error):
+                guard let result = self?.handleResult(error, response, data, TranslationResult.self) else { return }
+                switch result {
+                case .failure(let error):
                     callback(.failure(error))
                 case .success(let translationResult):
                     callback(.success(translationResult.data.translations[0].translatedText))

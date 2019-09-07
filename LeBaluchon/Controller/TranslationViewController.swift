@@ -82,16 +82,16 @@ extension TranslationViewController {
         toggleActivityIndicator(show: true)
         TranslationService.shared.sourceText = sourceTextView.text
         
-        TranslationService.shared.getTranslation() { (result) in
+        TranslationService.shared.getTranslation() { [weak self] (result) in
             switch result {
             case .failure(let error):
-                self.present(UIAlertController.alert(error), animated: true)
+                self?.present(UIAlertController.alert(error), animated: true)
             case .success(let translation):
-                self.translatedTextView.text = translation
-                self.translateButtonView.isHidden = true
+                self?.translatedTextView.text = translation
+                self?.translateButtonView.isHidden = true
             }
-            self.toggleActivityIndicator(show: false)
-            self.sourceTextView.resignFirstResponder()
+            self?.toggleActivityIndicator(show: false)
+            self?.sourceTextView.resignFirstResponder()
         }
     }
     
@@ -138,16 +138,11 @@ extension TranslationViewController {
 extension TranslationViewController {
     /// Preparation before going to Language scene
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "segueToLanguage", let languageVC = segue.destination as? LanguageTableViewController, let sender = sender as? UIButton {
-            languageVC.delegate = self
-            languageVC.sender = sender
-            if sender == sourceLanguageButton {
-                languageVC.language = Language.source
-            }
-            else {
-                languageVC.language = Language.target
-            }
-        }
+        guard segue.identifier == "segueToLanguage" else { return }
+        guard let languageVC = segue.destination as? LanguageTableViewController, let sender = sender as? UIButton else { return }
+        languageVC.delegate = self
+        languageVC.sender = sender
+        languageVC.language = (sender == sourceLanguageButton) ? Language.source : Language.target
     }
     
     /// Go to Language scene when language button is tapped
@@ -173,7 +168,7 @@ extension TranslationViewController {
         }
         
         let keyboardSize = keyboardFrameValue.cgRectValue.size
-        let safeAreaInsets = self.view.safeAreaInsets
+        let safeAreaInsets = view.safeAreaInsets
         let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height - safeAreaInsets.bottom, right: 0.0)
         
         setScrollView(contentInsets: contentInsets)

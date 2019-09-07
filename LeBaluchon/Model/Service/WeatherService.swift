@@ -58,9 +58,10 @@ extension WeatherService {
             return
         }
         task?.cancel()
-        task = session.dataTask(with: request) { (data, response, error) in
+        task = session.dataTask(with: request) { [weak self] (data, response, error) in
             DispatchQueue.main.async {
-                switch self.handleResult(error, response, data, Weather.self) {
+                guard let result = self?.handleResult(error, response, data, Weather.self) else { return }
+                switch result {
                 case.failure(let error):
                     callback(.failure(error))
                 case .success(let weather):
