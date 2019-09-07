@@ -20,11 +20,11 @@ extension NetworkError: LocalizedError {
         case .invalidRequestURL:
             return "Invalid data provider"
         case .errorFromAPI(let message):
-            return message
+            return "Error in the request: \(message)"
         case .badResponse:
             return "The request returned a bad response"
         case .badResponseNumber(let message):
-            return message
+            return "The response returned a code \(message)"
         case .emptyData:
             return "No data returned"
         case .jsonDecodeFailed:

@@ -42,33 +42,55 @@ class CurrencyService: Service {
 // MARK: - Methods
 
 extension CurrencyService {
-    
-    func getCurrencies(callback: @escaping (Result<[Currency], NetworkError>) -> Void) {
+    /**
+     Built currencies objects with requested currencies data
+     - parameter callback: closure to manage the result of the request
+     - parameter result: collection of currencies rates or network error
+     */
+    func getCurrencies(callback: @escaping (_ result: Result<[Currency], NetworkError>) -> Void) {
+        var currenciesNames = [String: String]()
+        var currenciesRates = [String: Float]()
+        let group = DispatchGroup()
+        
+        group.enter()
         getCurrenciesNames { (result) in
             switch result {
+            case .success(let namesData):
+                currenciesNames = namesData
             case .failure(let error):
                 callback(.failure(error))
-            case .success(let namesData):
-                self.getCurrenciesRates { (result) in
-                    switch result {
-                    case .failure(let error):
-                        callback(.failure(error))
-                    case .success(let ratesData):
-                        let currencies = self.createCurrenciesObjects(with: namesData, and: ratesData)
-                        callback(.success(currencies))
-                    }
-                }
             }
+            group.leave()
         }
+        
+        group.enter()
+        getCurrenciesRates { (result) in
+            switch result {
+            case .success(let ratesData):
+                currenciesRates = ratesData
+            case .failure(let error):
+                callback(.failure(error))
+            }
+            group.leave()
+        }
+        
+        group.notify(queue: .main) {
+            let currencies = self.createCurrenciesObjects(with: currenciesNames, and: currenciesRates)
+            callback(.success(currencies))
+        }
+        
     }
     
-     /// Fetch currencies names
-    func getCurrenciesNames(callback: @escaping (Result<[String: String], NetworkError>) -> Void) {
-        guard let url = createRequestURL(url: Config.Currency.apiUrl, arguments: arguments, path: Config.Currency.endpointCurrencies) else {
+    /**
+     Fetch currencies names
+     - parameter callback: closure to manage the result of the request
+     - parameter result: collection of currencies names or network error
+     */
+    private func getCurrenciesNames(callback: @escaping (Result<[String: String], NetworkError>) -> Void) {
+        guard let url = createRequestURL(url: Config.Currency.apiUrl, arguments: arguments, path: Config.Currency.endpoints.names) else {
             callback(.failure(NetworkError.invalidRequestURL))
             return
         }
-        task?.cancel()
         task = session.dataTask(with: url) { [weak self] (data, response, error) in
             DispatchQueue.main.async {
                 guard let result = self?.handleResult(error, response, data, CurrenciesNames.self) else { return }
@@ -83,13 +105,16 @@ extension CurrencyService {
         task?.resume()
     }
     
-    /// Fetch currency rates
-    func getCurrenciesRates(callback: @escaping (Result<[String: Float], NetworkError>) -> Void) {
-        guard let url = createRequestURL(url: Config.Currency.apiUrl, arguments: arguments, path: Config.Currency.endpointRates) else {
+    /**
+     Fetch currencies rates
+     - parameter callback: closure to manage the result of the request
+     - parameter result: collection of currencies rates or network error
+     */
+    private func getCurrenciesRates(callback: @escaping (_ result: Result<[String: Float], NetworkError>) -> Void) {
+        guard let url = createRequestURL(url: Config.Currency.apiUrl, arguments: arguments, path: Config.Currency.endpoints.rates) else {
             callback(.failure(NetworkError.invalidRequestURL))
             return
         }
-        task?.cancel()
         task = session.dataTask(with: url) { [weak self] (data, response, error) in
             DispatchQueue.main.async {
                 guard let result = self?.handleResult(error, response, data, CurrenciesRates.self) else { return }

@@ -40,8 +40,8 @@ extension Service {
      - response: response returned by the request
      - path: data returned by the request
      */
-    func handleResult<T>(_ error: Error?, _ response: URLResponse?, _ data: Data?,
-                         _ dataType: T.Type) -> Result<T, NetworkError> where T: Decodable {
+    func handleResult<T>(_ error: Error?, _ response: URLResponse?, _ data: Data?, _ dataType: T.Type)
+        -> Result<T, NetworkError> where T: Decodable {
         if let error = error {
             return .failure(.errorFromAPI(error.localizedDescription))
         }
@@ -49,7 +49,7 @@ extension Service {
             return .failure(.badResponse)
         }
         guard (200...299).contains(response.statusCode) else {
-            return .failure(.badResponseNumber("The response returned a code \(response.statusCode)"))
+            return .failure(.badResponseNumber("\(response.statusCode)"))
         }
         guard let data = data else {
             return .failure(.emptyData)

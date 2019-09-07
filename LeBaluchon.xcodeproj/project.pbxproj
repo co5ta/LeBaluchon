@@ -146,10 +146,10 @@
 		221FC1E1230E88E8002BF1F7 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				2218171C220DC30600B0CFB4 /* Service.swift */,
 				22F0C82A2114B5B0008EC6B5 /* CurrencyService.swift */,
 				22433CEC21D4D91300A73EC9 /* WeatherService.swift */,
 				221558E3221C18C600AC2329 /* TranslationService.swift */,
+				2218171C220DC30600B0CFB4 /* Service.swift */,
 				221966882211BDB800E59714 /* NetworkError.swift */,
 				22F67A252318259F00F6BE7E /* Config.swift */,
 			);
