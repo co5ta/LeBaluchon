@@ -19,7 +19,7 @@ class LanguageTableViewController: UITableViewController {
     var sender: UIButton?
     
     /// Delegate which will update selected language in the application
-    var delegate: LanguageTableViewControllerDelegate?
+    weak var delegate: LanguageTableViewControllerDelegate?
 }
 
 // MARK: - Table view data source
@@ -74,7 +74,7 @@ extension LanguageTableViewController {
 // MARK: - Protocol
 
 /// Defines method to manage language selection
-protocol LanguageTableViewControllerDelegate {
+protocol LanguageTableViewControllerDelegate: class {
     /// Change the source or target language
     func changeLanguage(language: Language, sender: UIButton)
 }
