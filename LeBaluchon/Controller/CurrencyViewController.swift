@@ -142,10 +142,10 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         let currency = Currency.list[row]
         if pickerView == sourceCurrencyPickerView {
             sourceCurrencyLabel.text = currency.code
-            Currency.sourceIndex = row
+            Currency.sourceInUse = row
         } else {
             targetCurrencyLabel.text = currency.code
-            Currency.targetIndex = row
+            Currency.targetInUse = row
         }
     }
     
@@ -158,13 +158,13 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     private func showSelectedRows() {
-        var targetIndex = Currency.targetIndex
-        if (targetIndex == 0 && Currency.sourceIndex == 0) {
+        var targetIndex = Currency.targetInUse
+        if (targetIndex == 0 && Currency.sourceInUse == 0) {
             targetIndex = 1
         }
-        sourceCurrencyPickerView.selectRow(Currency.sourceIndex, inComponent: 0, animated: false)
+        sourceCurrencyPickerView.selectRow(Currency.sourceInUse, inComponent: 0, animated: false)
         targetCurrencyPickerView.selectRow(targetIndex, inComponent: 0, animated: false)
-        updateCurrencyLabel(pickerView: sourceCurrencyPickerView, row: Currency.sourceIndex)
+        updateCurrencyLabel(pickerView: sourceCurrencyPickerView, row: Currency.sourceInUse)
         updateCurrencyLabel(pickerView: targetCurrencyPickerView, row: targetIndex)
     }
     

@@ -33,26 +33,16 @@ class FakeResult {
     static let decodedCurrenciesNames = [
         "AED": "United Arab Emirates Dirham",
         "AFN": "Afghan Afghani",
-        "ALL": "Albanian Lek",
-        "AMD": "Armenian Dram",
-        "ANG": "Netherlands Antillean Guilder",
-        "AOA": "Angolan Kwanza",
-        "ARS": "Argentine Peso",
         "AUD": "Australian Dollar",
         "USD": "United States Dollar",
         "EUR": "Euro"
     ]
     
     static let decodedCurrenciesRates: [String: Float] = [
-        "AED": 4.159274,
-        "AFN": 84.567006,
-        "ALL": 124.688066,
         "USD": 1.132394,
         "EUR": 1,
-        "AMD": 554.601243,
-        "ANG": 2.054843,
-        "AOA": 356.273514,
-        "ARS": 45.732837,
+        "AED": 4.159274,
+        "AFN": 84.567006,
         "AUD": 1.611895,
     ]
 }

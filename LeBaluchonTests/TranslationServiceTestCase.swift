@@ -122,6 +122,8 @@ class TranslationServiceTestCase: XCTestCase {
     
     func testGetTranslationShouldCallbackNilErrorIfRequestReturnsGoodResponseAndData() {
         // Given
+        Language.source = Language(name: "", code: "fr")
+        Language.target = Language(name: "", code: "en")
         let session = URLSessionFake(FakeResult.getGoodData(.translation), FakeResult.goodResponse, nil)
         let translationService = TranslationService(session: session)
         //When
@@ -129,6 +131,8 @@ class TranslationServiceTestCase: XCTestCase {
             // Then
             switch result {
             case .success(let translation):
+                XCTAssertEqual(Language.source.code, "fr")
+                XCTAssertEqual(Language.target.code, "en")
                 XCTAssertEqual(translation, "You're welcome")
             case .failure:
                 XCTFail()

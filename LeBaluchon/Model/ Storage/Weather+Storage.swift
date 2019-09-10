@@ -14,7 +14,7 @@ extension WeatherCondition {
         guard let lastUpdate = lastUpdate else { return true }
         print(lastUpdate)
         let difference = Calendar.current.dateComponents([.hour], from: lastUpdate, to: Date())
-        guard let hour = difference.hour, hour <= Config.updateInterval else { return true }
+        guard let hour = difference.hour, hour < Config.updateInterval else { return true }
         print(hour)
         return false
     }

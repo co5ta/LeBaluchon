@@ -129,20 +129,39 @@ class WeatherServiceTestCase: XCTestCase {
             // Then
             switch result {
             case .success(let weather):
-                XCTAssertEqual(weather.count, 2)
-                XCTAssertEqual(weather[0].location, "New York")
-                XCTAssertEqual(weather[0].condition.description, "few clouds")
-                XCTAssertEqual(weather[0].condition.icon, "02n")
-                XCTAssertEqual(weather[0].celciusTemperatures, "-8° C")
-                XCTAssertEqual(weather[1].location, "Paris")
-                XCTAssertEqual(weather[1].condition.description, "heavy intensity rain")
-                XCTAssertEqual(weather[1].condition.icon, "10d")
-                XCTAssertEqual(weather[1].celciusTemperatures, "8° C")
+                WeatherCondition.list = weather
+                XCTAssertEqual(WeatherCondition.list.count, 2)
+                XCTAssertEqual(WeatherCondition.list[0].location, "New York")
+                XCTAssertEqual(WeatherCondition.list[0].condition.description, "few clouds")
+                XCTAssertEqual(WeatherCondition.list[0].condition.icon, "02n")
+                XCTAssertEqual(WeatherCondition.list[0].celciusTemperatures, "-8° C")
+                XCTAssertEqual(WeatherCondition.list[1].location, "Paris")
+                XCTAssertEqual(WeatherCondition.list[1].condition.description, "heavy intensity rain")
+                XCTAssertEqual(WeatherCondition.list[1].condition.icon, "10d")
+                XCTAssertEqual(WeatherCondition.list[1].celciusTemperatures, "8° C")
             case .failure:
                 XCTFail()
             }
             self.expectation.fulfill()
         }
         wait(for: [expectation], timeout: 0.01)
+    }
+    
+    func testGivenLastUpdateWasMadeSinceOneHourOrMoreThenDataNeedsUpdate() {
+        // Given
+        let oneHourLessInterval = -3600.0
+        // When
+        WeatherCondition.lastUpdate = Date(timeInterval: oneHourLessInterval, since: Date())
+        // Then
+        XCTAssertTrue(WeatherCondition.needsUpdate)
+    }
+    
+    func testGivenLastUpdateWasMadeSinceLessThanOneHourThenDataNeedsUpdate() {
+        // Given
+        let halfHourLessInterval = -1800.0
+        // When
+        WeatherCondition.lastUpdate = Date(timeInterval: halfHourLessInterval, since: Date())
+        // Then
+        XCTAssertFalse(WeatherCondition.needsUpdate)
     }
 }

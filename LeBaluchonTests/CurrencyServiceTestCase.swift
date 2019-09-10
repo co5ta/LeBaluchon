@@ -274,43 +274,63 @@ class CurrencyServiceTestCase: XCTestCase {
         // Given
         let currencyService = CurrencyService(session: URLSessionFake(nil, nil, nil))
         // When
-        let currencies = currencyService.createCurrenciesObjects(
+        Currency.list = currencyService.createCurrenciesObjects(
             with: FakeResult.decodedCurrenciesNames,
             and: FakeResult.decodedCurrenciesRates
         )
-        XCTAssertEqual(currencies[0].code, "EUR")
-        XCTAssertEqual(currencies[0].name, "Euro")
-        XCTAssertEqual(currencies[0].rate, 1)
-        XCTAssertEqual(currencies[1].code, "USD")
-        XCTAssertEqual(currencies[1].name, "United States Dollar")
-        XCTAssertEqual(currencies[1].rate, 1.132394)
-        XCTAssertEqual(currencies[2].code, "AFN")
-        XCTAssertEqual(currencies[2].name, "Afghan Afghani")
-        XCTAssertEqual(currencies[2].rate, 84.567006)
-        XCTAssertEqual(currencies.last?.code, "AED")
-        XCTAssertEqual(currencies.last?.name, "United Arab Emirates Dirham")
-        XCTAssertEqual(currencies.last?.rate, 4.159274)
+        // Then
+        XCTAssertEqual(Currency.list[0].code, "EUR")
+        XCTAssertEqual(Currency.list[0].name, "Euro")
+        XCTAssertEqual(Currency.list[0].rate, 1)
+        XCTAssertEqual(Currency.list[1].code, "USD")
+        XCTAssertEqual(Currency.list[1].name, "United States Dollar")
+        XCTAssertEqual(Currency.list[1].rate, 1.132394)
+        XCTAssertEqual(Currency.list[2].code, "AFN")
+        XCTAssertEqual(Currency.list[2].name, "Afghan Afghani")
+        XCTAssertEqual(Currency.list[2].rate, 84.567006)
+        XCTAssertEqual(Currency.list.last?.code, "AED")
+        XCTAssertEqual(Currency.list.last?.name, "United Arab Emirates Dirham")
+        XCTAssertEqual(Currency.list.last?.rate, 4.159274)
     }
     
     func testWhenCurrenciesNamesParamatersIsEmptyCreateCurrenciesObjectsShouldFillCurrenciesNamesWithTheirCode() {
         // Given
         let currencyService = CurrencyService(session: URLSessionFake(nil, nil, nil))
         // When
-        let currencies = currencyService.createCurrenciesObjects(
+        Currency.list = currencyService.createCurrenciesObjects(
             with: [:],
             and: FakeResult.decodedCurrenciesRates
         )
-        XCTAssertEqual(currencies[0].code, "EUR")
-        XCTAssertEqual(currencies[0].name, "EUR")
-        XCTAssertEqual(currencies[0].rate, 1)
-        XCTAssertEqual(currencies[1].code, "USD")
-        XCTAssertEqual(currencies[1].name, "USD")
-        XCTAssertEqual(currencies[1].rate, 1.132394)
-        XCTAssertEqual(currencies[2].code, "AED")
-        XCTAssertEqual(currencies[2].name, "AED")
-        XCTAssertEqual(currencies[2].rate, 4.159274)
-        XCTAssertEqual(currencies.last?.code, "AUD")
-        XCTAssertEqual(currencies.last?.name, "AUD")
-        XCTAssertEqual(currencies.last?.rate, 1.611895)
+        // Then
+        XCTAssertEqual(Currency.list[0].code, "EUR")
+        XCTAssertEqual(Currency.list[0].name, "EUR")
+        XCTAssertEqual(Currency.list[0].rate, 1)
+        XCTAssertEqual(Currency.list[1].code, "USD")
+        XCTAssertEqual(Currency.list[1].name, "USD")
+        XCTAssertEqual(Currency.list[1].rate, 1.132394)
+        XCTAssertEqual(Currency.list[2].code, "AED")
+        XCTAssertEqual(Currency.list[2].name, "AED")
+        XCTAssertEqual(Currency.list[2].rate, 4.159274)
+        XCTAssertEqual(Currency.list.last?.code, "AUD")
+        XCTAssertEqual(Currency.list.last?.name, "AUD")
+        XCTAssertEqual(Currency.list.last?.rate, 1.611895)
+    }
+    
+    func testGivenLastUpdateWasMadeSinceOneHourOrMoreThenDataNeedsUpdate() {
+        // Given
+        let oneHourLessInterval = -3600.0
+        // When
+        Currency.lastUpdate = Date(timeInterval: oneHourLessInterval, since: Date())
+        // Then
+        XCTAssertTrue(Currency.needsUpdate)
+    }
+    
+    func testGivenLastUpdateWasMadeSinceLessThanOneHourThenDataNeedsUpdate() {
+        // Given
+        let halfHourLessInterval = -1800.0
+        // When
+        Currency.lastUpdate = Date(timeInterval: halfHourLessInterval, since: Date())
+        // Then
+        XCTAssertFalse(Currency.needsUpdate)
     }
 }

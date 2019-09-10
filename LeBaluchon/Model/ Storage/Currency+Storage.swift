@@ -12,8 +12,8 @@ extension Currency {
     /// Return true if last update time is superior to update interval value
     static var needsUpdate: Bool {
         guard let lastUpdate = lastUpdate else { return true }
-        let difference = Calendar.current.dateComponents([.hour], from: lastUpdate, to: Date())
-        guard let hour = difference.hour, hour <= Config.updateInterval else { return true }
+        let difference = Calendar.current.dateComponents([.hour, .minute], from: lastUpdate, to: Date())
+        guard let hour = difference.hour, hour < Config.updateInterval else { return true }
         return false
     }
     
@@ -38,13 +38,13 @@ extension Currency {
     }
     
     /// Index of the source currency
-    static var sourceIndex: Int {
+    static var sourceInUse: Int {
         get { return UserDefaults.standard.integer(forKey: StorageKey.currencySourceIndex) }
         set { UserDefaults.standard.set(newValue, forKey: StorageKey.currencySourceIndex) }
     }
     
     /// Index of the target currency
-    static var targetIndex: Int {
+    static var targetInUse: Int {
         get { return UserDefaults.standard.integer(forKey: StorageKey.currencyTargetIndex) }
         set { UserDefaults.standard.set(newValue, forKey: StorageKey.currencyTargetIndex) }
     }
