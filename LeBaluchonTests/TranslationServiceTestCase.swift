@@ -15,98 +15,126 @@ class TranslationServiceTestCase: XCTestCase {
     func testGetTranslationShouldCallbackInvalidRequestUrlIfApiUrlIsBad() {
         // Given
         let session = URLSessionFake(nil, nil, nil)
-        let translationService = TranslationService(session: session, apiUrl: "ç")
-        
-        //When
-        translationService.getTranslation { (error) in
-            //Then
-            XCTAssertEqual(error, NetworkError.invalidRequestURL)
-            XCTAssert(translationService.translation.isEmpty)
+        let translationService = TranslationService(session: session, apiUrl: FakeResult.badApiUrl)
+        // When
+        translationService.getTranslation { (result) in
+            // Then
+            switch result {
+            case .failure(let error):
+                XCTAssertEqual(error.localizedDescription, NetworkError.invalidRequestURL.localizedDescription)
+            case .success:
+                XCTFail()
+            }
             self.expectation.fulfill()
         }
-        
         wait(for: [expectation], timeout: 0.01)
     }
     
     func testGetTranslationShouldCallbackErrorFromApiIfTaskReturnsError() {
         // Given
-        let session = URLSessionFake(nil, nil, ServiceFakeData.error)
+        let session = URLSessionFake(nil, nil, FakeResult.error)
         let translationService = TranslationService(session: session)
-        
         // When
-        translationService.getTranslation { (error) in
+        translationService.getTranslation { (result) in
             // Then
-            XCTAssertEqual(error, NetworkError.errorFromAPI)
-            XCTAssert(translationService.translation.isEmpty)
+            switch result {
+            case .failure(let error):
+                XCTAssertEqual(error.localizedDescription, NetworkError.errorFromAPI("A fake error occured").localizedDescription)
+            case .success:
+                XCTFail()
+            }
             self.expectation.fulfill()
         }
-        
         wait(for: [expectation], timeout: 0.01)
     }
     
-    func testGetTranslationShouldCallbackBadResponseIfResponseIsNot200() {
+    func testGetTranslationShouldCallbackBadResponseIfResponseIsNil() {
         // Given
-        let session = URLSessionFake(nil, ServiceFakeData.badResponse, nil)
+        let session = URLSessionFake(nil, nil, nil)
         let translationService = TranslationService(session: session)
-        
         //When
-        translationService.getTranslation { (error) in
+        translationService.getTranslation { (result) in
             // Then
-            XCTAssertEqual(error, NetworkError.badResponse)
-            XCTAssert(translationService.translation.isEmpty)
+            switch result {
+            case .failure(let error):
+                XCTAssertEqual(error.localizedDescription, NetworkError.badResponse.localizedDescription)
+            case .success:
+                XCTFail()
+            }
             self.expectation.fulfill()
         }
-        
+        wait(for: [expectation], timeout: 0.01)
+    }
+    
+    func testGetTranslationShouldCallbackBadResponseIfResponseIs500() {
+        // Given
+        let session = URLSessionFake(nil, FakeResult.badResponse, nil)
+        let translationService = TranslationService(session: session)
+        //When
+        translationService.getTranslation { (result) in
+            // Then
+            switch result {
+            case .failure(let error):
+                XCTAssertEqual(error.localizedDescription, NetworkError.badResponseNumber("500").localizedDescription)
+            case .success:
+                XCTFail()
+            }
+            self.expectation.fulfill()
+        }
         wait(for: [expectation], timeout: 0.01)
     }
     
     func testGetTranslationShouldCallbackEmptyDataIfRequestReturnsEmptyData() {
         // Given
-        let session = URLSessionFake(nil, ServiceFakeData.goodResponse, nil)
+        let session = URLSessionFake(nil, FakeResult.goodResponse, nil)
         let translationService = TranslationService(session: session)
-        
         //When
-        translationService.getTranslation { (error) in
+        translationService.getTranslation { (result) in
             // Then
-            XCTAssertEqual(error, NetworkError.emptyData)
-            XCTAssert(translationService.translation.isEmpty)
+            switch result {
+            case .failure(let error):
+                XCTAssertEqual(error.localizedDescription, NetworkError.emptyData.localizedDescription)
+            case .success:
+                XCTFail()
+            }
             self.expectation.fulfill()
         }
-        
         wait(for: [expectation], timeout: 0.01)
     }
     
     func testGetTranslationShouldCallbackJsonDecodeFailedIRequestReturnsBadData() {
         // Given
-        let session = URLSessionFake(ServiceFakeData.badData, ServiceFakeData.goodResponse, nil)
+        let session = URLSessionFake(FakeResult.badData, FakeResult.goodResponse, nil)
         let translationService = TranslationService(session: session)
-        
         //When
-        translationService.getTranslation { (error) in
+        translationService.getTranslation { (result) in
             // Then
-            XCTAssertEqual(error, NetworkError.jsonDecodeFailed)
-            XCTAssert(translationService.translation.isEmpty)
+            switch result {
+            case .failure(let error):
+                XCTAssertEqual(error.localizedDescription, NetworkError.jsonDecodeFailed.localizedDescription)
+            case .success:
+                XCTFail()
+            }
             self.expectation.fulfill()
         }
-        
         wait(for: [expectation], timeout: 0.01)
     }
     
     func testGetTranslationShouldCallbackNilErrorIfRequestReturnsGoodResponseAndData() {
         // Given
-        let session = URLSessionFake(ServiceFakeData.goodTranslationData, ServiceFakeData.goodResponse, nil)
+        let session = URLSessionFake(FakeResult.getGoodData(.translation), FakeResult.goodResponse, nil)
         let translationService = TranslationService(session: session)
-        
         //When
-        translationService.getTranslation { (error) in
+        translationService.getTranslation { (result) in
             // Then
-            XCTAssertNil(error)
-            XCTAssertEqual(translationService.translation, "You're welcome")
-            XCTAssertEqual(Language.sourceLanguage.code, "fr")
-            XCTAssertEqual(Language.targetLanguage.code, "en")
+            switch result {
+            case .success(let translation):
+                XCTAssertEqual(translation, "You're welcome")
+            case .failure:
+                XCTFail()
+            }
             self.expectation.fulfill()
         }
-        
         wait(for: [expectation], timeout: 0.01)
     }
 }

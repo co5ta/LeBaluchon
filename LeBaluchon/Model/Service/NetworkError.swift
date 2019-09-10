@@ -9,7 +9,7 @@
 import Foundation
 
 /// Give information on the error encountered in a request
-enum NetworkError: Error {
+enum NetworkError: Error, Equatable {
     /// Error occured during the request
     case invalidRequestURL, errorFromAPI(String), badResponse, badResponseNumber(String), emptyData, jsonDecodeFailed
 }

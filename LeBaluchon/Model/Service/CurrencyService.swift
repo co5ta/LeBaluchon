@@ -23,6 +23,7 @@ class CurrencyService: Service {
     /// Custom session and apiUrl for tests
     init(session: URLSession, apiUrl: String? = nil) {
         self.session = session
+        if let apiUrl = apiUrl { self.apiUrl = apiUrl }
     }
     
     // MARK: Properties
@@ -32,6 +33,8 @@ class CurrencyService: Service {
     
     /// Task to request data
     private var task: URLSessionDataTask?
+    
+    private var apiUrl = Config.Currency.apiUrl
     
     /// Arguments to request the API
     private var arguments: [String: String] {
@@ -43,51 +46,12 @@ class CurrencyService: Service {
 
 extension CurrencyService {
     /**
-     Built currencies objects with requested currencies data
-     - parameter callback: closure to manage the result of the request
-     - parameter result: collection of currencies rates or network error
-     */
-    func getCurrencies(callback: @escaping (_ result: Result<[Currency], NetworkError>) -> Void) {
-        var currenciesNames = [String: String]()
-        var currenciesRates = [String: Float]()
-        let group = DispatchGroup()
-        
-        group.enter()
-        getCurrenciesNames { (result) in
-            switch result {
-            case .success(let namesData):
-                currenciesNames = namesData
-            case .failure(let error):
-                callback(.failure(error))
-            }
-            group.leave()
-        }
-        
-        group.enter()
-        getCurrenciesRates { (result) in
-            switch result {
-            case .success(let ratesData):
-                currenciesRates = ratesData
-            case .failure(let error):
-                callback(.failure(error))
-            }
-            group.leave()
-        }
-        
-        group.notify(queue: .main) {
-            let currencies = self.createCurrenciesObjects(with: currenciesNames, and: currenciesRates)
-            callback(.success(currencies))
-        }
-        
-    }
-    
-    /**
      Fetch currencies names
      - parameter callback: closure to manage the result of the request
      - parameter result: collection of currencies names or network error
      */
-    private func getCurrenciesNames(callback: @escaping (Result<[String: String], NetworkError>) -> Void) {
-        guard let url = createRequestURL(url: Config.Currency.apiUrl, arguments: arguments, path: Config.Currency.endpoints.names) else {
+    func getCurrenciesNames(callback: @escaping (Result<[String: String], NetworkError>) -> Void) {
+        guard let url = createRequestURL(url: apiUrl, arguments: arguments, path: Config.Currency.endpoints.names) else {
             callback(.failure(NetworkError.invalidRequestURL))
             return
         }
@@ -110,8 +74,8 @@ extension CurrencyService {
      - parameter callback: closure to manage the result of the request
      - parameter result: collection of currencies rates or network error
      */
-    private func getCurrenciesRates(callback: @escaping (_ result: Result<[String: Float], NetworkError>) -> Void) {
-        guard let url = createRequestURL(url: Config.Currency.apiUrl, arguments: arguments, path: Config.Currency.endpoints.rates) else {
+    func getCurrenciesRates(callback: @escaping (_ result: Result<[String: Float], NetworkError>) -> Void) {
+        guard let url = createRequestURL(url: apiUrl, arguments: arguments, path: Config.Currency.endpoints.rates) else {
             callback(.failure(NetworkError.invalidRequestURL))
             return
         }
@@ -135,7 +99,7 @@ extension CurrencyService {
      - currenciesList: The list of currencies decoded from json
      - Returns: An array of Currency ordered alphabetically
      */
-    private func createCurrenciesObjects(with currenciesNames: [String: String], and currenciesRates: [String: Float]) -> [Currency] {
+    func createCurrenciesObjects(with currenciesNames: [String: String], and currenciesRates: [String: Float]) -> [Currency] {
         var mainCurrencies = [Currency]()
         var currencies = [Currency]()
         

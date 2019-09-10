@@ -23,6 +23,7 @@ class TranslationService: Service {
     /// Custom session and apiUrl for tests
     init(session: URLSession, apiUrl: String? = nil) {
         self.session = session
+        if let apiUrl = apiUrl { self.apiUrl = apiUrl }
     }
     
     // MARK: Properties
@@ -32,6 +33,8 @@ class TranslationService: Service {
     
     /// Task to execute
     private var task: URLSessionDataTask?
+    
+    private var apiUrl = Config.Currency.apiUrl
     
     /// Source text that have to be translated
     var sourceText = ""
@@ -57,11 +60,10 @@ extension TranslationService {
      - parameter result: text translated or error
     */
     func getTranslation(callback: @escaping (_ result: Result<String, NetworkError>) -> Void) {
-        guard let url = createRequestURL(url: Config.Translation.apiUrl, arguments: arguments) else {
+        guard let url = createRequestURL(url: apiUrl, arguments: arguments) else {
             callback(.failure(NetworkError.invalidRequestURL))
             return
         }
-        
         task?.cancel()
         task = session.dataTask(with: url) { [weak self] (data, response, error) in
             DispatchQueue.main.async {

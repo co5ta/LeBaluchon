@@ -15,104 +15,134 @@ class WeatherServiceTestCase: XCTestCase {
     func testGetConditionsShouldCallbackInvalidRequestUrlIfApiUrlIsBad() {
         // Given
         let session = URLSessionFake(nil, nil, nil)
-        let weatherService = WeatherService(session: session, apiUrl: "ç")
-        
+        let weatherService = WeatherService(session: session, apiUrl: FakeResult.badApiUrl)
         //When
-        weatherService.getConditions { (error) in
+        weatherService.getConditions { (result) in
             // Then
-            XCTAssertEqual(error, NetworkError.invalidRequestURL)
-            XCTAssert(weatherService.cities.isEmpty)
+            switch result {
+            case .failure(let error):
+                XCTAssertEqual(error.localizedDescription, NetworkError.invalidRequestURL.localizedDescription)
+            case .success:
+                XCTFail()
+            }
             self.expectation.fulfill()
         }
-        
         wait(for: [expectation], timeout: 0.01)
     }
     
     func testGetConditionsShouldCallbackErrorIfRequestReturnsError() {
         // Given
-        let session = URLSessionFake(nil, nil, ServiceFakeData.error)
+        let fakeError = FakeResult.error
+        let session = URLSessionFake(nil, nil, fakeError)
         let weatherService = WeatherService(session: session)
-        
         //When
-        weatherService.getConditions { (error) in
+        weatherService.getConditions { (result) in
             // Then
-            XCTAssertEqual(error, NetworkError.errorFromAPI)
-            XCTAssert(weatherService.cities.isEmpty)
+            if case .failure(let error) = result {
+                XCTAssertEqual(error.localizedDescription, NetworkError.errorFromAPI(fakeError.errorDescription!).localizedDescription)
+            } else {
+                XCTFail()
+            }
             self.expectation.fulfill()
         }
-        
         wait(for: [expectation], timeout: 0.01)
     }
     
-    func testGetConditionsShouldCallbackBadResponseIfResponseIsNot200() {
+    func testGetConditionsShouldCallbackBadResponseIfResponseIsNil() {
         // Given
-        let session = URLSessionFake(nil, ServiceFakeData.badResponse, nil)
+        let session = URLSessionFake(nil, nil, nil)
         let weatherService = WeatherService(session: session)
-        
         //When
-        weatherService.getConditions { (error) in
+        weatherService.getConditions { (result) in
             // Then
-            XCTAssertEqual(error, NetworkError.badResponse)
-            XCTAssert(weatherService.cities.isEmpty)
+            if case .failure(let error) = result {
+                XCTAssertEqual(error.localizedDescription, NetworkError.badResponse.localizedDescription)
+            } else {
+                XCTFail()
+            }
             self.expectation.fulfill()
         }
-        
+        wait(for: [expectation], timeout: 0.01)
+    }
+    
+    func testGetConditionsShouldCallbackBadResponseIfResponseIs500() {
+        // Given
+        let session = URLSessionFake(nil, FakeResult.badResponse, nil)
+        let weatherService = WeatherService(session: session)
+        //When
+        weatherService.getConditions { (result) in
+            // Then
+            switch result {
+            case .failure(let error):
+                XCTAssertEqual(error.localizedDescription, NetworkError.badResponseNumber("500").localizedDescription)
+            case .success:
+                XCTFail()
+            }
+            self.expectation.fulfill()
+        }
         wait(for: [expectation], timeout: 0.01)
     }
     
     func testGetConditionsShouldCallbackEmptyDataIfRequestReturnsEmptyData() {
         // Given
-        let session = URLSessionFake(nil, ServiceFakeData.goodResponse, nil)
+        let session = URLSessionFake(nil, FakeResult.goodResponse, nil)
         let weatherService = WeatherService(session: session)
-        
         //When
-        weatherService.getConditions { (error) in
+        weatherService.getConditions { (result) in
             // Then
-            XCTAssertEqual(error, NetworkError.emptyData)
-            XCTAssert(weatherService.cities.isEmpty)
+            switch result {
+            case .failure(let error):
+                XCTAssertEqual(error.localizedDescription, NetworkError.emptyData.localizedDescription)
+            case .success:
+                XCTFail()
+            }
             self.expectation.fulfill()
         }
-        
         wait(for: [expectation], timeout: 0.01)
     }
     
-    func testGetConditionsShouldCallbackJsonDecodeFailedIRequestReturnsBadData() {
+    func testGetConditionsShouldCallbackJsonDecodeFailedIfRequestReturnsBadData() {
         // Given
-        let session = URLSessionFake(ServiceFakeData.badData, ServiceFakeData.goodResponse, nil)
+        let session = URLSessionFake(FakeResult.badData, FakeResult.goodResponse, nil)
         let weatherService = WeatherService(session: session)
-        
         //When
-        weatherService.getConditions { (error) in
+        weatherService.getConditions { (result) in
             // Then
-            XCTAssertEqual(error, NetworkError.jsonDecodeFailed)
-            XCTAssert(weatherService.cities.isEmpty)
+            switch result {
+            case .failure(let error):
+                XCTAssertEqual(error.localizedDescription, NetworkError.jsonDecodeFailed.localizedDescription)
+            case .success:
+                XCTFail()
+            }
             self.expectation.fulfill()
         }
-        
         wait(for: [expectation], timeout: 0.01)
     }
     
     func testGetConditionsShouldCallbackNilErrorIfRequestReturnsGoodResponseAndData() {
         // Given
-        let session = URLSessionFake(ServiceFakeData.goodWeatherData, ServiceFakeData.goodResponse, nil)
+        let session = URLSessionFake(FakeResult.getGoodData(.weather), FakeResult.goodResponse, nil)
         let weatherService = WeatherService(session: session)
         
         //When
-        weatherService.getConditions { (error) in
+        weatherService.getConditions { (result) in
             // Then
-            XCTAssertNil(error)
-            XCTAssertEqual(weatherService.cities.count, 2)
-            XCTAssertEqual(weatherService.cities[0].name, "New York")
-            XCTAssertEqual(weatherService.cities[0].primaryCondition.description, "few clouds")
-            XCTAssertEqual(weatherService.cities[0].primaryCondition.icon, "02n")
-            XCTAssertEqual(weatherService.cities[0].celciusTemperatures, "-8° C")
-            XCTAssertEqual(weatherService.cities[1].name, "Paris")
-            XCTAssertEqual(weatherService.cities[1].primaryCondition.description, "heavy intensity rain")
-            XCTAssertEqual(weatherService.cities[1].primaryCondition.icon, "10d")
-            XCTAssertEqual(weatherService.cities[1].celciusTemperatures, "8° C")
+            switch result {
+            case .success(let weather):
+                XCTAssertEqual(weather.count, 2)
+                XCTAssertEqual(weather[0].location, "New York")
+                XCTAssertEqual(weather[0].condition.description, "few clouds")
+                XCTAssertEqual(weather[0].condition.icon, "02n")
+                XCTAssertEqual(weather[0].celciusTemperatures, "-8° C")
+                XCTAssertEqual(weather[1].location, "Paris")
+                XCTAssertEqual(weather[1].condition.description, "heavy intensity rain")
+                XCTAssertEqual(weather[1].condition.icon, "10d")
+                XCTAssertEqual(weather[1].celciusTemperatures, "8° C")
+            case .failure:
+                XCTFail()
+            }
             self.expectation.fulfill()
         }
-        
         wait(for: [expectation], timeout: 0.01)
     }
 }

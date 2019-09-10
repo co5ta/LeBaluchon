@@ -9,9 +9,9 @@
 import Foundation
 
 /// Simulate data that service can receive when they request an API
-class ServiceFakeData {
+class FakeResult {
     /// Bad url format
-    static let badApiUrl = "ç"
+    static let badApiUrl = "a://@@"
     
     /// Response with good status code
     static let goodResponse = HTTPURLResponse(url: URL(string: "apple.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
@@ -22,50 +22,54 @@ class ServiceFakeData {
     /// Data that doesn't contain what is expected
     static let badData = "data are bad here".data(using: .utf8)!
     
-    /// Example of good currencies data
-    static var goodCurrenciesData: Data {
-        return getGoodData(dataType: .currencies)
-    }
-    
-    /// Example of good rates data
-    static var goodRatesData: Data {
-        return getGoodData(dataType: .rates)
-    }
-    
-    /// Example of good weather data
-    static var goodWeatherData: Data {
-        return getGoodData(dataType: .weather)
-    }
-    
-    /// Example of good translation data
-    static var goodTranslationData: Data {
-        return getGoodData(dataType: .translation)
-    }
-    
     /// Give good data from json
-    private static func getGoodData(dataType: dataType) -> Data {
-        let bundle = Bundle(for: ServiceFakeData.self)
+    static func getGoodData(_ dataType: dataType) -> Data {
+        let bundle = Bundle(for: FakeResult.self)
         let url = bundle.url(forResource: dataType.rawValue, withExtension: "json")!
         let data = try! Data(contentsOf: url)
-        
         return data
     }
+    
+    static let decodedCurrenciesNames = [
+        "AED": "United Arab Emirates Dirham",
+        "AFN": "Afghan Afghani",
+        "ALL": "Albanian Lek",
+        "AMD": "Armenian Dram",
+        "ANG": "Netherlands Antillean Guilder",
+        "AOA": "Angolan Kwanza",
+        "ARS": "Argentine Peso",
+        "AUD": "Australian Dollar",
+        "USD": "United States Dollar",
+        "EUR": "Euro"
+    ]
+    
+    static let decodedCurrenciesRates: [String: Float] = [
+        "AED": 4.159274,
+        "AFN": 84.567006,
+        "ALL": 124.688066,
+        "USD": 1.132394,
+        "EUR": 1,
+        "AMD": 554.601243,
+        "ANG": 2.054843,
+        "AOA": 356.273514,
+        "ARS": 45.732837,
+        "AUD": 1.611895,
+    ]
 }
 
-extension ServiceFakeData {
+extension FakeResult {
     /// Struct to simulate an error
-    struct FakeError: Error {}
+    struct FakeError: Error, LocalizedError {
+        var errorDescription: String? = "A fake error occured"
+    }
     
     /// Any error
     static let error = FakeError()
 }
 
-extension ServiceFakeData {
+extension FakeResult {
     /// Type of data we can have in each test json
     enum dataType: String {
-        case currencies
-        case rates
-        case weather
-        case translation
+        case currencies, rates, weather, translation
     }
 }

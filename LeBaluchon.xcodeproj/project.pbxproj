@@ -16,7 +16,6 @@
 		221930D82230105D0051CF85 /* rates.json in Resources */ = {isa = PBXBuildFile; fileRef = 221930D72230105D0051CF85 /* rates.json */; };
 		221930DC2230350E0051CF85 /* WeatherServiceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221930DB2230350E0051CF85 /* WeatherServiceTestCase.swift */; };
 		221930DE2230495C0051CF85 /* weather.json in Resources */ = {isa = PBXBuildFile; fileRef = 221930DD2230495C0051CF85 /* weather.json */; };
-		221930E222304A3F0051CF85 /* ServiceFakeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221930E122304A3F0051CF85 /* ServiceFakeData.swift */; };
 		221966892211BDB800E59714 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221966882211BDB800E59714 /* NetworkError.swift */; };
 		221B47DD222D679700DA52CC /* CurrencyServiceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221B47DC222D679700DA52CC /* CurrencyServiceTestCase.swift */; };
 		221B47DF222D6C5200DA52CC /* currencies.json in Resources */ = {isa = PBXBuildFile; fileRef = 221B47DE222D6C5200DA52CC /* currencies.json */; };
@@ -33,6 +32,7 @@
 		223592DE2110EA4200A2D659 /* TranslationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223592DD2110EA4200A2D659 /* TranslationViewController.swift */; };
 		223592E02110EA5900A2D659 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223592DF2110EA5900A2D659 /* WeatherViewController.swift */; };
 		22433CED21D4D91300A73EC9 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22433CEC21D4D91300A73EC9 /* WeatherService.swift */; };
+		2287A941232788AE00D486BD /* FakeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2287A940232788AD00D486BD /* FakeResult.swift */; };
 		22880A622254BA08005D75D5 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22880A612254BA08005D75D5 /* Language.swift */; };
 		22D2873A2316DEFF00934FD5 /* Currency+Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D287392316DEFF00934FD5 /* Currency+Storage.swift */; };
 		22E804EF221D60F6006E0ECB /* LanguageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E804EE221D60F5006E0ECB /* LanguageTableViewController.swift */; };
@@ -62,7 +62,6 @@
 		221930D72230105D0051CF85 /* rates.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rates.json; sourceTree = "<group>"; };
 		221930DB2230350E0051CF85 /* WeatherServiceTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherServiceTestCase.swift; sourceTree = "<group>"; };
 		221930DD2230495C0051CF85 /* weather.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = weather.json; sourceTree = "<group>"; };
-		221930E122304A3F0051CF85 /* ServiceFakeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceFakeData.swift; sourceTree = "<group>"; };
 		221966882211BDB800E59714 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		221B47D2222D670200DA52CC /* LeBaluchonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeBaluchonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		221B47D6222D670200DA52CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -83,6 +82,7 @@
 		223592DD2110EA4200A2D659 /* TranslationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationViewController.swift; sourceTree = "<group>"; };
 		223592DF2110EA5900A2D659 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		22433CEC21D4D91300A73EC9 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		2287A940232788AD00D486BD /* FakeResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeResult.swift; sourceTree = "<group>"; };
 		22880A612254BA08005D75D5 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		22D287392316DEFF00934FD5 /* Currency+Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Currency+Storage.swift"; sourceTree = "<group>"; };
 		22E804EE221D60F5006E0ECB /* LanguageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTableViewController.swift; sourceTree = "<group>"; };
@@ -136,7 +136,7 @@
 				221930DB2230350E0051CF85 /* WeatherServiceTestCase.swift */,
 				221746412231531000AF7FAB /* TranslationServiceTestCase.swift */,
 				221B47E2222DBA8A00DA52CC /* URLSessionFake.swift */,
-				221930E122304A3F0051CF85 /* ServiceFakeData.swift */,
+				2287A940232788AD00D486BD /* FakeResult.swift */,
 				221746432231AF8000AF7FAB /* json */,
 				221B47D6222D670200DA52CC /* Info.plist */,
 			);
@@ -348,11 +348,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				221930E222304A3F0051CF85 /* ServiceFakeData.swift in Sources */,
 				221930DC2230350E0051CF85 /* WeatherServiceTestCase.swift in Sources */,
 				221746422231531000AF7FAB /* TranslationServiceTestCase.swift in Sources */,
 				221B47E3222DBA8A00DA52CC /* URLSessionFake.swift in Sources */,
 				221B47DD222D679700DA52CC /* CurrencyServiceTestCase.swift in Sources */,
+				2287A941232788AE00D486BD /* FakeResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,6 +23,7 @@ class WeatherService: Service {
     /// Custom session and apiUrl for tests
     init(session: URLSession, apiUrl: String? = nil) {
         self.session = session
+        if let apiUrl = apiUrl { self.apiUrl = apiUrl }
     }
     
     // MARK: Properties
@@ -32,6 +33,8 @@ class WeatherService: Service {
     
     /// Task to execute
     private var task: URLSessionDataTask?
+    
+    private var apiUrl = Config.Weather.apiUrl
     
     /// arguments to request the API
     private var arguments: [String: String] {
@@ -53,11 +56,10 @@ extension WeatherService {
      - parameter result: weather conditions or network error
      */
     func getConditions(callback: @escaping (_ result: Result<[WeatherCondition], NetworkError>) -> Void) {
-        guard let request = createRequestURL(url: Config.Weather.apiUrl, arguments: arguments) else {
+        guard let request = createRequestURL(url: apiUrl, arguments: arguments) else {
             callback(.failure(NetworkError.invalidRequestURL))
             return
         }
-        task?.cancel()
         task = session.dataTask(with: request) { [weak self] (data, response, error) in
             DispatchQueue.main.async {
                 guard let result = self?.handleResult(error, response, data, Weather.self) else { return }
