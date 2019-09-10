@@ -52,7 +52,6 @@ extension CurrencyViewController {
         loadCurrencies()
     }
     
-    
     private func setUpDelegates() {
         sourceValueTextField.delegate = self
         sourceCurrencyPickerView.dataSource = self
@@ -80,22 +79,35 @@ extension CurrencyViewController {
 extension CurrencyViewController {
     /// Fetch currencies for pickerViews
     func getCurrencies() {
-        CurrencyService.shared.getCurrenciesNames { [weak self] (result) in
+        var currenciesNames = [String: String]()
+        var currenciesRates = [String: Float]()
+        let group = DispatchGroup()
+        
+        group.enter()
+        CurrencyService.shared.getCurrenciesNames { (result) in
             switch result {
-            case .failure(let error):
-                self?.present(UIAlertController.alert(error), animated: true)
             case .success(let namesData):
-                CurrencyService.shared.getCurrenciesRates { (result) in
-                    switch result {
-                    case .failure(let error):
-                        self?.present(UIAlertController.alert(error), animated: true)
-                    case .success(let ratesData):
-                        let currencies = CurrencyService.shared.createCurrenciesObjects(with: namesData, and: ratesData)
-                        Currency.list = currencies
-                        self?.reloadPickerViews()
-                    }
-                }
+                currenciesNames = namesData
+            case .failure(let error):
+                self.present(UIAlertController.alert(error), animated: true)
             }
+            group.leave()
+        }
+        
+        group.enter()
+        CurrencyService.shared.getCurrenciesRates { (result) in
+            switch result {
+            case .success(let ratesData):
+                currenciesRates = ratesData
+            case .failure(let error):
+                self.present(UIAlertController.alert(error), animated: true)
+            }
+            group.leave()
+        }
+        
+        group.notify(queue: .main) {
+            Currency.list = CurrencyService.shared.createCurrenciesObjects(with: currenciesNames, and: currenciesRates)
+            self.reloadPickerViews()
         }
     }
 }
@@ -138,7 +150,7 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     /// Reload data in the pickerviews
-    fileprivate func reloadPickerViews() {
+    private func reloadPickerViews() {
         sourceCurrencyPickerView.reloadComponent(0)
         targetCurrencyPickerView.reloadComponent(0)
         showSelectedRows()
@@ -146,13 +158,14 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     private func showSelectedRows() {
-        let sourceIndex = Currency.sourceIndex
         var targetIndex = Currency.targetIndex
-        if (targetIndex == 0 && sourceIndex == 0) {
+        if (targetIndex == 0 && Currency.sourceIndex == 0) {
             targetIndex = 1
         }
-        sourceCurrencyPickerView.selectRow(sourceIndex, inComponent: 0, animated: false)
+        sourceCurrencyPickerView.selectRow(Currency.sourceIndex, inComponent: 0, animated: false)
         targetCurrencyPickerView.selectRow(targetIndex, inComponent: 0, animated: false)
+        updateCurrencyLabel(pickerView: sourceCurrencyPickerView, row: Currency.sourceIndex)
+        updateCurrencyLabel(pickerView: targetCurrencyPickerView, row: targetIndex)
     }
     
     ///  Invert currencies
