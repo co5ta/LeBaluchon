@@ -84,30 +84,30 @@ extension CurrencyViewController {
         let group = DispatchGroup()
         
         group.enter()
-        CurrencyService.shared.getCurrenciesNames { (result) in
+        CurrencyService.shared.getCurrenciesNames { [weak self] (result) in
             switch result {
             case .success(let namesData):
                 currenciesNames = namesData
             case .failure(let error):
-                self.present(UIAlertController.alert(error), animated: true)
+                self?.present(UIAlertController.alert(error), animated: true)
             }
             group.leave()
         }
         
         group.enter()
-        CurrencyService.shared.getCurrenciesRates { (result) in
+        CurrencyService.shared.getCurrenciesRates { [weak self] (result) in
             switch result {
             case .success(let ratesData):
                 currenciesRates = ratesData
             case .failure(let error):
-                self.present(UIAlertController.alert(error), animated: true)
+                self?.present(UIAlertController.alert(error), animated: true)
             }
             group.leave()
         }
         
-        group.notify(queue: .main) {
+        group.notify(queue: .main) { [weak self] in
             Currency.list = CurrencyService.shared.createCurrenciesObjects(with: currenciesNames, and: currenciesRates)
-            self.reloadPickerViews()
+            self?.reloadPickerViews()
         }
     }
 }
