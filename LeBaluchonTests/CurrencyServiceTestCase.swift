@@ -15,7 +15,7 @@ class CurrencyServiceTestCase: XCTestCase {
     func testGetCurrenciesNamesShouldCallbackInvalidRequestURLWhenApiUrlIsBad() {
         // Given
         let session = URLSessionFake(nil, nil, nil)
-        let currencyService = CurrencyService(session: session, apiUrl: FakeResult.badApiUrl)
+        let currencyService = CurrencyService(session: session, apiUrl: FakeResponseData.badApiUrl)
         // When
         currencyService.getCurrenciesNames { (result) in
             // Then
@@ -33,7 +33,7 @@ class CurrencyServiceTestCase: XCTestCase {
     func testGetCurrenciesRatesShouldCallbackInvalidRequestURLWhenApiUrlIsBad() {
         // Given
         let session = URLSessionFake(nil, nil, nil)
-        let currencyService = CurrencyService(session: session, apiUrl: FakeResult.badApiUrl)
+        let currencyService = CurrencyService(session: session, apiUrl: FakeResponseData.badApiUrl)
         // When
         currencyService.getCurrenciesRates { (result) in
             // Then
@@ -50,8 +50,8 @@ class CurrencyServiceTestCase: XCTestCase {
     
     func testGetCurrenciesNamesShouldCallbackErrorFromAPIWhenCurrencySessionReturnsError() {
         // Given
-        let fakeError = FakeResult.error
-        let session = URLSessionFake(nil, nil, FakeResult.error)
+        let fakeError = FakeResponseData.error
+        let session = URLSessionFake(nil, nil, FakeResponseData.error)
         let currencyService = CurrencyService(session: session)
         // When
         currencyService.getCurrenciesNames { (result) in
@@ -69,8 +69,8 @@ class CurrencyServiceTestCase: XCTestCase {
     
     func testGetCurrenciesRatesShouldCallbackErrorFromAPIWhenCurrencySessionReturnsError() {
         // Given
-        let fakeError = FakeResult.error
-        let session = URLSessionFake(nil, nil, FakeResult.error)
+        let fakeError = FakeResponseData.error
+        let session = URLSessionFake(nil, nil, FakeResponseData.error)
         let currencyService = CurrencyService(session: session)
         // When
         currencyService.getCurrenciesRates { (result) in
@@ -124,7 +124,7 @@ class CurrencyServiceTestCase: XCTestCase {
     
     func testGetCurrenciesNamesShouldCallbackBadResponseWhenCurrencySessionResponseIs500() {
         // Given
-        let session = URLSessionFake(nil, FakeResult.badResponse, nil)
+        let session = URLSessionFake(nil, FakeResponseData.badResponse, nil)
         let currencyService = CurrencyService(session: session)
         // When
         currencyService.getCurrenciesNames { (result) in
@@ -142,7 +142,7 @@ class CurrencyServiceTestCase: XCTestCase {
     
     func testGetCurrenciesRatesShouldCallbackBadResponseWhenCurrencySessionResponseIs500() {
         // Given
-        let session = URLSessionFake(nil, FakeResult.badResponse, nil)
+        let session = URLSessionFake(nil, FakeResponseData.badResponse, nil)
         let currencyService = CurrencyService(session: session)
         // When
         currencyService.getCurrenciesRates { (result) in
@@ -160,7 +160,7 @@ class CurrencyServiceTestCase: XCTestCase {
     
     func testGetCurrenciesNamesShouldCallbackEmptyDataWhenCurrencySessionReturnsNoData() {
         // Given
-        let session = URLSessionFake(nil, FakeResult.goodResponse, nil)
+        let session = URLSessionFake(nil, FakeResponseData.goodResponse, nil)
         let currencyService = CurrencyService(session: session)
         // When
         currencyService.getCurrenciesNames { (result) in
@@ -178,7 +178,7 @@ class CurrencyServiceTestCase: XCTestCase {
     
     func testGetCurrenciesRatesShouldCallbackEmptyDataWhenCurrencySessionReturnsNoData() {
         // Given
-        let session = URLSessionFake(nil, FakeResult.goodResponse, nil)
+        let session = URLSessionFake(nil, FakeResponseData.goodResponse, nil)
         let currencyService = CurrencyService(session: session)
         // When
         currencyService.getCurrenciesRates { (result) in
@@ -196,7 +196,7 @@ class CurrencyServiceTestCase: XCTestCase {
     
     func testGetCurrenciesNamesShouldCallbackJsonDecodeFailedWhenCurrencySessionReturnsBadData() {
         // Given
-        let session = URLSessionFake(FakeResult.badData, FakeResult.goodResponse, nil)
+        let session = URLSessionFake(FakeResponseData.badData, FakeResponseData.goodResponse, nil)
         let currencyService = CurrencyService(session: session)
         // When
         currencyService.getCurrenciesNames { (result) in
@@ -214,7 +214,7 @@ class CurrencyServiceTestCase: XCTestCase {
     
     func testGetCurrenciesRatesShouldCallbackJsonDecodeFailedWhenCurrencySessionReturnsBadData() {
         // Given
-        let session = URLSessionFake(FakeResult.badData, FakeResult.goodResponse, nil)
+        let session = URLSessionFake(FakeResponseData.badData, FakeResponseData.goodResponse, nil)
         let currencyService = CurrencyService(session: session)
         // When
         currencyService.getCurrenciesRates { (result) in
@@ -232,7 +232,7 @@ class CurrencyServiceTestCase: XCTestCase {
     
     func testGetCurrenciesNamesShouldCallbackNilWhenCurrencySessionReturnsGoodResponseAndData() {
         // Given
-        let session = URLSessionFake(FakeResult.getGoodData(.currencies), FakeResult.goodResponse, nil)
+        let session = URLSessionFake(FakeResponseData.getGoodData(.currencies), FakeResponseData.goodResponse, nil)
         let currencyService = CurrencyService(session: session)
         // When
         currencyService.getCurrenciesNames { (result) in
@@ -252,7 +252,7 @@ class CurrencyServiceTestCase: XCTestCase {
     
     func testGetCurrenciesRatesShouldCallbackNilWhenCurrencySessionReturnsGoodResponseAndData() {
         // Given
-        let session = URLSessionFake(FakeResult.getGoodData(.rates), FakeResult.goodResponse, nil)
+        let session = URLSessionFake(FakeResponseData.getGoodData(.rates), FakeResponseData.goodResponse, nil)
         let currencyService = CurrencyService(session: session)
         // When
         currencyService.getCurrenciesRates { (result) in
@@ -275,8 +275,8 @@ class CurrencyServiceTestCase: XCTestCase {
         let currencyService = CurrencyService(session: URLSessionFake(nil, nil, nil))
         // When
         Currency.list = currencyService.createCurrenciesObjects(
-            with: FakeResult.decodedCurrenciesNames,
-            and: FakeResult.decodedCurrenciesRates
+            with: FakeDecodedData.currenciesNames,
+            and: FakeDecodedData.currenciesRates
         )
         // Then
         XCTAssertEqual(Currency.list[0].code, "EUR")
@@ -288,32 +288,9 @@ class CurrencyServiceTestCase: XCTestCase {
         XCTAssertEqual(Currency.list[2].code, "AFN")
         XCTAssertEqual(Currency.list[2].name, "Afghan Afghani")
         XCTAssertEqual(Currency.list[2].rate, 84.567006)
-        XCTAssertEqual(Currency.list.last?.code, "AED")
-        XCTAssertEqual(Currency.list.last?.name, "United Arab Emirates Dirham")
-        XCTAssertEqual(Currency.list.last?.rate, 4.159274)
-    }
-    
-    func testWhenCurrenciesNamesParamatersIsEmptyCreateCurrenciesObjectsShouldFillCurrenciesNamesWithTheirCode() {
-        // Given
-        let currencyService = CurrencyService(session: URLSessionFake(nil, nil, nil))
-        // When
-        Currency.list = currencyService.createCurrenciesObjects(
-            with: [:],
-            and: FakeResult.decodedCurrenciesRates
-        )
-        // Then
-        XCTAssertEqual(Currency.list[0].code, "EUR")
-        XCTAssertEqual(Currency.list[0].name, "EUR")
-        XCTAssertEqual(Currency.list[0].rate, 1)
-        XCTAssertEqual(Currency.list[1].code, "USD")
-        XCTAssertEqual(Currency.list[1].name, "USD")
-        XCTAssertEqual(Currency.list[1].rate, 1.132394)
-        XCTAssertEqual(Currency.list[2].code, "AED")
-        XCTAssertEqual(Currency.list[2].name, "AED")
-        XCTAssertEqual(Currency.list[2].rate, 4.159274)
-        XCTAssertEqual(Currency.list.last?.code, "AUD")
-        XCTAssertEqual(Currency.list.last?.name, "AUD")
-        XCTAssertEqual(Currency.list.last?.rate, 1.611895)
+        XCTAssertEqual(Currency.list.last?.code, "ZWL")
+        XCTAssertEqual(Currency.list.last?.name, "Zimbabwean Dollar")
+        XCTAssertEqual(Currency.list.last?.rate, 365.03284)
     }
     
     func testGivenLastUpdateWasMadeSinceOneHourOrMoreThenDataNeedsUpdate() {
@@ -332,5 +309,15 @@ class CurrencyServiceTestCase: XCTestCase {
         Currency.lastUpdate = Date(timeInterval: halfHourLessInterval, since: Date())
         // Then
         XCTAssertFalse(Currency.needsUpdate)
+    }
+    
+    func testCurrencySourceInUse() {
+        Currency.sourceInUse = 3
+        XCTAssertEqual(Currency.sourceInUse, 3)
+    }
+    
+    func testCurrencyTargetInUse() {
+        Currency.targetInUse = 4
+        XCTAssertEqual(Currency.targetInUse, 4)
     }
 }

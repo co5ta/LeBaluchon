@@ -15,7 +15,7 @@ class WeatherServiceTestCase: XCTestCase {
     func testGetConditionsShouldCallbackInvalidRequestUrlIfApiUrlIsBad() {
         // Given
         let session = URLSessionFake(nil, nil, nil)
-        let weatherService = WeatherService(session: session, apiUrl: FakeResult.badApiUrl)
+        let weatherService = WeatherService(session: session, apiUrl: FakeResponseData.badApiUrl)
         //When
         weatherService.getConditions { (result) in
             // Then
@@ -32,7 +32,7 @@ class WeatherServiceTestCase: XCTestCase {
     
     func testGetConditionsShouldCallbackErrorIfRequestReturnsError() {
         // Given
-        let fakeError = FakeResult.error
+        let fakeError = FakeResponseData.error
         let session = URLSessionFake(nil, nil, fakeError)
         let weatherService = WeatherService(session: session)
         //When
@@ -67,7 +67,7 @@ class WeatherServiceTestCase: XCTestCase {
     
     func testGetConditionsShouldCallbackBadResponseIfResponseIs500() {
         // Given
-        let session = URLSessionFake(nil, FakeResult.badResponse, nil)
+        let session = URLSessionFake(nil, FakeResponseData.badResponse, nil)
         let weatherService = WeatherService(session: session)
         //When
         weatherService.getConditions { (result) in
@@ -85,7 +85,7 @@ class WeatherServiceTestCase: XCTestCase {
     
     func testGetConditionsShouldCallbackEmptyDataIfRequestReturnsEmptyData() {
         // Given
-        let session = URLSessionFake(nil, FakeResult.goodResponse, nil)
+        let session = URLSessionFake(nil, FakeResponseData.goodResponse, nil)
         let weatherService = WeatherService(session: session)
         //When
         weatherService.getConditions { (result) in
@@ -103,7 +103,7 @@ class WeatherServiceTestCase: XCTestCase {
     
     func testGetConditionsShouldCallbackJsonDecodeFailedIfRequestReturnsBadData() {
         // Given
-        let session = URLSessionFake(FakeResult.badData, FakeResult.goodResponse, nil)
+        let session = URLSessionFake(FakeResponseData.badData, FakeResponseData.goodResponse, nil)
         let weatherService = WeatherService(session: session)
         //When
         weatherService.getConditions { (result) in
@@ -121,7 +121,7 @@ class WeatherServiceTestCase: XCTestCase {
     
     func testGetConditionsShouldCallbackNilErrorIfRequestReturnsGoodResponseAndData() {
         // Given
-        let session = URLSessionFake(FakeResult.getGoodData(.weather), FakeResult.goodResponse, nil)
+        let session = URLSessionFake(FakeResponseData.getGoodData(.weather), FakeResponseData.goodResponse, nil)
         let weatherService = WeatherService(session: session)
         
         //When

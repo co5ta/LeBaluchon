@@ -11,17 +11,17 @@ import Foundation
 /// Contains the result of the request given by API
 struct TranslationResult: Decodable {
     /// Data of the result
-    var data: TranslationData
+    let data: TranslationData
 }
 
 /// Data of the result
 struct TranslationData: Decodable {
     /// Contains all translations given by the API
-    var translations: [Translation]
+    let translations: [Translation]
 }
 
 /// Translation in one language
 struct Translation: Decodable {
     /// The text translated
-    var translatedText: String
+    let translatedText: String
 }

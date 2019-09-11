@@ -34,7 +34,7 @@ class TranslationService: Service {
     /// Task to execute
     private var task: URLSessionDataTask?
     
-    private var apiUrl = Config.Currency.apiUrl
+    private var apiUrl = Config.Translation.apiUrl
     
     /// Source text that have to be translated
     var sourceText = ""

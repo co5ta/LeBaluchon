@@ -15,7 +15,7 @@ class TranslationServiceTestCase: XCTestCase {
     func testGetTranslationShouldCallbackInvalidRequestUrlIfApiUrlIsBad() {
         // Given
         let session = URLSessionFake(nil, nil, nil)
-        let translationService = TranslationService(session: session, apiUrl: FakeResult.badApiUrl)
+        let translationService = TranslationService(session: session, apiUrl: FakeResponseData.badApiUrl)
         // When
         translationService.getTranslation { (result) in
             // Then
@@ -32,7 +32,7 @@ class TranslationServiceTestCase: XCTestCase {
     
     func testGetTranslationShouldCallbackErrorFromApiIfTaskReturnsError() {
         // Given
-        let session = URLSessionFake(nil, nil, FakeResult.error)
+        let session = URLSessionFake(nil, nil, FakeResponseData.error)
         let translationService = TranslationService(session: session)
         // When
         translationService.getTranslation { (result) in
@@ -68,7 +68,7 @@ class TranslationServiceTestCase: XCTestCase {
     
     func testGetTranslationShouldCallbackBadResponseIfResponseIs500() {
         // Given
-        let session = URLSessionFake(nil, FakeResult.badResponse, nil)
+        let session = URLSessionFake(nil, FakeResponseData.badResponse, nil)
         let translationService = TranslationService(session: session)
         //When
         translationService.getTranslation { (result) in
@@ -86,7 +86,7 @@ class TranslationServiceTestCase: XCTestCase {
     
     func testGetTranslationShouldCallbackEmptyDataIfRequestReturnsEmptyData() {
         // Given
-        let session = URLSessionFake(nil, FakeResult.goodResponse, nil)
+        let session = URLSessionFake(nil, FakeResponseData.goodResponse, nil)
         let translationService = TranslationService(session: session)
         //When
         translationService.getTranslation { (result) in
@@ -104,7 +104,7 @@ class TranslationServiceTestCase: XCTestCase {
     
     func testGetTranslationShouldCallbackJsonDecodeFailedIRequestReturnsBadData() {
         // Given
-        let session = URLSessionFake(FakeResult.badData, FakeResult.goodResponse, nil)
+        let session = URLSessionFake(FakeResponseData.badData, FakeResponseData.goodResponse, nil)
         let translationService = TranslationService(session: session)
         //When
         translationService.getTranslation { (result) in
@@ -122,9 +122,9 @@ class TranslationServiceTestCase: XCTestCase {
     
     func testGetTranslationShouldCallbackNilErrorIfRequestReturnsGoodResponseAndData() {
         // Given
-        Language.source = Language(name: "", code: "fr")
-        Language.target = Language(name: "", code: "en")
-        let session = URLSessionFake(FakeResult.getGoodData(.translation), FakeResult.goodResponse, nil)
+        Language.source = Language.list[0]
+        Language.target = Language.list[1]
+        let session = URLSessionFake(FakeResponseData.getGoodData(.translation), FakeResponseData.goodResponse, nil)
         let translationService = TranslationService(session: session)
         //When
         translationService.getTranslation { (result) in
@@ -134,8 +134,8 @@ class TranslationServiceTestCase: XCTestCase {
                 XCTAssertEqual(Language.source.code, "fr")
                 XCTAssertEqual(Language.target.code, "en")
                 XCTAssertEqual(translation, "You're welcome")
-            case .failure:
-                XCTFail()
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
             }
             self.expectation.fulfill()
         }

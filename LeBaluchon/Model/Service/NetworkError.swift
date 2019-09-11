@@ -11,7 +11,12 @@ import Foundation
 /// Give information on the error encountered in a request
 enum NetworkError: Error, Equatable {
     /// Error occured during the request
-    case invalidRequestURL, errorFromAPI(String), badResponse, badResponseNumber(String), emptyData, jsonDecodeFailed
+    case invalidRequestURL
+    case errorFromAPI(String)
+    case badResponse
+    case badResponseNumber(String)
+    case emptyData
+    case jsonDecodeFailed
 }
 
 extension NetworkError: LocalizedError {
@@ -20,13 +25,13 @@ extension NetworkError: LocalizedError {
         case .invalidRequestURL:
             return "Invalid data provider"
         case .errorFromAPI(let message):
-            return "Error in the request: \(message)"
+            return "An Error occured in the request: \(message)"
         case .badResponse:
-            return "The request returned a bad response"
+            return "The response is not an HTTPURLResponse"
         case .badResponseNumber(let message):
-            return "The response returned a code \(message)"
+            return "The request returned a bad response (code \(message))"
         case .emptyData:
-            return "No data returned"
+            return "The request did not return any data"
         case .jsonDecodeFailed:
             return "Data decoding failed"
         }
