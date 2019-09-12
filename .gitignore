@@ -1,5 +1,8 @@
 *.DS_Store
 
+## Project
+LeBaluchon/Model/Service/APIKey.swift
+
 ## Build generated
 build/
 DerivedData/

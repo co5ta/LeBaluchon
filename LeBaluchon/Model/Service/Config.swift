@@ -13,20 +13,20 @@ enum Config {
     
     enum Currency {
         static let apiUrl = "http://data.fixer.io/api/"
-        static let apiKey = "5f997405a289e163b37336eeed0c04bb"
+        static let apiKey = APIKey.currency
         static let endpoints = (names: "symbols", rates: "latest")
         static let mainCurrenciesCode = ["EUR", "USD"]
     }
     
     enum Weather {
         static let apiUrl = "https://api.openweathermap.org/data/2.5/group"
-        static let apiKey = "951fdc1ed16481d96c1728da1c3cf6cd"
+        static let apiKey = APIKey.weather
         static let locationsID = ["5128581", "6455259"]
         static let unit = "metric"
     }
     
     enum Translation {
         static let apiUrl = "https://translation.googleapis.com/language/translate/v2"
-        static let apiKey = "AIzaSyDX07xWgK_IQRN3wXHFBopwycC9AzachOU"
+        static let apiKey = APIKey.translation
     }
 }
