@@ -56,7 +56,7 @@ extension LanguageTableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         language = Language.list[indexPath.row]
         if let language = language, let sender = sender {
-            delegate?.changeLanguage(language: language, sender: sender)
+            delegate?.selectLanguage(language: language, sender: sender)
         }
         dismiss(animated: true, completion: nil)
     }
@@ -76,5 +76,5 @@ extension LanguageTableViewController {
 /// Defines method to manage language selection
 protocol LanguageTableViewControllerDelegate: class {
     /// Change the source or target language
-    func changeLanguage(language: Language, sender: UIButton)
+    func selectLanguage(language: Language, sender: UIButton)
 }

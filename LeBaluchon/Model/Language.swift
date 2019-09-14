@@ -9,12 +9,10 @@
 import Foundation
 
 /// Representation of a language
-struct Language: Codable {
+struct Language: Codable, Equatable {
     /// Name of the language
     let name: String
     
     /// Code of the language
     let code: String
 }
-
-

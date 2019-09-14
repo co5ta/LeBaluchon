@@ -10,23 +10,7 @@ import UIKit
 
 /// Manages the Translation scene
 class TranslationViewController: UIViewController {
-    // MARK: Properties
-    
-    /// Placeholder of the text view
-    var placeholder = "Enter text here"
-    
-    /// Confirms that the user filled the source text view
-    var sourceTextViewEdited = false {
-        didSet {
-            cancelButton.isHidden = !sourceTextViewEdited
-            translateButtonView.isHidden = !sourceTextViewEdited
-        }
-    }
-    
     // MARK: Outlets
-    
-    /// The scroll view
-    @IBOutlet weak var scrollView: UIScrollView!
     
     /// Cancel button
     @IBOutlet weak var cancelButton: UIButton!
@@ -40,20 +24,39 @@ class TranslationViewController: UIViewController {
     /// Button to change target language
     @IBOutlet weak var targetLanguageButton: UIButton!
     
+    /// View which contains source and translated text
+    @IBOutlet weak var textContainerBottom: NSLayoutConstraint!
+    
     /// Text view to edit source text
     @IBOutlet weak var sourceTextView: UITextView!
     
     /// Text view to show translated text
     @IBOutlet weak var translatedTextView: UITextView!
     
-    /// Translate button container
-    @IBOutlet weak var translateButtonView: UIView!
-    
     /// Translate button to run translate
     @IBOutlet weak var translateButton: UIButton!
     
     /// Activity indicator for translation request
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    /// Button to hide keyboard
+    @IBOutlet weak var keyboardButton: UIButton!
+    
+    // MARK: Properties
+    
+    /// Height of the keyboard
+    var keyboardHeight: CGFloat?
+    
+    /// Placeholder of the text view
+    var placeholder = "Enter text here"
+    
+    /// Confirms that the user filled the source text view
+    var sourceTextViewEdited = false {
+        didSet {
+            cancelButton.isHidden = !sourceTextViewEdited
+            translateButton.isHidden = !sourceTextViewEdited
+        }
+    }
 }
 
 // MARK: - Init
@@ -62,13 +65,13 @@ extension TranslationViewController {
     /// Custom init in the scene
     override func viewDidLoad() {
         super.viewDidLoad()
-        translateButtonView.layer.cornerRadius = 10
         
         sourceLanguageButton.setTitle(Language.source.name, for: .normal)
         targetLanguageButton.setTitle(Language.target.name, for: .normal)
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
+        let padding = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 30)
+        sourceTextView.textContainerInset = padding
+        translatedTextView.textContainerInset = padding
         
         registerKeyboardNotifications()
     }
@@ -88,7 +91,6 @@ extension TranslationViewController {
                 self?.present(UIAlertController.alert(error), animated: true)
             case .success(let translation):
                 self?.translatedTextView.text = translation
-                self?.translateButtonView.isHidden = true
             }
             self?.toggleActivityIndicator(show: false)
             self?.sourceTextView.resignFirstResponder()
@@ -112,9 +114,8 @@ extension TranslationViewController {
     func cleanSourceTextView() {
         sourceTextView.text = ""
         sourceTextViewEdited = false
-        if sourceTextView.isFocused == false {
-            sourceTextView.becomeFirstResponder()
-        }
+        sourceTextView.becomeFirstResponder()
+        translatedTextView.text = ""
     }
     
     /// Clean source text view when button is tapped
@@ -156,45 +157,47 @@ extension TranslationViewController {
 extension TranslationViewController {
     /// Add notification to know when keyboard appear and disappear
     private func registerKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    /// Called when keyboard appeared.
-    /// Set scroll view bottom edge inset equal to keyboard height.
+    /// Called when keyboard appeared
     @objc func keyboardDidShow(_ notification: NSNotification) {
-        guard let info = notification.userInfo, let keyboardFrameValue = info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue else {
-            return
+        keyboardButton.isHidden = false
+        guard let tabBarHeight = navigationController?.tabBarController?.tabBar.frame.height else {return}
+        if keyboardHeight == nil {
+            guard let info = notification.userInfo else { return }
+            guard let keyboardFrameValue = info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue else { return }
+            keyboardHeight = keyboardFrameValue.cgRectValue.size.height
+            resizeTextContainer(value: keyboardHeight! - tabBarHeight)
+        } else {
+            resizeTextContainer(value: keyboardHeight! - tabBarHeight)
         }
-        
-        let keyboardSize = keyboardFrameValue.cgRectValue.size
-        let safeAreaInsets = view.safeAreaInsets
-        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height - safeAreaInsets.bottom, right: 0.0)
-        
-        setScrollView(contentInsets: contentInsets)
     }
     
-    /// Called when keyboard will disappear.
-    /// Set scroll view edge inset to zero.
+    /// Called when keyboard will disappear
     @objc func keyboardWillHide(_ notification: NSNotification) {
-        setScrollView(contentInsets: UIEdgeInsets.zero)
+        keyboardButton.isHidden = true
+        resizeTextContainer(value: 0)
     }
     
-    /// Change scroll view edge inset
-    private func setScrollView(contentInsets: UIEdgeInsets) {
-        scrollView.contentInset = contentInsets
-        scrollView.scrollIndicatorInsets = contentInsets
+    /// Resize the text views with an animation to prevent them of being hided by the keyboard
+    private func resizeTextContainer(value: CGFloat) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: { [weak self] in
+            self?.textContainerBottom.constant = value
+            self?.view.layoutIfNeeded()
+        })
+    }
+    
+    /// Hide keyboard on touch
+    @IBAction func keyboardButtonTapped(_ sender: UIButton) {
+        sourceTextView.resignFirstResponder()
     }
 }
 
 // MARK: - UITextViewDelegate
 
 extension TranslationViewController: UITextViewDelegate {
-    /// Dismiss keyboard when leaving text view edition
-    @objc func dismissKeyboard(_ sender: UITextView) {
-        sourceTextView.resignFirstResponder()
-    }
-    
     /// Remove the placeholder before editing text
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if sourceTextView.text == placeholder && sourceTextViewEdited == false {
@@ -231,28 +234,22 @@ extension TranslationViewController: UITextViewDelegate {
 // MARK: - LanguageTableViewControllerDelegate
 
 extension TranslationViewController: LanguageTableViewControllerDelegate {
-    /**
-    Change the source or target language
-     - Parameters:
-         - language: The language selected
-         - sender: The button to update
-    */
-    func changeLanguage(language: Language, sender: UIButton) {
+    /// Select a new language
+    func selectLanguage(language: Language, sender: UIButton) {
         if sender == sourceLanguageButton {
-            if Language.target.code == language.code {
+            if Language.target == language {
                 reverseLanguages()
                 return
             }
             Language.source = language
             sourceLanguageButton.setTitle(language.name, for: .normal)
         } else {
-            if Language.source.code == language.code {
+            if Language.source == language {
                 reverseLanguages()
                 return
             }
             Language.target = language
             targetLanguageButton.setTitle(language.name, for: .normal)
         }
-        
     }
 }
