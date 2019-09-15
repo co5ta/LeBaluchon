@@ -66,11 +66,8 @@ extension CurrencyViewController {
     }
     
     private func loadCurrencies() {
-        if Currency.needsUpdate {
-            getCurrencies()
-        } else {
-            reloadPickerViews()
-        }
+        getCurrencies()
+        // Currency.needsUpdate ? getCurrencies() : reloadPickerViews()
     }
 }
 
@@ -79,6 +76,7 @@ extension CurrencyViewController {
 extension CurrencyViewController {
     /// Fetch currencies for pickerViews
     func getCurrencies() {
+        
         var currenciesNames = [String: String]()
         var currenciesRates = [String: Float]()
         let group = DispatchGroup()
@@ -109,6 +107,10 @@ extension CurrencyViewController {
             Currency.list = CurrencyService.shared.createCurrenciesObjects(with: currenciesNames, and: currenciesRates)
             self?.reloadPickerViews()
         }
+    }
+    
+    private func toggleLoading(show: Bool) {
+        
     }
 }
 
