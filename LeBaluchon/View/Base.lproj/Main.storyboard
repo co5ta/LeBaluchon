@@ -405,6 +405,20 @@
                                     <navigationItem title="Weather" id="bBV-Bt-uJN"/>
                                 </items>
                             </navigationBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pEs-Hg-pK4" userLabel="Activity Container">
+                                <rect key="frame" x="0.0" y="65" width="320" height="454"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EhG-YY-mr2">
+                                        <rect key="frame" x="141.5" y="208.5" width="37" height="37"/>
+                                        <color key="color" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="EhG-YY-mr2" firstAttribute="centerY" secondItem="pEs-Hg-pK4" secondAttribute="centerY" id="cMw-oU-lXQ"/>
+                                    <constraint firstItem="EhG-YY-mr2" firstAttribute="centerX" secondItem="pEs-Hg-pK4" secondAttribute="centerX" id="wgp-kJ-tib"/>
+                                </constraints>
+                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="V8x-7b-lfk">
                                 <rect key="frame" x="0.0" y="65" width="320" height="454"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -482,12 +496,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="pEs-Hg-pK4" firstAttribute="trailing" secondItem="h3e-na-w05" secondAttribute="trailing" id="1Nq-LR-zE3"/>
                             <constraint firstItem="V8x-7b-lfk" firstAttribute="bottom" secondItem="h3e-na-w05" secondAttribute="bottom" id="5fA-0b-CVg"/>
                             <constraint firstItem="TKA-Fh-eiN" firstAttribute="centerX" secondItem="a34-Eg-Wdj" secondAttribute="centerX" id="8nq-CO-vmt"/>
+                            <constraint firstItem="pEs-Hg-pK4" firstAttribute="leading" secondItem="h3e-na-w05" secondAttribute="leading" id="CEG-wK-cJ5"/>
                             <constraint firstItem="8S5-WV-Arx" firstAttribute="top" secondItem="h3e-na-w05" secondAttribute="top" id="Jco-7T-4wJ"/>
                             <constraint firstItem="V8x-7b-lfk" firstAttribute="top" secondItem="8S5-WV-Arx" secondAttribute="bottom" constant="1" id="LfE-Wv-vS7"/>
                             <constraint firstItem="V8x-7b-lfk" firstAttribute="leading" secondItem="h3e-na-w05" secondAttribute="leading" id="Rgj-U9-1OG"/>
+                            <constraint firstItem="h3e-na-w05" firstAttribute="bottom" secondItem="pEs-Hg-pK4" secondAttribute="bottom" id="UVi-Ht-my7"/>
                             <constraint firstItem="TKA-Fh-eiN" firstAttribute="bottom" secondItem="h3e-na-w05" secondAttribute="bottom" id="aAE-5S-KKE"/>
+                            <constraint firstItem="pEs-Hg-pK4" firstAttribute="top" secondItem="8S5-WV-Arx" secondAttribute="bottom" constant="1" id="hnL-8g-UuA"/>
                             <constraint firstItem="V8x-7b-lfk" firstAttribute="trailing" secondItem="h3e-na-w05" secondAttribute="trailing" id="hzl-8i-rcI"/>
                             <constraint firstItem="8S5-WV-Arx" firstAttribute="leading" secondItem="h3e-na-w05" secondAttribute="leading" id="lGx-3w-bhs"/>
                             <constraint firstItem="8S5-WV-Arx" firstAttribute="trailing" secondItem="h3e-na-w05" secondAttribute="trailing" id="mu9-kG-wJY"/>
@@ -496,6 +514,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Weather" image="weather-item" id="oMG-OR-Fn8"/>
                     <connections>
+                        <outlet property="activityContainer" destination="pEs-Hg-pK4" id="Evg-lR-fsr"/>
                         <outlet property="collectionView" destination="V8x-7b-lfk" id="oUW-zY-sH8"/>
                         <outlet property="pageController" destination="TKA-Fh-eiN" id="im0-Xx-Q46"/>
                     </connections>

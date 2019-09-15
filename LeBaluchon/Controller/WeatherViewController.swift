@@ -12,10 +12,12 @@ import UIKit
 class WeatherViewController: UIViewController {
     // MARK: Outlets
     
+    @IBOutlet weak var activityContainer: UIView!
+    
     /// Collection view listing weather for each city
     @IBOutlet weak var collectionView: UICollectionView!
     
-    /// Page controller to indicates current page and number of pages
+    /// Indicates current page and number of pages
     @IBOutlet weak var pageController: UIPageControl!
 }
 
@@ -29,15 +31,12 @@ extension WeatherViewController {
     }
     
     private func loadWeatherData() {
-        if WeatherCondition.needsUpdate {
-            getConditions()
-        } else {
-            reloadCollectionView()
-        }
+        WeatherCondition.needsUpdate ? getConditions() : reloadCollectionView()
     }
     
     /// Fetch currents weather conditions
     func getConditions() {
+        toggleCollectionView(show: false, duration: 0)
         WeatherService.shared.getConditions { [weak self] (result) in
             switch result {
             case .failure(let error):
@@ -46,7 +45,17 @@ extension WeatherViewController {
                 WeatherCondition.list = weatherConditions
                 self?.reloadCollectionView()
             }
+            self?.toggleCollectionView(show: true)
         }
+    }
+    
+    private func toggleCollectionView(show: Bool, duration: TimeInterval = 0.2) {
+        UIView.animate(withDuration: duration) { [weak self] in
+            self?.collectionView.isHidden = !show
+            self?.activityContainer.isHidden = show
+            self?.view.layoutIfNeeded()
+        }
+        
     }
     
     private func reloadCollectionView() {
