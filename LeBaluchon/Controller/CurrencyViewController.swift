@@ -29,6 +29,12 @@ class CurrencyViewController: UIViewController {
     
     /// Currency of the value converted
     @IBOutlet weak var targetCurrencyPickerView: UIPickerView!
+    
+    /// Display the loader
+    @IBOutlet weak var activityContainer: UIView!
+    
+    /// Display currencies elements
+    @IBOutlet weak var mainContainer: UIView!
 }
 
 // MARK: - Keyboard
@@ -66,8 +72,7 @@ extension CurrencyViewController {
     }
     
     private func loadCurrencies() {
-        getCurrencies()
-        // Currency.needsUpdate ? getCurrencies() : reloadPickerViews()
+        Currency.needsUpdate ? getCurrencies() : reloadPickerViews()
     }
 }
 
@@ -76,7 +81,7 @@ extension CurrencyViewController {
 extension CurrencyViewController {
     /// Fetch currencies for pickerViews
     func getCurrencies() {
-        
+        toggleLoader(show: true, duration: 0)
         var currenciesNames = [String: String]()
         var currenciesRates = [String: Float]()
         let group = DispatchGroup()
@@ -106,11 +111,17 @@ extension CurrencyViewController {
         group.notify(queue: .main) { [weak self] in
             Currency.list = CurrencyService.shared.createCurrenciesObjects(with: currenciesNames, and: currenciesRates)
             self?.reloadPickerViews()
+            self?.toggleLoader(show: false)
         }
     }
     
-    private func toggleLoading(show: Bool) {
-        
+    /// Show or hide the loader
+    private func toggleLoader(show: Bool, duration: TimeInterval = 0.2) {
+        UIView.animate(withDuration: duration) { [weak self] in
+            self?.mainContainer.isHidden = show
+            self?.activityContainer.isHidden = !show
+            self?.view.layoutIfNeeded()
+        }
     }
 }
 

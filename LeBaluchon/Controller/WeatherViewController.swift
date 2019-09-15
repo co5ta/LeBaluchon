@@ -36,7 +36,7 @@ extension WeatherViewController {
     
     /// Fetch currents weather conditions
     func getConditions() {
-        toggleCollectionView(show: false, duration: 0)
+        toggleLoader(show: true, duration: 0)
         WeatherService.shared.getConditions { [weak self] (result) in
             switch result {
             case .failure(let error):
@@ -45,17 +45,16 @@ extension WeatherViewController {
                 WeatherCondition.list = weatherConditions
                 self?.reloadCollectionView()
             }
-            self?.toggleCollectionView(show: true)
+            self?.toggleLoader(show: false)
         }
     }
     
-    private func toggleCollectionView(show: Bool, duration: TimeInterval = 0.2) {
+    private func toggleLoader(show: Bool, duration: TimeInterval = 0.2) {
         UIView.animate(withDuration: duration) { [weak self] in
-            self?.collectionView.isHidden = !show
-            self?.activityContainer.isHidden = show
+            self?.collectionView.isHidden = show
+            self?.activityContainer.isHidden = !show
             self?.view.layoutIfNeeded()
         }
-        
     }
     
     private func reloadCollectionView() {
