@@ -24,14 +24,11 @@ class WeatherViewController: UIViewController {
 // MARK: - Setup
 
 extension WeatherViewController {
-    /// Setup the scene before first display
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        loadWeatherData()
-    }
-    
-    private func loadWeatherData() {
-        WeatherCondition.needsUpdate ? getConditions() : reloadCollectionView()
+    /// Update data before view appear
+    override func viewWillAppear(_ animated: Bool) {
+        if WeatherCondition.needsUpdate {
+            getConditions()
+        }
     }
     
     /// Fetch currents weather conditions
