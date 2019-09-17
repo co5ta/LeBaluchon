@@ -160,6 +160,7 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     /// Update the short name of the currency near the value
     private func updateCurrencyLabel(pickerView: UIPickerView, row: Int) {
+        guard !Currency.list.isEmpty else { return }
         let currency = Currency.list[row]
         if pickerView == sourceCurrencyPickerView {
             sourceCurrencyLabel.text = currency.code
@@ -201,6 +202,7 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 extension CurrencyViewController {
     /// Convert a value from a currency to another
     func convert() {
+        guard !Currency.list.isEmpty else { return }
         let sourceCurrency = Currency.list[sourceCurrencyPickerView.selectedRow(inComponent: 0)]
         let targetCurrency = Currency.list[targetCurrencyPickerView.selectedRow(inComponent: 0)]
         
