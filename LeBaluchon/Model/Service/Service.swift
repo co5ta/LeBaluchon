@@ -59,24 +59,7 @@ extension Service {
             return .success(decodedData)
         } catch(let error) {
             print("\nDecoding failed: \(error)\n")
-            if let json = getJson(from: data) {
-                print("Json:\n \(json)")
-            }
             return .failure(.jsonDecodeFailed)
         }
-            
-            
-        /*
-        guard let decodedData = try? JSONDecoder().decode(dataType, from: data) else {
-            return .failure(.jsonDecodeFailed)
-        }
-        */
-        
-        
-    }
-    
-    private func getJson(from data: Data) -> [String: Any]? {
-        guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return nil }
-        return json
     }
 }
