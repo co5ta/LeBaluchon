@@ -196,11 +196,11 @@
             </objects>
             <point key="canvasLocation" x="189.375" y="261.97183098591552"/>
         </scene>
-        <!--Item-->
+        <!--Translation Navigation-->
         <scene sceneID="NRU-Qt-TPg">
             <objects>
-                <navigationController id="MH7-td-fTz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="lJ2-i6-SFQ"/>
+                <navigationController id="MH7-td-fTz" userLabel="Translation Navigation" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Translation" image="translator-item" id="lJ2-i6-SFQ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="YsB-8u-hNB">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -382,7 +382,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jcb-cd-s45"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Translation" image="translator-item" id="KCc-ee-fKc" userLabel="Translation"/>
+                    <tabBarItem key="tabBarItem" title="" id="KCc-ee-fKc" userLabel="Translation"/>
                     <navigationItem key="navigationItem" title="Translation" id="khy-z1-eeP"/>
                     <connections>
                         <outlet property="activityIndicator" destination="XTg-Rb-9gx" id="YCr-rz-izw"/>
