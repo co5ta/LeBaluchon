@@ -19,33 +19,33 @@ extension Currency {
     
     /// Date of the last update
     static var lastUpdate: Date? {
-        get { return UserDefaults.standard.object(forKey: StorageKey.currenciesLastUpdate) as? Date }
-        set { UserDefaults.standard.set(newValue, forKey: StorageKey.currenciesLastUpdate) }
+        get { return Storage.shared.object(forKey: Storage.currenciesLastUpdate) as? Date }
+        set { Storage.shared.set(newValue, forKey: Storage.currenciesLastUpdate) }
     }
     
     /// Stored currencies data
     static var list: [Currency] {
         get {
-            guard let currenciesData = UserDefaults.standard.data(forKey: StorageKey.currencies) else { return [] }
+            guard let currenciesData = Storage.shared.data(forKey: Storage.currencies) else { return [] }
             guard let currencies = try? JSONDecoder().decode([Currency].self, from: currenciesData) else { return [] }
             return currencies
         }
         set {
             guard let currenciesData = try? JSONEncoder().encode(newValue) else { return }
-            UserDefaults.standard.set(currenciesData, forKey: StorageKey.currencies)
+            Storage.shared.set(currenciesData, forKey: Storage.currencies)
             lastUpdate = Date()
         }
     }
     
     /// Index of the source currency
     static var sourceInUse: Int {
-        get { return UserDefaults.standard.integer(forKey: StorageKey.currencySourceIndex) }
-        set { UserDefaults.standard.set(newValue, forKey: StorageKey.currencySourceIndex) }
+        get { return Storage.shared.integer(forKey: Storage.currencySourceIndex) }
+        set { Storage.shared.set(newValue, forKey: Storage.currencySourceIndex) }
     }
     
     /// Index of the target currency
     static var targetInUse: Int {
-        get { return UserDefaults.standard.integer(forKey: StorageKey.currencyTargetIndex) }
-        set { UserDefaults.standard.set(newValue, forKey: StorageKey.currencyTargetIndex) }
+        get { return Storage.shared.integer(forKey: Storage.currencyTargetIndex) }
+        set { Storage.shared.set(newValue, forKey: Storage.currencyTargetIndex) }
     }
 }

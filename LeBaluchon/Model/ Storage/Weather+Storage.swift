@@ -19,20 +19,20 @@ extension WeatherCondition {
     
     /// Date of the last update
     static var lastUpdate: Date? {
-        get { return UserDefaults.standard.object(forKey: StorageKey.weatherLastUpdate) as? Date }
-        set { UserDefaults.standard.set(newValue, forKey: StorageKey.weatherLastUpdate) }
+        get { return Storage.shared.object(forKey: Storage.weatherLastUpdate) as? Date }
+        set { Storage.shared.set(newValue, forKey: Storage.weatherLastUpdate) }
     }
     
     /// Stored weather conditions data
     static var list: [WeatherCondition] {
         get {
-            guard let weatherData = UserDefaults.standard.data(forKey: StorageKey.weather) else { return [] }
+            guard let weatherData = Storage.shared.data(forKey: Storage.weather) else { return [] }
             guard let weatherConditions = try? JSONDecoder().decode([WeatherCondition].self, from: weatherData) else { return [] }
             return weatherConditions
         }
         set {
             guard let weatherData = try? JSONEncoder().encode(newValue) else { return }
-            UserDefaults.standard.set(weatherData, forKey: StorageKey.weather)
+            Storage.shared.set(weatherData, forKey: Storage.weather)
             lastUpdate = Date()
         }
     }

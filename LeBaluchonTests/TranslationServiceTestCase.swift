@@ -12,6 +12,10 @@ import XCTest
 class TranslationServiceTestCase: XCTestCase {
     let expectation = XCTestExpectation(description: "Wait for queue change")
     
+    override func setUp() {
+        Storage.shared = Storage.test
+    }
+    
     func testGetTranslationShouldCallbackInvalidRequestUrlIfApiUrlIsBad() {
         // Given
         let session = URLSessionFake(nil, nil, nil)

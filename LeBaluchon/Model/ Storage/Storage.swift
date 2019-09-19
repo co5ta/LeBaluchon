@@ -8,8 +8,10 @@
 
 import Foundation
 
-/// List of string keys for data storage
-enum StorageKey {
+struct Storage {
+    static var shared = UserDefaults.standard
+    static var test = UserDefaults.init(suiteName: "test")!
+    
     ///string key for data storage
     static let languageSource = "sourceLanguage"
     static let languageTarget = "targetLanguage"

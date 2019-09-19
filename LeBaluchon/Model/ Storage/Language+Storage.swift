@@ -24,13 +24,13 @@ extension Language {
     static var source: Language {
         get {
             let defaultValue = list[0]
-            guard let data = UserDefaults.standard.data(forKey: StorageKey.languageSource) else { return defaultValue }
+            guard let data = Storage.shared.data(forKey: Storage.languageSource) else { return defaultValue }
             guard let language = try? JSONDecoder().decode(Language.self, from: data) else { return defaultValue }
             return language
         }
         set {
             guard let json = try? JSONEncoder().encode(newValue) else { return }
-            UserDefaults.standard.set(json, forKey: StorageKey.languageSource)
+            Storage.shared.set(json, forKey: Storage.languageSource)
         }
     }
     
@@ -38,13 +38,13 @@ extension Language {
     static var target: Language {
         get {
             let defaultValue = list[1]
-            guard let data = UserDefaults.standard.data(forKey: StorageKey.languageTarget) else { return defaultValue }
+            guard let data = Storage.shared.data(forKey: Storage.languageTarget) else { return defaultValue }
             guard let language = try? JSONDecoder().decode(Language.self, from: data) else { return defaultValue }
             return language
         }
         set {
             guard let data = try? JSONEncoder().encode(newValue) else { return }
-            UserDefaults.standard.set(data, forKey: StorageKey.languageTarget)
+            Storage.shared.set(data, forKey: Storage.languageTarget)
         }
     }
 }

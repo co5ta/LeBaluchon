@@ -12,6 +12,10 @@ import XCTest
 class WeatherServiceTestCase: XCTestCase {
     let expectation = XCTestExpectation(description: "Wait for queue change")
     
+    override func setUp() {
+        Storage.shared = Storage.test
+    }
+    
     func testGetConditionsShouldCallbackInvalidRequestUrlIfApiUrlIsBad() {
         // Given
         let session = URLSessionFake(nil, nil, nil)

@@ -12,6 +12,10 @@ import XCTest
 class CurrencyServiceTestCase: XCTestCase {
     let expectation = XCTestExpectation(description: "Wait for queue change")
     
+    override func setUp() {
+        Storage.shared = Storage.test
+    }
+    
     func testGetCurrenciesNamesShouldCallbackInvalidRequestURLWhenApiUrlIsBad() {
         // Given
         let session = URLSessionFake(nil, nil, nil)
