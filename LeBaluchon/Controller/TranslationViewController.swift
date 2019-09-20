@@ -44,9 +44,6 @@ class TranslationViewController: UIViewController {
     
     // MARK: Properties
     
-    /// Height of the keyboard
-    var keyboardHeight: CGFloat?
-    
     /// Placeholder of the text view
     var placeholder = "Enter text here"
     
@@ -164,15 +161,10 @@ extension TranslationViewController {
     /// Called when keyboard appeared
     @objc func keyboardDidShow(_ notification: NSNotification) {
         keyboardButton.isHidden = false
+        guard let info = notification.userInfo else { return }
+        guard let keyboardFrameValue = info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         guard let tabBarHeight = navigationController?.tabBarController?.tabBar.frame.height else {return}
-        if keyboardHeight == nil {
-            guard let info = notification.userInfo else { return }
-            guard let keyboardFrameValue = info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue else { return }
-            keyboardHeight = keyboardFrameValue.cgRectValue.size.height
-            resizeTextContainer(value: keyboardHeight! - tabBarHeight)
-        } else {
-            resizeTextContainer(value: keyboardHeight! - tabBarHeight)
-        }
+        resizeTextContainer(value: keyboardFrameValue.cgRectValue.size.height - tabBarHeight)
     }
     
     /// Called when keyboard will disappear
