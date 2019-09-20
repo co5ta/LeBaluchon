@@ -125,11 +125,8 @@ extension CurrencyViewController {
     
     /// Show or hide the loader
     private func toggleLoader(show: Bool, duration: TimeInterval = 0.2) {
-        UIView.animate(withDuration: duration) { [weak self] in
-            self?.mainContainer.isHidden = show
-            self?.activityContainer.isHidden = !show
-            self?.view.layoutIfNeeded()
-        }
+        mainContainer.isHidden = show
+        activityContainer.isHidden = !show
     }
 }
 

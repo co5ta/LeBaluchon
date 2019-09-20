@@ -47,11 +47,8 @@ extension WeatherViewController {
     }
     
     private func toggleLoader(show: Bool, duration: TimeInterval = 0.2) {
-        UIView.animate(withDuration: duration) { [weak self] in
-            self?.collectionView.isHidden = show
-            self?.activityContainer.isHidden = !show
-            self?.view.layoutIfNeeded()
-        }
+        collectionView.isHidden = show
+        activityContainer.isHidden = !show
     }
     
     private func reloadCollectionView() {
