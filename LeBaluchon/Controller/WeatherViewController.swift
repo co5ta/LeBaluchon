@@ -26,9 +26,7 @@ class WeatherViewController: UIViewController {
 extension WeatherViewController {
     /// Update data before view appear
     override func viewWillAppear(_ animated: Bool) {
-        if WeatherCondition.needsUpdate {
-            getConditions()
-        }
+        if WeatherCondition.needsUpdate { getConditions() }
     }
     
     /// Fetch currents weather conditions
@@ -55,12 +53,6 @@ extension WeatherViewController {
         collectionView.reloadData()
         pageController.numberOfPages = WeatherCondition.list.count
     }
-    
-    /// Update current page in page controller
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let x = targetContentOffset.pointee.x
-        pageController.currentPage = Int(x / collectionView.frame.width)
-    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -84,7 +76,7 @@ extension WeatherViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - UICollectionViewDelegateFlowLayout
+// MARK: - PAGINATION
 
 extension WeatherViewController: UICollectionViewDelegateFlowLayout {
     /// Give the size of items
@@ -95,5 +87,11 @@ extension WeatherViewController: UICollectionViewDelegateFlowLayout {
     /// Give the size of space between items
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    /// Select current page in the UIPageControler
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let x = targetContentOffset.pointee.x
+        pageController.currentPage = Int(x / collectionView.frame.width)
     }
 }
