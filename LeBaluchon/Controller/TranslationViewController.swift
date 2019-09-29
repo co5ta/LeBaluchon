@@ -149,7 +149,7 @@ extension TranslationViewController {
     }
 }
 
-// MARK: - Keyboard show & hide notifications
+// MARK: - Keyboard notifications
 
 extension TranslationViewController {
     /// Add notification to know when keyboard appear and disappear
@@ -161,6 +161,7 @@ extension TranslationViewController {
     /// Called when keyboard appeared
     @objc func keyboardDidShow(_ notification: NSNotification) {
         keyboardButton.isHidden = false
+        if sourceTextViewEdited { translateButton.isHidden = false }
         guard let info = notification.userInfo else { return }
         guard let keyboardFrameValue = info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         guard let tabBarHeight = navigationController?.tabBarController?.tabBar.frame.height else {return}
@@ -170,6 +171,7 @@ extension TranslationViewController {
     /// Called when keyboard will disappear
     @objc func keyboardWillHide(_ notification: NSNotification) {
         keyboardButton.isHidden = true
+        translateButton.isHidden = true
         resizeTextContainer(value: 0)
     }
     
