@@ -31,7 +31,7 @@ class WeatherServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetConditionsShouldCallbackErrorIfRequestReturnsError() {
@@ -49,7 +49,7 @@ class WeatherServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetConditionsShouldCallbackBadResponseIfResponseIsNil() {
@@ -66,7 +66,7 @@ class WeatherServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetConditionsShouldCallbackBadResponseIfResponseIs500() {
@@ -84,7 +84,7 @@ class WeatherServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetConditionsShouldCallbackEmptyDataIfRequestReturnsEmptyData() {
@@ -102,7 +102,7 @@ class WeatherServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetConditionsShouldCallbackJsonDecodeFailedIfRequestReturnsBadData() {
@@ -120,7 +120,7 @@ class WeatherServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetConditionsShouldCallbackNilErrorIfRequestReturnsGoodResponseAndData() {
@@ -148,7 +148,7 @@ class WeatherServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGivenLastUpdateWasMadeSinceOneHourOrMoreThenDataNeedsUpdate() {

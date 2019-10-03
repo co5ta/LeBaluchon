@@ -31,7 +31,7 @@ class CurrencyServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetCurrenciesRatesShouldCallbackInvalidRequestURLWhenApiUrlIsBad() {
@@ -49,7 +49,7 @@ class CurrencyServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetCurrenciesNamesShouldCallbackErrorFromAPIWhenCurrencySessionReturnsError() {
@@ -68,7 +68,7 @@ class CurrencyServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetCurrenciesRatesShouldCallbackErrorFromAPIWhenCurrencySessionReturnsError() {
@@ -87,7 +87,7 @@ class CurrencyServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetCurrenciesNamesShouldCallbackBadResponseWhenCurrencySessionResponseIsNil() {
@@ -105,7 +105,7 @@ class CurrencyServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetCurrenciesRatesShouldCallbackBadResponseWhenCurrencySessionResponseIsNil() {
@@ -123,7 +123,7 @@ class CurrencyServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetCurrenciesNamesShouldCallbackBadResponseWhenCurrencySessionResponseIs500() {
@@ -141,7 +141,7 @@ class CurrencyServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetCurrenciesRatesShouldCallbackBadResponseWhenCurrencySessionResponseIs500() {
@@ -159,7 +159,7 @@ class CurrencyServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetCurrenciesNamesShouldCallbackEmptyDataWhenCurrencySessionReturnsNoData() {
@@ -177,7 +177,7 @@ class CurrencyServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetCurrenciesRatesShouldCallbackEmptyDataWhenCurrencySessionReturnsNoData() {
@@ -195,7 +195,7 @@ class CurrencyServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetCurrenciesNamesShouldCallbackJsonDecodeFailedWhenCurrencySessionReturnsBadData() {
@@ -213,7 +213,7 @@ class CurrencyServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetCurrenciesRatesShouldCallbackJsonDecodeFailedWhenCurrencySessionReturnsBadData() {
@@ -231,7 +231,7 @@ class CurrencyServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetCurrenciesNamesShouldCallbackNilWhenCurrencySessionReturnsGoodResponseAndData() {
@@ -251,7 +251,7 @@ class CurrencyServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetCurrenciesRatesShouldCallbackNilWhenCurrencySessionReturnsGoodResponseAndData() {
@@ -271,7 +271,7 @@ class CurrencyServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testCreateCurrenciesObjectsShouldReturnArrayOfCurrenciesWhenParamatersAreGood() {

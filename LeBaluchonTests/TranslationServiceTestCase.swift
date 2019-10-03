@@ -31,7 +31,7 @@ class TranslationServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetTranslationShouldCallbackErrorFromApiIfTaskReturnsError() {
@@ -49,7 +49,7 @@ class TranslationServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetTranslationShouldCallbackBadResponseIfResponseIsNil() {
@@ -67,7 +67,7 @@ class TranslationServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetTranslationShouldCallbackBadResponseIfResponseIs500() {
@@ -85,7 +85,7 @@ class TranslationServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetTranslationShouldCallbackEmptyDataIfRequestReturnsEmptyData() {
@@ -103,7 +103,7 @@ class TranslationServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetTranslationShouldCallbackJsonDecodeFailedIRequestReturnsBadData() {
@@ -121,7 +121,7 @@ class TranslationServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGetTranslationShouldCallbackNilErrorIfRequestReturnsGoodResponseAndData() {
@@ -143,6 +143,6 @@ class TranslationServiceTestCase: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
 }
