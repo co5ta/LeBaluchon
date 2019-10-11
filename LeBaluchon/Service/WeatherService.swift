@@ -56,11 +56,11 @@ extension WeatherService {
      - parameter result: weather conditions or network error
      */
     func getConditions(callback: @escaping (_ result: Result<[WeatherCondition], NetworkError>) -> Void) {
-        guard let request = createRequestURL(url: apiUrl, arguments: arguments) else {
+        guard let url = createRequestURL(url: apiUrl, arguments: arguments) else {
             callback(.failure(NetworkError.invalidRequestURL))
             return
         }
-        task = session.dataTask(with: request) { [weak self] (data, response, error) in
+        task = session.dataTask(with: url) { [weak self] (data, response, error) in
             DispatchQueue.main.async {
                 guard let result = self?.handleResult(error, response, data, Weather.self) else { return }
                 switch result {
