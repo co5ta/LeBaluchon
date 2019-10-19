@@ -131,24 +131,6 @@ extension TranslationViewController {
     }
 }
 
-// MARK: - Segue
-
-extension TranslationViewController {
-    /// Preparation before going to Language scene
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "segueToLanguage" else { return }
-        guard let languageVC = segue.destination as? LanguageTableViewController, let sender = sender as? UIButton else { return }
-        languageVC.delegate = self
-        languageVC.sender = sender
-        languageVC.language = (sender == sourceLanguageButton) ? Language.source : Language.target
-    }
-    
-    /// Go to Language scene when language button is tapped
-    @IBAction func languageButtonTapped(_ sender: UIButton) {
-        performSegue(withIdentifier: "segueToLanguage", sender: sender)
-    }
-}
-
 // MARK: - Keyboard notifications
 
 extension TranslationViewController {
@@ -222,6 +204,24 @@ extension TranslationViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         let trimmedSourceTextView = sourceTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
         sourceTextViewEdited = trimmedSourceTextView.isEmpty ? false: true
+    }
+}
+
+// MARK: - Segue
+
+extension TranslationViewController {
+    /// Preparation before going to Language scene
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "segueToLanguage" else { return }
+        guard let languageVC = segue.destination as? LanguageTableViewController, let sender = sender as? UIButton else { return }
+        languageVC.delegate = self
+        languageVC.sender = sender
+        languageVC.language = (sender == sourceLanguageButton) ? Language.source : Language.target
+    }
+    
+    /// Go to Language scene when language button is tapped
+    @IBAction func languageButtonTapped(_ sender: UIButton) {
+        performSegue(withIdentifier: "segueToLanguage", sender: sender)
     }
 }
 
