@@ -34,11 +34,12 @@ extension Service {
     }
     
     /**
-     Check if there is an anomaly in the API response
+     Check failure in API response and convert json 
      - Parameters:
      - error: error returned by the request
      - response: response returned by the request
-     - path: data returned by the request
+     - data: data returned by the request
+     - dataType: type of data wanted after data conversion
      */
     func handleResult<T>(_ error: Error?, _ response: URLResponse?, _ data: Data?, _ dataType: T.Type)
         -> Result<T, NetworkError> where T: Decodable {
