@@ -10,7 +10,7 @@ import UIKit
 
 /// Controller that manages the Currency scene
 class CurrencyViewController: UIViewController {
-    // MARK: OUTLETS
+    // MARK: Outlets
     
     /// Value to convert
     @IBOutlet weak var sourceValueTextField: UITextField!
@@ -37,16 +37,7 @@ class CurrencyViewController: UIViewController {
     @IBOutlet weak var mainContainer: UIView!
 }
 
-// MARK: - KEYBOARD
-
-extension CurrencyViewController: UITextFieldDelegate {
-    /// Dismiss keyboard when user leave a text field
-    @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
-        sourceValueTextField.resignFirstResponder()
-    }
-}
-
-// MARK: - SETUP
+// MARK: - Setup
 
 extension CurrencyViewController {
     /// Setup the scene before first display
@@ -75,12 +66,11 @@ extension CurrencyViewController {
     }
 }
 
-// MARK: - REQUESTS
+// MARK: - Requests
 
 extension CurrencyViewController {
     /// Fetch currencies for pickerViews
     func getCurrencies() {
-        print("get cur")
         toggleLoader(show: true, duration: 0)
         var currenciesNames = [String: String]()
         var currenciesRates = [String: Float]()
@@ -130,7 +120,7 @@ extension CurrencyViewController {
     }
 }
 
-// MARK: - PICKER VIEW
+// MARK: - Picker view
 
 extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     /// Give the number of components in the pickerView
@@ -194,7 +184,7 @@ extension CurrencyViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
 }
 
-// MARK: - CURRENCY CONVERSION
+// MARK: - Currency conversion
 
 extension CurrencyViewController {
     /// Convert a value from a currency to another
@@ -220,3 +210,11 @@ extension CurrencyViewController {
     }
 }
 
+// MARK: - Keyboard
+
+extension CurrencyViewController: UITextFieldDelegate {
+    /// Dismiss keyboard when user leave a text field
+    @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        sourceValueTextField.resignFirstResponder()
+    }
+}
