@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: Data update
+
 extension WeatherCondition {
     /// Return true if last update time is superior to update interval value
     static var needsUpdate: Bool {
@@ -16,7 +18,11 @@ extension WeatherCondition {
         guard let hour = difference.hour, hour < Config.updateInterval else { return true }
         return false
     }
-    
+}
+
+// MARK: - Data storage
+
+extension WeatherCondition {
     /// Date of the last update
     static var lastUpdate: Date? {
         get { return Storage.shared.object(forKey: Storage.weatherLastUpdate) as? Date }

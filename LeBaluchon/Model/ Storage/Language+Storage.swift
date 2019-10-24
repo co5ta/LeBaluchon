@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: List of languages
+
 extension Language {
     /// Available languages for translation
     static let list = [
@@ -19,7 +21,11 @@ extension Language {
         Language(name: "Portuguese", code: "pt"),
         Language(name: "Spanish", code: "es"),
     ]
-    
+}
+
+// MARK: - Selection storage
+
+extension Language {
     /// Stored source language
     static var source: Language {
         get {

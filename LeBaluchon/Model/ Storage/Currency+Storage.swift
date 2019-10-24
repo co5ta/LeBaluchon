@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: Data update
+
 extension Currency {
     /// Return true if last update time is superior to update interval value
     static var needsUpdate: Bool {
@@ -16,7 +18,11 @@ extension Currency {
         guard let hour = difference.hour, hour < Config.updateInterval else { return true }
         return false
     }
-    
+}
+
+// MARK: - Data storage
+
+extension Currency {
     /// Date of the last update
     static var lastUpdate: Date? {
         get { return Storage.shared.object(forKey: Storage.currenciesLastUpdate) as? Date }
@@ -36,7 +42,11 @@ extension Currency {
             lastUpdate = Date()
         }
     }
-    
+}
+ 
+// MARK: - Selection storage
+
+extension Currency {
     /// Index of the source currency
     static var sourceInUse: Int {
         get { return Storage.shared.integer(forKey: Storage.currencySourceIndex) }
