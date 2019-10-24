@@ -1,7 +1,7 @@
 *.DS_Store
 
 ## Project
-LeBaluchon/Model/Service/APIKey.swift
+LeBaluchon/Service/APIKey.swift
 
 ## Build generated
 build/
