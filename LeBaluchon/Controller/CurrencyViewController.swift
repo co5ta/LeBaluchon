@@ -110,7 +110,7 @@ extension CurrencyViewController {
         sourceValueTextField.text = "1"
         sourceCurrencyPickerView.reloadComponent(0)
         targetCurrencyPickerView.reloadComponent(0)
-        convert()
+        showSelectedRows()
     }
     
     /// Show or hide the loader
